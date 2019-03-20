@@ -30,4 +30,21 @@ $ curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@y
        -v -X POST -H 'Content-Type:application/json' http://localhost:8080/users
 ```
 
+This will return the inserted record as a JSON document:
+```
+{
+  "userId": "d10d9d4d-2202-494a-b847-defefcf3afce",
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@fake.com"
+}
+```
 
+You can connect to YugaByte DB using `psql` and select these records:
+```
+postgres=# select * from users;
+               user_id                | first_name | last_name |     user_email
+--------------------------------------+------------+-----------+---------------------
+ d10d9d4d-2202-494a-b847-defefcf3afce | John       | Smith     | john.smith@fake.com
+(1 row)
+```
