@@ -36,7 +36,7 @@ This will return the inserted record as a JSON document:
   "userId": "d10d9d4d-2202-494a-b847-defefcf3afce",
   "firstName": "John",
   "lastName": "Smith",
-  "email": "john.smith@fake.com"
+  "email": "jsmith@yb.com"
 }
 ```
 
@@ -45,6 +45,6 @@ You can connect to YugaByte DB using `psql` and select these records:
 postgres=# select * from users;
                user_id                | first_name | last_name |     user_email
 --------------------------------------+------------+-----------+---------------------
- d10d9d4d-2202-494a-b847-defefcf3afce | John       | Smith     | john.smith@fake.com
+ d10d9d4d-2202-494a-b847-defefcf3afce | John       | Smith     | jsmith@yb.com
 (1 row)
 ```
