@@ -16,6 +16,11 @@ The same Rest APIs are implemented using various ORMs. Each of these is present 
 
 By default, the Rest API server listens on `localhost` port `8080`.
 
+| Directory  | ORM |
+| ------------- | ------------- |
+| [spring](https://github.com/YugaByte/orm-examples/blob/master/spring)  | Spring Data JPA (uses Hibernate internally)   |
+
+
 ## Step 3. Create a user
 
 You can create a user named `John Smith` and email `jsmith@yb.com` as follows:
