@@ -12,6 +12,13 @@ Run the REST API server:
 $ mvn spring-boot:run
 ```
 
+**NOTE:** If you need to clean and rebuild the project, run the folowing command before rebuilding.
+
+```
+$ mvn clean
+```
+
+
 The REST server will run here: [`http://localhost:8080`](http://localhost:8080)
 
 # Customizing
