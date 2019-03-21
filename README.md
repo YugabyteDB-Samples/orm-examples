@@ -48,3 +48,25 @@ postgres=# select * from users;
  d10d9d4d-2202-494a-b847-defefcf3afce | John       | Smith     | jsmith@yb.com
 (1 row)
 ```
+
+## Step 4. List all users
+
+You can list the current set of users by running the following:
+```
+$ curl http://localhost:8080/users
+```
+
+You should see the following output:
+```
+{
+  "content": [
+    {
+      "userId":"0ba01b87-22f1-4a7b-98ae-4fb374021e7b",
+      "email":"jsmith@yb.com",
+      "firstName":"John",
+      "lastName":"Smith"
+    }
+  ],
+  ...
+}
+```
