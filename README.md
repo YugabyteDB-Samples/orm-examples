@@ -10,11 +10,11 @@ This repository has examples showing build a simple Rest API server using ORMs o
 
 You should first [install YugaByte DB](https://docs.yugabyte.com/latest/quick-start/), which is a distributed PostgreSQL-compatible database.
 
-## Step 2. Bring up the Rest API server
+## Step 2. Bring up the REST API server
 
-The same Rest APIs are implemented using various ORMs. Each of these is present in one of the sub-directories in this repo. For example, to start the Rest API server using `Spring`, simply go to the appropriate directory and follow the instructions there.
+The same REST APIs are implemented using various ORMs. Each of these is present in one of the sub-directories in this repo. For example, to start the REST API server using `Spring`, simply go to the appropriate directory and follow the instructions there.
 
-By default, the Rest API server listens on `localhost` port `8080`.
+By default, the REST API server listens on `localhost` port `8080`.
 
 | Directory  | ORM |
 | ------------- | ------------- |
