@@ -70,3 +70,41 @@ You should see the following output:
   ...
 }
 ```
+
+## Step 5. Create a product
+
+You can create a product listing as follows:
+```
+$ curl --data '{ "productName": "Notebook", "description": "200 page, hardbound, blank notebook", "price": 7.50 }' -v -X POST -H 'Content-Type:application/json' http://localhost:8080/products
+```
+
+You should see the following return value:
+```
+{
+  "productId": "ae6cd0d4-f1fe-4c16-835a-e2e4076d9a60",
+  "productName": "Notebook",
+  "description": "200 page, hardbound, blank notebook",
+  "price": 7.5}
+```
+
+## Step 6. List all products
+
+You can do this as follows:
+```
+$ curl http://localhost:8080/products
+```
+
+You should see an output as follows:
+```
+{
+  "content":[
+    {
+      "productId": "ae6cd0d4-f1fe-4c16-835a-e2e4076d9a60",
+      "productName": "Notebook","description":"200 page, hardbound, blank notebook",
+      "price": 7.5
+    }
+  ],
+  ...
+}
+```
+
