@@ -11,7 +11,7 @@ public class Order extends AuditModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID orderId;
 
-	private UUID userId;
+	private Long userId;
 	
 	@Column(columnDefinition = "numeric(10,2)")
 	private double orderTotal;
@@ -27,11 +27,11 @@ public class Order extends AuditModel {
 		this.orderId = orderId;
 	}
 	
-	public UUID getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 	
-	public void setUserId(UUID userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	

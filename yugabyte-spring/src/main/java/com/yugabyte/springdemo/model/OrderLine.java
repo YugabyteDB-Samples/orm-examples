@@ -13,13 +13,13 @@ public class OrderLine {
 	private UUID orderId;
 	
 	@Id
-	private UUID productId;
+	private Long productId;
 
 	public OrderLine() {
 		
 	}
 	
-	public OrderLine(UUID orderId, UUID productId) {
+	public OrderLine(UUID orderId, Long productId) {
 		this.orderId = orderId;
 		this.productId = productId;
 	}
@@ -32,16 +32,16 @@ public class OrderLine {
 		this.orderId = orderId;
 	}
 	
-	public UUID getProductId() {
+	public Long getProductId() {
 		return productId;
 	}
 	
-	public void setProductId(UUID productId) {
+	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
 	
     public static class IdClass implements Serializable {
         private UUID orderId;
-        private UUID productId;
+        private Long productId;
     }
 }

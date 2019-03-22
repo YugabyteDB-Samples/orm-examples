@@ -8,8 +8,9 @@ import javax.validation.constraints.Size;
 @Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID productId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
+    private Long productId;
     
     @Size(max = 50)
     private String productName;
@@ -19,11 +20,11 @@ public class Product {
     @Column(columnDefinition = "numeric(10,2)")
     private double price;
 
-    public UUID getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(UUID productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 

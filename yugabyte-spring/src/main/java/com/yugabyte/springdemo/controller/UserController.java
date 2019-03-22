@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{userId}")
-    public User updateUser(@PathVariable UUID userId,
+    public User updateUser(@PathVariable Long userId,
                                    @Valid @RequestBody User userRequest) {
         return userRepository.findById(userId)
                 .map(user -> {
@@ -40,7 +40,7 @@ public class UserController {
 
 
     @DeleteMapping("/users/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable UUID userId) {
+    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
         return userRepository.findById(userId)
                 .map(user -> {
                     userRepository.delete(user);

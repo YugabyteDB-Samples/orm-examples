@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.yugabyte.springdemo.exception.ResourceNotFoundException;
 import com.yugabyte.springdemo.model.*;
+import com.yugabyte.springdemo.model.OrderLine.IdClass;
 import com.yugabyte.springdemo.repository.*;
 
 @RestController
@@ -35,13 +36,13 @@ public class OrderController {
     @PostMapping("/orders")
     public Order createOrder(@Valid @RequestBody Order order) {
     	
-    	UUID userId = userRepository.findById(order.getUserId())
+    	Long userId = userRepository.findById(order.getUserId())
     			.map(user -> {return user.getUserId(); 
     			}).orElseThrow(() -> new ResourceNotFoundException("User not found with Id: " + order.getUserId()));
 
     	double orderTotal = 0.0;
     	for (String productId : order.getProducts().split(",")) {
-    		orderTotal += productRepository.findById(UUID.fromString(productId))
+    		orderTotal += productRepository.findById(Long.parseLong(productId))
     				.map(product -> { return product.getPrice(); 
     				}).orElseThrow(() -> new ResourceNotFoundException("Product not found with Id: " + productId));
     	}
@@ -50,7 +51,7 @@ public class OrderController {
     	Order newOrder = orderRepository.save(order);
     	
     	for (String productId : order.getProducts().split(",")) {
-    		orderLineRepository.save(new OrderLine(newOrder.getOrderId(), UUID.fromString(productId)));
+    		orderLineRepository.save(new OrderLine(newOrder.getOrderId(), Long.parseLong(productId)));
     	}
         
     	return newOrder;
@@ -70,10 +71,11 @@ public class OrderController {
 
     @DeleteMapping("/orders/{orderId}")
     public ResponseEntity<?> deleteProduct(@PathVariable UUID orderId) {
-    	OrderLine.IdClass idClass = new OrderLine.IdClass();
     	
-    	//orderLineRepository.findAllById(OrderLine.IdClass("", ""))
-    	//orderLineRepository.findById(OrderLine.IdClass())
+    	for (OrderLine orderLine : orderLineRepository.findByOrderId(orderId)) {
+    		orderLineRepository.delete(orderLine);
+    	}
+    		
         return orderRepository.findById(orderId)
                 .map(order -> {
                     orderRepository.delete(order);
