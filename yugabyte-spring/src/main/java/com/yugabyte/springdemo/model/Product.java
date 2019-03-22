@@ -1,6 +1,5 @@
 package com.yugabyte.springdemo.model;
 
-import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 

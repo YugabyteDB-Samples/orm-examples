@@ -10,45 +10,45 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(columnDefinition = "serial")
-	private Long user_id;
+	private Long userId;
     
     @NotBlank
-    private String first_name;
+    private String firstName;
     
     @NotBlank
-    private String last_name;
+    private String lastName;
     
-    private String user_email;
+    private String userEmail;
     
     public void setUserId(Long userId) {
-    	this.user_id = userId;
+    	this.userId = userId;
     }
     
     public Long getUserId() {
-    	return this.user_id;
+    	return this.userId;
     }
     
     public void setFirstName(String firstName) {
-    	this.first_name = firstName;
+    	this.firstName = firstName;
     }
     
     public String getFirstName() {
-    	return this.first_name;
+    	return this.firstName;
     }
     
     public void setLastName(String lastName) {
-    	this.last_name = lastName;
+    	this.lastName = lastName;
     }
     
     public String getLastName() {
-    	return this.last_name;
+    	return this.lastName;
     }
     
     public void setEmail(String email) {
-    	this.user_email = email;
+    	this.userEmail = email;
     }
     
     public String getEmail() {
-    	return this.user_email;
+    	return this.userEmail;
     }
 }

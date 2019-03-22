@@ -1,6 +1,5 @@
 package com.yugabyte.springdemo.controller;
 
-import java.util.UUID;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
