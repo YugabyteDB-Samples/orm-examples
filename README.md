@@ -33,7 +33,7 @@ $ curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@y
 This will return the inserted record as a JSON document:
 ```
 {
-  "userId": "d10d9d4d-2202-494a-b847-defefcf3afce",
+  "userId": "1",
   "firstName": "John",
   "lastName": "Smith",
   "email": "jsmith@yb.com"
@@ -43,10 +43,9 @@ This will return the inserted record as a JSON document:
 You can connect to YugaByte DB using `psql` and select these records:
 ```
 postgres=# select * from users;
-               user_id                | first_name | last_name |     user_email
---------------------------------------+------------+-----------+---------------------
- d10d9d4d-2202-494a-b847-defefcf3afce | John       | Smith     | jsmith@yb.com
-(1 row)
+ user_id | first_name | last_name |  user_email
+---------+------------+-----------+---------------
+       1 | John       | Smith     | jsmith@yb.com(1 row)
 ```
 
 ## Step 4. List all users
@@ -61,7 +60,7 @@ You should see the following output:
 {
   "content": [
     {
-      "userId":"0ba01b87-22f1-4a7b-98ae-4fb374021e7b",
+      "userId":"1",
       "email":"jsmith@yb.com",
       "firstName":"John",
       "lastName":"Smith"
@@ -83,7 +82,7 @@ $ curl \
 You should see the following return value:
 ```
 {
-  "productId": "ae6cd0d4-f1fe-4c16-835a-e2e4076d9a60",
+  "productId": "1",
   "productName": "Notebook",
   "description": "200 page, hardbound, blank notebook",
   "price": 7.5}
@@ -101,7 +100,7 @@ You should see an output as follows:
 {
   "content":[
     {
-      "productId": "ae6cd0d4-f1fe-4c16-835a-e2e4076d9a60",
+      "productId": "1",
       "productName": "Notebook","description":"200 page, hardbound, blank notebook",
       "price": 7.5
     }
@@ -110,3 +109,22 @@ You should see an output as follows:
 }
 ```
 
+## Step 7. Create an order
+
+Creating an order involves a user id ordering a particular product, this can be achieved as follows:
+```
+$ curl \
+  --data '{ "userId": "1", "products": [ { "productId": 1, "units": 2 } ] }' \
+  -v -X POST -H 'Content-Type:application/json' http://localhost:8080/orders
+```
+
+You should see the following return value:
+```
+TBD
+```
+
+Note that you can check out multiple products in one order. As an example, the following POST payload makes one user (id=1) checkout two products (id=1 and id=2) by creating the following payload:
+
+```
+{ "userId": "1", "products": [ { "productId": 1, "units": 2 }, { "productId": 2, "units": 4 } ] }
+```
