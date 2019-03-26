@@ -75,7 +75,7 @@ You should see the following output:
 You can create a product listing as follows:
 ```
 $ curl \
-  --data '{ "productName": "Notebook", "description": "200 page, hardbound, blank notebook", "price": 7.50 }' \
+  --data '{ "productName": "Notebook", "description": "200 page notebook", "price": 7.50 }' \
   -v -X POST -H 'Content-Type:application/json' http://localhost:8080/products
 ```
 
