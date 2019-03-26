@@ -1,6 +1,5 @@
 package com.yugabyte.springdemo.model;
 
-import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -9,46 +8,47 @@ import javax.validation.constraints.NotBlank;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private UUID user_id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(columnDefinition = "serial")
+	private Long userId;
     
     @NotBlank
-    private String first_name;
+    private String firstName;
     
     @NotBlank
-    private String last_name;
+    private String lastName;
     
-    private String user_email;
+    private String userEmail;
     
-    public void setUserId(UUID userId) {
-    	this.user_id = userId;
+    public void setUserId(Long userId) {
+    	this.userId = userId;
     }
     
-    public UUID getUserId() {
-    	return this.user_id;
+    public Long getUserId() {
+    	return this.userId;
     }
     
     public void setFirstName(String firstName) {
-    	this.first_name = firstName;
+    	this.firstName = firstName;
     }
     
     public String getFirstName() {
-    	return this.first_name;
+    	return this.firstName;
     }
     
     public void setLastName(String lastName) {
-    	this.last_name = lastName;
+    	this.lastName = lastName;
     }
     
     public String getLastName() {
-    	return this.last_name;
+    	return this.lastName;
     }
     
     public void setEmail(String email) {
-    	this.user_email = email;
+    	this.userEmail = email;
     }
     
     public String getEmail() {
-    	return this.user_email;
+    	return this.userEmail;
     }
 }

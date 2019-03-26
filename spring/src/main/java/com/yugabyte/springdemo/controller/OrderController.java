@@ -34,23 +34,23 @@ public class OrderController {
 
     @PostMapping("/orders")
     public Order createOrder(@Valid @RequestBody Order order) {
-    	
-    	UUID userId = userRepository.findById(order.getUserId())
-    			.map(user -> {return user.getUserId(); 
-    			}).orElseThrow(() -> new ResourceNotFoundException("User not found with Id: " + order.getUserId()));
 
     	double orderTotal = 0.0;
-    	for (String productId : order.getProducts().split(",")) {
-    		orderTotal += productRepository.findById(UUID.fromString(productId))
-    				.map(product -> { return product.getPrice(); 
-    				}).orElseThrow(() -> new ResourceNotFoundException("Product not found with Id: " + productId));
+    	for (Order.Product orderProduct : order.getProducts()) {
+    		orderTotal += productRepository.findById(orderProduct.getProductId())
+    				.map(product -> { return product.getPrice() * orderProduct.getUnits(); 
+    				}).orElseThrow(() -> new ResourceNotFoundException("Product not found with Id: " + orderProduct.getProductId()));
     	}
-    	
+
     	order.setOrderTotal(orderTotal);
+    	order.setUser(userRepository.findById(order.getUserId()).map(user -> {
+            return user;
+        }).orElseThrow(() -> new ResourceNotFoundException("UserId " + order.getUserId() + " not found")));
+
     	Order newOrder = orderRepository.save(order);
     	
-    	for (String productId : order.getProducts().split(",")) {
-    		orderLineRepository.save(new OrderLine(newOrder.getOrderId(), UUID.fromString(productId)));
+    	for (Order.Product orderProduct : order.getProducts()) {
+    		orderLineRepository.save(new OrderLine(newOrder.getOrderId(), orderProduct.getProductId()));
     	}
         
     	return newOrder;
@@ -59,21 +59,40 @@ public class OrderController {
     @PutMapping("/orders/{orderId}")
     public Order updateProduct(@PathVariable UUID orderId,
                                    @Valid @RequestBody Order orderRequest) {
-        return orderRepository.findById(orderId)
+
+    	for (OrderLine orderLine : orderLineRepository.findByOrderId(orderId)) {
+    		orderLineRepository.delete(orderLine);
+    	}
+    	
+    	for (Order.Product orderProduct : orderRequest.getProducts()) {
+    		orderLineRepository.save(new OrderLine(orderId, orderProduct.getProductId()));
+    	}
+
+    	return orderRepository.findById(orderId)
                 .map(order -> {
-                    order.setUserId(orderRequest.getUserId());
-                    order.setOrderTime(orderRequest.getOrderTime());
-                    order.setOrderTotal(orderRequest.getOrderTotal());
+                	double orderTotal = 0.0;
+                	for (Order.Product orderProduct : orderRequest.getProducts()) {
+                		orderTotal += productRepository.findById(orderProduct.getProductId())
+                				.map(product -> { return product.getPrice() * orderProduct.getUnits(); 
+                				}).orElseThrow(() -> new ResourceNotFoundException("Product not found with Id: " + orderProduct.getProductId()));
+                	}
+
+                	order.setUser(userRepository.findById(orderRequest.getUserId()).map(user -> {
+                        return user;
+                    }).orElseThrow(() -> new ResourceNotFoundException("UserId " + order.getUserId() + " not found")));
+                	
+                    order.setOrderTotal(orderTotal);
                     return orderRepository.save(order);
                 }).orElseThrow(() -> new ResourceNotFoundException("Order not found with id " + orderId));
     }
 
     @DeleteMapping("/orders/{orderId}")
     public ResponseEntity<?> deleteProduct(@PathVariable UUID orderId) {
-    	OrderLine.IdClass idClass = new OrderLine.IdClass();
     	
-    	//orderLineRepository.findAllById(OrderLine.IdClass("", ""))
-    	//orderLineRepository.findById(OrderLine.IdClass())
+    	for (OrderLine orderLine : orderLineRepository.findByOrderId(orderId)) {
+    		orderLineRepository.delete(orderLine);
+    	}
+    		
         return orderRepository.findById(orderId)
                 .map(order -> {
                     orderRepository.delete(order);

@@ -1,23 +1,42 @@
 package com.yugabyte.springdemo.model;
 
-import java.util.UUID;
+import java.util.*;
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "orders")
 public class Order extends AuditModel {
+	
+	public static class Product {
+		private Long productId;
+		private Long units;
+		
+		public Long getProductId() {
+			return this.productId;
+		}
+		
+		public Long getUnits() {
+			return this.units;
+		}
+	}
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID orderId;
 
-	private UUID userId;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
+	
+	@Transient
+	private Long userId;
 	
 	@Column(columnDefinition = "numeric(10,2)")
 	private double orderTotal;
 	
 	@Transient
-	private String products;
+	@ElementCollection
+	private Set<Product> products = new HashSet<>();
 	
 	public UUID getOrderId() {
 		return orderId;
@@ -27,11 +46,19 @@ public class Order extends AuditModel {
 		this.orderId = orderId;
 	}
 	
-	public UUID getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 	
-	public void setUserId(UUID userId) {
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public Long getUserId() {
+		return this.userId;
+	}
+	
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 	
@@ -43,11 +70,11 @@ public class Order extends AuditModel {
 		this.orderTotal = orderTotal;
 	}
 	
-	public String getProducts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
 	
-	public void setProducts(String products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
 }

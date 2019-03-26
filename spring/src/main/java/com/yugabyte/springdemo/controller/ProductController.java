@@ -1,7 +1,5 @@
 package com.yugabyte.springdemo.controller;
 
-import java.util.UUID;
-
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -31,7 +29,7 @@ public class ProductController {
     }
 
     @PutMapping("/products/{productId}")
-    public Product updateProduct(@PathVariable UUID productId,
+    public Product updateProduct(@PathVariable Long productId,
                                    @Valid @RequestBody Product productRequest) {
         return productRepository.findById(productId)
                 .map(product -> {
@@ -44,7 +42,7 @@ public class ProductController {
 
 
     @DeleteMapping("/products/{productId}")
-    public ResponseEntity<?> deleteProduct(@PathVariable UUID productId) {
+    public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
         return productRepository.findById(productId)
                 .map(product -> {
                     productRepository.delete(product);
