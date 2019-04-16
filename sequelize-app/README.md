@@ -16,6 +16,7 @@ Open config/config.json and update DB settings for "development"
   }
 ```
 
+Run via the following command
 ```
 DEBUG=sequelize-app:* npm start
 ```
