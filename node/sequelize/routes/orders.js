@@ -4,16 +4,16 @@ var router = express.Router();
 const Sequelize = require('sequelize');
 var models = require('../models');
 
-// // GET users listing
+// GET orders listing
 router.get('/', function(req, res, next) {
-	models.users
+	models.orders
 	.findAll()
-	.then(users => {
+	.then(orders => {
 		responseBody = {
 			content:[]
 		}
-		users.forEach(user => {
-			responseBody.content.push(user.dataValues);
+		orders.forEach(order => {
+			responseBody.content.push(order.dataValues);
 		});
 
 		res.send(responseBody);

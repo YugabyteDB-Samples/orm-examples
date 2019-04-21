@@ -5,7 +5,7 @@ var router = express.Router();
 const Sequelize = require('sequelize');
 var models = require('../models');
 
-/* GET users listing. */
+// GET users listing
 router.get('/', function(req, res, next) {
   models.users
       .findAll()
