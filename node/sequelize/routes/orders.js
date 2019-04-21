@@ -80,7 +80,7 @@ router.post('/', (req, res, next) => {
 			.bulkCreate(orderLines)
 			.then( l => {
 				console.log('Order lines created');
-				res.send('Product Infos');
+				res.send('TBD');
 			});
 		});
 	});
