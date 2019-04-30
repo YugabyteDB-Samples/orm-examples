@@ -18,7 +18,7 @@ By default, the REST API server listens on `localhost` port `8080`.
 
 | Directory  | ORM |
 | ------------- | ------------- |
-| [spring](https://github.com/YugaByte/orm-examples/blob/master/spring)  | Spring Data JPA (uses Hibernate internally)   |
+| [Java - Spring](https://github.com/YugaByte/orm-examples/blob/master/java/spring)  | Spring Data JPA (uses Hibernate internally)   |
 
 
 ## Step 3. Create a user
