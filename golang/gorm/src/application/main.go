@@ -4,10 +4,10 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"github.com/gorilla/mux"
 	"net/http"
-	"fmt"
 	"controller"
 	"config"
 	"strconv"
+	"log"
 ) 
 
 func main() {
@@ -31,7 +31,7 @@ func main() {
 	router.HandleFunc("/orders/{orderId}", controller.UpdateOrder).Methods("GET")
 	router.HandleFunc("/orders/{orderId}", controller.DeleteOrder).Methods("DELETE")
 	
-	fmt.Println(fmt.Sprintf("Listening: port = %d", config.Config.BindPort))
-	http.ListenAndServe(":" + strconv.Itoa(config.Config.BindPort), router)
-	fmt.Println("Shutting down...")
+	log.Println("Listening: port = " + strconv.Itoa(config.Config.BindPort))
+	log.Fatal(http.ListenAndServe(":" + strconv.Itoa(config.Config.BindPort), router))
+	log.Println("Shutting down...")
 }
