@@ -1,0 +1,10 @@
+{
+	"platform" : "postgres",
+	"host" : "localhost",
+	"dbport" : 5432,
+	"username" : "postgres",
+	"password" : "",
+	"dbname" : "gormdemo",
+	"sslmode" : "disable",
+	"bindport" : 8080
+}
