@@ -1,6 +1,6 @@
 # Using ORMs with YugaByte DB
 
-This repository has examples showing build a simple Rest API server using ORMs on top of YugaByte DB (using the YSQL API). The scenario modelled is that of a simple online e-commerce store. It consists of the following.
+This repository has examples showing build a simple REST API server using ORMs on top of YugaByte DB (using the YSQL API). The scenario modelled is that of a simple online e-commerce store. It consists of the following.
 
 * The users of the ecommerce site are stored in the `users` table. 
 * The `products` table contains a list of products the ecommerce site sells.
