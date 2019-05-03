@@ -8,7 +8,7 @@ This repository has examples showing build a simple Rest API server using ORMs o
 
 ## Step 1. Install YugaByte DB
 
-You should first [install YugaByte DB](https://docs.yugabyte.com/latest/quick-start/), which is a distributed PostgreSQL-compatible database.
+You should first [install YugaByte DB](https://docs.yugabyte.com/latest/quick-start/), which is a distributed SQL database compatible with the PostgreSQL language.
 
 ## Step 2. Bring up the REST API server
 
