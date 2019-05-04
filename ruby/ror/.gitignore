@@ -28,3 +28,6 @@
 /.DS_Store
 **/.DS_Store
 *.DS_Store
+
+#db configuration
+config/database.yml
