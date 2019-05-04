@@ -1,24 +1,21 @@
-# README
+# Install and run
+Install depedencies
+```
+bundle install
+```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Open config/database.yml and update DB settings for "development"
 
-Things you may want to cover:
+```
+"development": {
+    "username": <username>,
+    "password": <password>,
+    "database": <database>,
+    "host": <host>
+  }
+```
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Run via the following command
+```
+rails db:migrate
+rails server
