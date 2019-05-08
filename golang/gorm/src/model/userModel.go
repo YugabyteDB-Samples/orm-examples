@@ -1,12 +1,10 @@
 package model
 
-import (
-
-)
+import ()
 
 type User struct {
-	UserId 		int64 	`gorm:"primary_key";gorm:"AUTO_INCREMENT"`
-	FirstName 	string  `gorm:"size:255" json:"firstName"`
-	LastName 	string  `gorm:"size:255" json:"lastName"`
-	UserEmail	string 	`gorm:"size:255" json:"email"`
+	UserId    int64  `gorm:"primary_key";gorm:"AUTO_INCREMENT"`
+	FirstName string `gorm:"size:255" json:"firstName"`
+	LastName  string `gorm:"size:255" json:"lastName"`
+	UserEmail string `gorm:"size:255" json:"email"`
 }
