@@ -1,8 +1,7 @@
 # Compile, Deploy and Run
 Install required components
 ```
-go get github.com/lib/pq
-go get github.com/satori/go.uuid
+go get github.com/google/uuid
 go get github.com/gorilla/mux
 ```
 Append source code location to GOPATH environment variable
