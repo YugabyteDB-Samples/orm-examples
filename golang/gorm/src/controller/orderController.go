@@ -57,7 +57,6 @@ var CreateOrder = func(w http.ResponseWriter, r *http.Request) {
 		product := &model.Product{}
 		err := GetDB().Table("products").Where("product_id = ?", orderline.ProductId).First(product).Error
 		if err == nil {
-			fmt.Println(product.Price)
 			orderTotal += product.Price * float64(orderline.Units)
 		}
 	}
