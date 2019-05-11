@@ -1,6 +1,7 @@
 # Compile, Deploy and Run
 Install required components
 ```
+go get github.com/jinzhu/gorm
 go get github.com/google/uuid
 go get github.com/gorilla/mux
 ```
