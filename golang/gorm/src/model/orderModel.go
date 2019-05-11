@@ -7,9 +7,9 @@ import (
 )
 
 type OrderLine struct {
-	Order     Order     `gorm:"association_foreignkey:OrderId`
+	Order     Order     `gorm:"association_foreignkey:OrderId"`
 	OrderId   uuid.UUID `gorm:"primary_key"`
-	Product   Product   `gorm:"association_foreignkey:ProductId`
+	Product   Product   `gorm:"association_foreignkey:ProductId"`
 	ProductId int64     `gorm:"primary_key" json:"productId"`
 	Units     int       `json:"units"`
 }
@@ -19,10 +19,10 @@ func (OrderLine) TableName() string {
 }
 
 type Order struct {
-	OrderId    uuid.UUID   `gorm:"primary_key";gorm:"AUTO_INCREMENT"`
+	OrderId    uuid.UUID   `gorm:"primary_key;AUTO_INCREMENT"`
 	OrderTime  time.Time   `gorm:"default:CURRENT_TIMESTAMP"`
 	OrderTotal float64     `gorm:"type:numeric(10,2)"`
-	User       User        `gorm:"association_foreignkey:UserId`
+	User       User        `gorm:"association_foreignkey:UserId"`
 	UserId     int64       `json:"userId"`
 	Products   []OrderLine `json:"products"`
 }
