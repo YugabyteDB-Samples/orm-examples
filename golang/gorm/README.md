@@ -2,8 +2,11 @@
 Install required components
 ```
 go get github.com/jinzhu/gorm
+go get github.com/jinzhu/gorm/dialects/postgres
 go get github.com/google/uuid
 go get github.com/gorilla/mux
+go get github.com/lib/pq
+go get github.com/lib/pq/hstore
 ```
 Append source code location to GOPATH environment variable
 ```
