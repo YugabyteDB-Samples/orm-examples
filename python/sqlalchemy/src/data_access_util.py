@@ -1,0 +1,140 @@
+import logging
+from sqlalchemy.orm import sessionmaker, relationship
+from model import User, Order, OrderLine, Product
+import config as cfg
+from sqlalchemy import create_engine
+
+
+engine = create_engine('postgresql://%s:%s@%s:%s/%s' % 
+                       (cfg.db_user, cfg.db_password, cfg.db_host, cfg.db_port, cfg.database), echo=True)
+Session = sessionmaker(bind=engine)
+
+
+class DataAccessUtil:
+
+    def get_users(self):
+        session = Session()
+
+        try:
+            users = session.query(User).all()
+            users_json = {
+                'users': [
+                    user.to_json() for user in users
+                ]
+            }
+            session.commit()
+            return users_json
+        except Exception as e:     
+            logging.debug('*** Exception in get_users: %s' % e)
+            session.rollback()
+            raise
+        finally:
+            session.close()
+
+    def list_orders_for_user(self, rq_user_id):
+        session = Session()
+
+        try:
+            user = session.query(User).get(rq_user_id)
+
+            if user is None:
+                logging.debug('Unable to find user with id = %s' % rq_user_id)
+                # TODO: Raise an error
+
+            user_json = user.to_json()
+
+            user_json['orders'] = [
+                order.to_json() for order in user.orders
+            ]
+            return user_json
+        except Exception as e:     
+            logging.debug('*** Exception in get_users: %s' % e)
+            session.rollback()
+            raise
+        finally:
+            session.close()
+
+    def create_order(self, rq_user_id, products):
+        session = Session()
+
+        try:
+            user = session.query(User).get(rq_user_id)
+
+            if user is None:
+                raise Exception('Unable to find user with id = %s' % rq_user_id)
+
+            order_line_list = []
+            user_order = Order(user_id=rq_user_id, order_total=0)
+
+            logging.debug('Processing %s products' % len(products))
+            for prod_def in products:
+                db_product = session.query(Product).get(prod_def['productId'])
+                if db_product is None:
+                    raise Exception('Product not found with ProductID: %s' % prod_def['productId'])
+                order_line = OrderLine(product=db_product, order=user_order, units=prod_def['units'])
+                order_line_list.append(order_line)
+                user_order.order_total = user_order.order_total + db_product.price
+
+            session.add(user_order)
+            session.add_all(order_line_list)
+            session.commit()
+
+            the_order = session.query(Order).get(user_order.order_id)
+
+            return the_order.to_json()
+
+        except Exception as e:     
+            logging.debug('*** Exception in get_users: %s' % e)
+            session.rollback()
+            raise
+        finally:
+            session.close()
+
+    def create_product(self, to_add):
+        session = Session()
+
+        try:
+            product = Product(product_name=to_add['productName'], description=to_add['description'], price=to_add['price'])
+            self.add_object(product)
+            session.commit()
+
+            return product.to_json()
+        except Exception as e:     
+            logging.debug('*** Exception in get_users: %s' % e)
+            session.rollback()
+            raise
+        finally:
+            session.close()
+ 
+    def add_object(self, to_add):
+        session = Session()
+
+        try:
+            session.add(to_add)
+            session.commit()
+            return to_add.to_json()
+        except Exception as e:
+            logging.debug('** Exception while trying to add object: %s Error: %e' % (str(to_add), e))
+            raise
+        finally:
+            session.close()
+
+    def list_products(self):
+        session = Session()
+
+        try:
+            products = session.query(Product).all()
+            product_json = {
+                'products': [
+                    product.to_json() for product in products
+                ]
+            }
+            session.commit()
+            return product_json
+        except Exception as e:     
+            logging.debug('*** Exception in get_users: %s' % e)
+            session.rollback()
+            raise
+        finally:
+            session.close()
+
