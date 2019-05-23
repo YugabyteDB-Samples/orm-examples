@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  orderTotal: 9.99
-  userId: 1
-
-two:
-  orderTotal: 9.99
-  userId: 1
