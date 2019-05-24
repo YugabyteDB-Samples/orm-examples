@@ -13,9 +13,7 @@
 ActiveRecord::Schema.define(version: 2019_05_04_204851) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pgcrypto"
   enable_extension "plpgsql"
-  enable_extension "uuid-ossp"
 
   create_table "order_lines", force: :cascade do |t|
     t.string "orderId"
@@ -24,14 +22,16 @@ ActiveRecord::Schema.define(version: 2019_05_04_204851) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "orders", force: :cascade do |t|
+    t.string "orderId", null: false
     t.decimal "orderTotal"
     t.integer "userId"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["orderId"], name: "index_orders_on_orderId", unique: true
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "products", primary_key: "productId", force: :cascade do |t|
     t.string "productName"
     t.string "description"
     t.decimal "price"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2019_05_04_204851) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", primary_key: "userId", force: :cascade do |t|
     t.string "firstName"
     t.string "lastName"
     t.string "email"

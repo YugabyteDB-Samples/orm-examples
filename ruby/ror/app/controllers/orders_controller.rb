@@ -10,23 +10,24 @@ class OrdersController < ApplicationController
         user_id = params[:userId]
         productIDs = req_products.map{|p|  p[:productId]; }
         orderInfo = [];
-        db_products = Product.where(id:productIDs);
+        db_products = Product.where(productId:productIDs);
         total = 0;
         db_products.each{
             |pro| orderedProduct = req_products.select{|prod|
-                pro[:id] == prod[:productId]
+                pro[:productId] == prod[:productId]
             }
             p = ProductInfo . new
-            p.productId = pro[:id];
+            p.productId = pro[:productId];
             p.units = orderedProduct[0][:units];
             p.price = pro[:price];
             total += p.price * orderedProduct[0][:units];
             orderInfo.push(p);
        }
-       order = Order.new(orderTotal:total, userId:user_id )
+       orderId = SecureRandom.uuid
+       order = Order.new(orderId:orderId, orderTotal:total, userId:user_id )
        if order.save
             orderInfo.each{|item|
-                o = OrderLine.new(productId:item.productId, orderId:order[:id]);
+                o = OrderLine.new(productId:item.productId, orderId:orderId);
                 if o.save
                      puts("saved #{o}")
                 else
