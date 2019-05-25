@@ -1,14 +1,8 @@
-"""
-Model objects used by the Yugabyte Demo
-Author: George Nowakowski
-Date Created: April 12, 2019
-"""
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
 
 Base = declarative_base()
-
 
 class User(Base):
     __tablename__ = 'users'
@@ -17,7 +11,7 @@ class User(Base):
     first_name = Column(String)
     last_name = Column(String)
     email = Column(String)
-    orders = relationship("Order")
+    orders = relationship('Order', foreign_keys=[user_id], primaryjoin='Order.user_id == User.user_id', uselist=True)
     
     def __repr__(self):
         return "<User(id=%s first_name='%s', last_name='%s', email='%s')>" % \
@@ -30,19 +24,15 @@ class User(Base):
             "last_name": self.last_name,
             "email": self.email
         }
-
-        # if len(self.orders) > 0:
-        #     user_json['orders'] = [
-        #         order.to_json() for order in self.orders
-        #     ]         
         return user_json
 
 class Order(Base):
     __tablename__ = "orders"
     
     order_id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.user_id'))  
-    order_lines = relationship("OrderLine", back_populates='order')
+    user_id = Column(Integer)  
+    order_lines = relationship("OrderLine", foreign_keys=[order_id], primaryjoin='OrderLine.order_id == Order.order_id', 
+        back_populates='order', uselist=True)
     order_total = Column(Float)
     
     def __repr__(self):
@@ -55,12 +45,10 @@ class Order(Base):
             "user_id": self.user_id,
             "order_total": self.order_total
         }
+        order_json['order_lines'] = [
+            line.to_json() for line in self.order_lines
+        ]
 
-        if len(self.order_lines) > 0:
-            order_json['order_lines'] = [
-                line.to_json() for line in self.order_lines
-            ]
-        
         return order_json
 
 class Product(Base):
@@ -87,18 +75,19 @@ class OrderLine(Base):
     __tablename__ = "order_lines"
 
     line_id = Column(Integer, primary_key=True)
-    order_id = Column(Integer, ForeignKey("orders.order_id"))
-    product_id = Column(Integer, ForeignKey("products.product_id"))
+    order_id = Column(Integer)
+    product_id = Column(Integer)
     units = Column(Integer)
 
-    order = relationship("Order", back_populates='order_lines')
-    product = relationship("Product")
+    order = relationship("Order", foreign_keys=[order_id], primaryjoin='Order.order_id == OrderLine.order_id')
+    product = relationship("Product", foreign_keys=[product_id], primaryjoin='Product.product_id == OrderLine.product_id')
 
     def __repr__(self):
-        return "<OrderLine(line_id=%s order=%s, product=%s)>" % (line_id, self.order_id, self.product)
+        return "<OrderLine(line_id=%s order=%s, product=%s)>" % (self.line_id, self.order_id, self.product)
 
     def to_json(self):
-        line_json = {"line_id": self.line_id}
-        line_json['Product'] = self.product.to_json()
-        return line_json
-
+        return {
+            "line_id": self.line_id,
+            "order_id": self.order_id,
+            "product": self.product.to_json()
+        }

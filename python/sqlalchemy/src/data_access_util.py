@@ -3,17 +3,18 @@ from sqlalchemy.orm import sessionmaker, relationship
 from model import User, Order, OrderLine, Product
 import config as cfg
 from sqlalchemy import create_engine
-
-
-engine = create_engine('postgresql://%s:%s@%s:%s/%s' % 
-                       (cfg.db_user, cfg.db_password, cfg.db_host, cfg.db_port, cfg.database), echo=True)
-Session = sessionmaker(bind=engine)
+import traceback
 
 
 class DataAccessUtil:
 
+    def __init__(self):
+        engine = create_engine('postgresql://%s:%s@%s:%s/%s' % 
+                            (cfg.db_user, cfg.db_password, cfg.db_host, cfg.db_port, cfg.database), echo=True)
+        self.Session = sessionmaker(bind=engine)
+
     def get_users(self):
-        session = Session()
+        session = self.Session()
 
         try:
             users = session.query(User).all()
@@ -32,7 +33,7 @@ class DataAccessUtil:
             session.close()
 
     def list_orders_for_user(self, rq_user_id):
-        session = Session()
+        session = self.Session()
 
         try:
             user = session.query(User).get(rq_user_id)
@@ -48,14 +49,14 @@ class DataAccessUtil:
             ]
             return user_json
         except Exception as e:     
-            logging.debug('*** Exception in get_users: %s' % e)
+            logging.debug('*** Exception in list_orders_for_user: %s' % e)
             session.rollback()
             raise
         finally:
             session.close()
 
     def create_order(self, rq_user_id, products):
-        session = Session()
+        session = self.Session()
 
         try:
             user = session.query(User).get(rq_user_id)
@@ -66,7 +67,7 @@ class DataAccessUtil:
             order_line_list = []
             user_order = Order(user_id=rq_user_id, order_total=0)
 
-            logging.debug('Processing %s products' % len(products))
+            # logging.debug('Processing %s products' % len(products))
             for prod_def in products:
                 db_product = session.query(Product).get(prod_def['productId'])
                 if db_product is None:
@@ -84,14 +85,16 @@ class DataAccessUtil:
             return the_order.to_json()
 
         except Exception as e:     
-            logging.debug('*** Exception in get_users: %s' % e)
+            logging.debug('*** Exception in create_order: %s' % e)
+            traceback.print_exc()
+
             session.rollback()
             raise
         finally:
             session.close()
 
     def create_product(self, to_add):
-        session = Session()
+        session = self.Session()
 
         try:
             product = Product(product_name=to_add['productName'], description=to_add['description'], price=to_add['price'])
@@ -100,14 +103,14 @@ class DataAccessUtil:
 
             return product.to_json()
         except Exception as e:     
-            logging.debug('*** Exception in get_users: %s' % e)
+            logging.debug('*** Exception in create_product: %s' % e)
             session.rollback()
             raise
         finally:
             session.close()
  
     def add_object(self, to_add):
-        session = Session()
+        session = self.Session()
 
         try:
             session.add(to_add)
@@ -120,7 +123,7 @@ class DataAccessUtil:
             session.close()
 
     def list_products(self):
-        session = Session()
+        session = self.Session()
 
         try:
             products = session.query(Product).all()
@@ -132,7 +135,7 @@ class DataAccessUtil:
             session.commit()
             return product_json
         except Exception as e:     
-            logging.debug('*** Exception in get_users: %s' % e)
+            logging.debug('*** Exception in list_products: %s' % e)
             session.rollback()
             raise
         finally:

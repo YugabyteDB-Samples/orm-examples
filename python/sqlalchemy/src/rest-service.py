@@ -12,6 +12,10 @@ from model import User, Order, OrderLine, Product
 import config as cfg
 from data_access_util import DataAccessUtil
 from sqlalchemy import create_engine
+from sqlalchemy import MetaData
+from model import Base
+import sys
+import traceback
 
 
 logging.basicConfig(
@@ -23,8 +27,9 @@ logging.getLogger('sqlalchemy.engine.base.Engine').setLevel(logging.WARNING)
 
 engine = create_engine('postgresql://%s:%s@%s:%s/%s' % 
                        (cfg.db_user, cfg.db_password, cfg.db_host, cfg.db_port, cfg.database), echo=True)
-Session = sessionmaker(bind=engine)
+Session = sessionmaker(ddwqbind=engine)
 
+metadata = MetaData(bind=engine)
 
 def add_object(session, to_add):
     session.add(to_add)
@@ -67,7 +72,6 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         body = json.loads(self.rfile.read(content_length))
 
         logging.debug('body: ' % body)
-
         dao = DataAccessUtil()
 
         logging.debug('doPost called with url: %s and data: %s' % (self.path, body))
@@ -95,8 +99,12 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     # =======================================================
 
     def handle_create_user(self, dao, body):
-        self.handle_write_output(
-            dao.add_object(User(first_name=body['firstName'], last_name=body['lastName'], email=body['email'])))
+        try:
+            self.handle_write_output(            
+                dao.add_object(User(first_name=body['firstName'], last_name=body['lastName'], email=body['email'])))
+        except:
+            traceback.print_exc()
+            
 
     def handle_list_users(self, dao):
         self.handle_write_output(dao.get_users())
@@ -135,8 +143,13 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
         self.handle_write_output(dao.create_order(body['userId'], body['products']))
 
+
+Base.metadata.create_all(engine)
+
 # ### HTTP Server
 httpd = HTTPServer(('localhost', cfg.listen_port), SimpleHTTPRequestHandler)
 logging.debug('Listening on port %s' % cfg.listen_port)
 httpd.serve_forever()
+
+
 
