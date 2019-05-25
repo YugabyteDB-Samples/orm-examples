@@ -38,34 +38,6 @@ https://www.python.org/downloads/
 
 Follow the instructions specific to your operating system
 
-## Install virtualenv
-
-Using the program called *pip* that was installed along with Python in the step above, install virtualenv
-
-```
-pip install virtualenv
-```
-
-You can find more information on how to install virtualenv from their website: https://virtualenv.pypa.io/en/stable/installation/
-
-## Create a virtual environment for Python
-
-The next step is to create a virtual environment into which we will install all of the required Python libraries.  From the 
-command line, navigate to the directory where you downloaded this repository and use virtualenv to create a new environment 
-for development.
-
-Be sure to replace **<projectname>** with the actual name you wish to call this project.
-
-```
-virtualenv -p python3 <projectname>
-
-Activate using the command: 
-source <projectname>/bin/activate
-```
-
-At this point, you created a new virtual environment, and should be in a shell that is that environment.  You can confirm that
-you are in the shell by seeing the project name that you selected in parenthesis on the command prompt.
-
 ## Install the Python requirements
 
 From within the virtual environment (projectname is in parenthesis on the command line), use the pip command to install all
@@ -75,18 +47,7 @@ of the Python dependencies listed in the requrements.txt file
 pip install -r requirements.txt
 ```
 
-This virtual environment is now configured to run the python code.  Note that because we have used virtualenv, any other 
-virtual environemnts that were created for other projects will not be affected by these libraries.
-
-## Set up your database environment
-Connect to your Yugabyte instance via command line so that you can run the set up script to create the required tables.
-Typically, the **pgsql** client is used to connect to Yugabyte.
-
-Open a new window, and issue the following command to connect to Yugabyte database: 
-
-```
-psql -h 127.0.0.1 -p 5433 -U postgres  --echo-queries
-```
+This environment is now configured to run the python code.  
 
 ---
 ### Your environment should now be ready!
