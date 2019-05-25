@@ -8,26 +8,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Yugabyte
-Python3
-sqlalchemy
-virtualenv
-
-**Note**: When developing Python applications, it is good practice to use virtualenv to virtualize the Python environment.
-This allows you to configure the libraries for a project without affecting other Python projects.
+* Yugabyte
+* Python3
+* sqlalchemy
 
 ### Installing
-
-## Yugabyte Community Edition
-
-Install Yugabyte Community Edition on your local environment by following the quick-start guide on the Yugabyte website
-
-```
-https://docs.yugabyte.com/latest/quick-start/
-```
-
-Following the quick-start guide will enable you to install and configure a single or multi-node Yugabyte cluster
-
 
 ## Install Python 3
 Install the latest version of Python3
