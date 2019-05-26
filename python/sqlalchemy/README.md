@@ -25,7 +25,7 @@ Follow the instructions specific to your operating system
 
 ## Install the Python requirements
 
-From within the virtual environment (projectname is in parenthesis on the command line), use the pip command to install all
+Use the pip command to install all
 of the Python dependencies listed in the requrements.txt file
 
 ```
