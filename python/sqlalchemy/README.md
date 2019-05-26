@@ -14,22 +14,13 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-## Install Python 3
-Install the latest version of Python3
-
-```
-https://www.python.org/downloads/
-```
-
-Follow the instructions specific to your operating system
-
 ## Install the Python requirements
 
 Use the pip command to install all
 of the Python dependencies listed in the requrements.txt file
 
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 This environment is now configured to run the python code.  
@@ -41,7 +32,7 @@ It is time to run the client application that will create and list objects from 
 ### Start the server that will listen for your commands: 
 
 ```
-./rest-service.py
+./src/rest-service.py
 ```
 
 Note that the rest-service.py file contains the "shebang" that defines Python3 to be the program loader for this file.
