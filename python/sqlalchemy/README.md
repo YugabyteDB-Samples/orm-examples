@@ -25,6 +25,17 @@ pip3 install -r requirements.txt
 
 This environment is now configured to run the python code.  
 
+## Open src/config.py and update the database settings:
+
+```
+listen_port = 8000
+db_user = 'postgres'
+db_password = None
+database = 'postgres'
+db_host = 'localhost'
+db_port = 5433
+```
+
 ---
 ### Your environment should now be ready!
 It is time to run the client application that will create and list objects from the Yugabyte database.  The Python application listens on a port (configured to port 8000) for Post/Get commands and it will interact with the Yugabyte database to create the required User, Product and order objects.
