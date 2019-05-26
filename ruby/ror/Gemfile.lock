@@ -143,8 +143,5 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
 
-RUBY VERSION
-   ruby 2.4.1p111
-
 BUNDLED WITH
-   1.16.6
+   1.17.3
