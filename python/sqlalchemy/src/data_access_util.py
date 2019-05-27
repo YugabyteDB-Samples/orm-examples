@@ -74,7 +74,7 @@ class DataAccessUtil:
                     raise Exception('Product not found with ProductID: %s' % prod_def['productId'])
                 order_line = OrderLine(product=db_product, order=user_order, units=prod_def['units'])
                 order_line_list.append(order_line)
-                user_order.order_total = user_order.order_total + db_product.price
+                user_order.order_total = user_order.order_total + db_product.price * prod_def['units']
 
             session.add(user_order)
             session.add_all(order_line_list)

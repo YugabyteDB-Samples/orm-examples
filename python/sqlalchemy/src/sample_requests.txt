@@ -1,6 +1,6 @@
 Create User
 curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@yb.com" }' \
-       -v -X POST -H 'Content-Type:application/json' http://localhost:8000/users
+       -v -X POST -H 'Content-Type:application/json' http://localhost:8080/users
 
 returns:
 {
@@ -12,7 +12,7 @@ returns:
 
 
 List users
-curl http://localhost:8000/users
+curl http://localhost:8080/users
 
 {
   "users": [
@@ -34,7 +34,7 @@ curl http://localhost:8000/users
 
 -- Create a product
 curl --data '{ "productName": "Notebook", "description": "200 page notebook", "price": 7.50 }' \
-  -v -X POST -H 'Content-Type:application/json' http://localhost:8000/products
+  -v -X POST -H 'Content-Type:application/json' http://localhost:8080/products
 
 returns: 
 {
@@ -46,14 +46,14 @@ returns:
 
 
 curl --data '{ "productName": "Turtle Food", "description": "Gormet turtle food, very nitrituous", "price": 15.50 }' \
-  -v -X POST -H 'Content-Type:application/json' http://localhost:8000/products
+  -v -X POST -H 'Content-Type:application/json' http://localhost:8080/products
 
 
 
 -- List all products
 curl \
   --data '{ "productName": "Notebook", "description": "200 page notebook", "price": 7.50 }' \
-  -v -X POST -H 'Content-Type:application/json' http://localhost:8000/list-products
+  -v -X POST -H 'Content-Type:application/json' http://localhost:8080/list-products
 
 returns: 
 {
@@ -77,7 +77,7 @@ Create an order
 
 curl \
   --data '{ "userId": "1", "products": [ { "productId": 1, "units": 2 } ] }' \
-  -v -X POST -H 'Content-Type:application/json' http://localhost:8000/orders
+  -v -X POST -H 'Content-Type:application/json' http://localhost:8080/orders
 
 returns: 
 {
@@ -99,7 +99,7 @@ returns:
 
 List orders for a user:
 curl --data '{ "userId": "1" }' \
-  -v -X POST -H 'Content-Type:application/json' http://localhost:8000/list-orders
+  -v -X POST -H 'Content-Type:application/json' http://localhost:8080/list-orders
 
 
 returns: 
@@ -151,7 +151,7 @@ returns:
 Check out multiple products in one order:
 
 curl --data '{ "userId": "1", "products": [ { "productId": 1, "units": 2 }, { "productId": 2, "units": 4 } ] }' \
--v -X POST -H 'Content-Type:application/json' http://localhost:8000/orders
+-v -X POST -H 'Content-Type:application/json' http://localhost:8080/orders
 
 Returns: 
 {
