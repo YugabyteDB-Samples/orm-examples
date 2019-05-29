@@ -50,14 +50,14 @@ public class OrderController {
     	Order newOrder = orderRepository.save(order);
     	
     	for (Order.Product orderProduct : order.getProducts()) {
-    		orderLineRepository.save(new OrderLine(newOrder.getOrderId(), orderProduct.getProductId()));
+    		orderLineRepository.save(new OrderLine(newOrder.getOrderId(), orderProduct.getProductId(), orderProduct.getUnits()));
     	}
         
     	return newOrder;
     }
 
     @PutMapping("/orders/{orderId}")
-    public Order updateProduct(@PathVariable UUID orderId,
+    public Order updateOrder(@PathVariable UUID orderId,
                                    @Valid @RequestBody Order orderRequest) {
 
     	for (OrderLine orderLine : orderLineRepository.findByOrderId(orderId)) {
@@ -65,7 +65,7 @@ public class OrderController {
     	}
     	
     	for (Order.Product orderProduct : orderRequest.getProducts()) {
-    		orderLineRepository.save(new OrderLine(orderId, orderProduct.getProductId()));
+    		orderLineRepository.save(new OrderLine(orderId, orderProduct.getProductId(), orderProduct.getUnits()));
     	}
 
     	return orderRepository.findById(orderId)
@@ -87,12 +87,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/orders/{orderId}")
-    public ResponseEntity<?> deleteProduct(@PathVariable UUID orderId) {
-    	
-    	for (OrderLine orderLine : orderLineRepository.findByOrderId(orderId)) {
-    		orderLineRepository.delete(orderLine);
-    	}
-    		
+    public ResponseEntity<?> deleteOrder(@PathVariable UUID orderId) {
         return orderRepository.findById(orderId)
                 .map(order -> {
                     orderRepository.delete(order);

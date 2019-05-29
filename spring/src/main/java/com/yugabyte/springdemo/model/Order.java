@@ -9,13 +9,13 @@ public class Order extends AuditModel {
 	
 	public static class Product {
 		private Long productId;
-		private Long units;
+		private Integer units;
 		
 		public Long getProductId() {
 			return this.productId;
 		}
 		
-		public Long getUnits() {
+		public Integer getUnits() {
 			return this.units;
 		}
 	}
