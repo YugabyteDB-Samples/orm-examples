@@ -28,5 +28,5 @@ db_port = 5433
 ---
 ### Start the server that will listen for your commands: 
 ```
-./src/rest-service.py
+python3 ./src/rest-service.py
 ```
