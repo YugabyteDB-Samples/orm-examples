@@ -26,7 +26,7 @@ class DataAccessUtil:
             session.commit()
             return users_json
         except Exception as e:     
-            logging.debug('*** Exception in get_users: %s' % e)
+            logging.error('*** Exception in get_users: %s' % e)
             session.rollback()
             raise
         finally:
@@ -39,8 +39,9 @@ class DataAccessUtil:
             user = session.query(User).get(rq_user_id)
 
             if user is None:
-                logging.debug('Unable to find user with id = %s' % rq_user_id)
-                # TODO: Raise an error
+                msg = 'Unable to find user with id = %s' % rq_user_id
+                logging.error(msg)
+                raise Exception(msg)
 
             user_json = user.to_json()
 
@@ -49,7 +50,7 @@ class DataAccessUtil:
             ]
             return user_json
         except Exception as e:     
-            logging.debug('*** Exception in list_orders_for_user: %s' % e)
+            logging.error('*** Exception in list_orders_for_user: %s' % e)
             session.rollback()
             raise
         finally:
@@ -67,7 +68,6 @@ class DataAccessUtil:
             order_line_list = []
             user_order = Order(user_id=rq_user_id, order_total=0)
 
-            # logging.debug('Processing %s products' % len(products))
             for prod_def in products:
                 db_product = session.query(Product).get(prod_def['productId'])
                 if db_product is None:
@@ -85,7 +85,7 @@ class DataAccessUtil:
             return the_order.to_json()
 
         except Exception as e:     
-            logging.debug('*** Exception in create_order: %s' % e)
+            logging.error('*** Exception in create_order: %s' % e)
             traceback.print_exc()
 
             session.rollback()
@@ -103,7 +103,7 @@ class DataAccessUtil:
 
             return product.to_json()
         except Exception as e:     
-            logging.debug('*** Exception in create_product: %s' % e)
+            logging.error('*** Exception in create_product: %s' % e)
             session.rollback()
             raise
         finally:
@@ -117,7 +117,7 @@ class DataAccessUtil:
             session.commit()
             return to_add.to_json()
         except Exception as e:
-            logging.debug('** Exception while trying to add object: %s Error: %e' % (str(to_add), e))
+            logging.error('** Exception while trying to add object: %s Error: %e' % (str(to_add), e))
             raise
         finally:
             session.close()
@@ -135,7 +135,7 @@ class DataAccessUtil:
             session.commit()
             return product_json
         except Exception as e:     
-            logging.debug('*** Exception in list_products: %s' % e)
+            logging.error('*** Exception in list_products: %s' % e)
             session.rollback()
             raise
         finally:

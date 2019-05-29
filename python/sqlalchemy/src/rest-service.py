@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
 
 import logging
 from sqlalchemy.ext.declarative import declarative_base
@@ -17,11 +15,6 @@ from model import Base
 import sys
 import traceback
 
-
-logging.basicConfig(
-    level=logging.DEBUG,
-    format="%(asctime)s:%(levelname)s:%(message)s"
-    )
 
 logging.getLogger('sqlalchemy.engine.base.Engine').setLevel(logging.WARNING)
 
@@ -148,7 +141,7 @@ Base.metadata.create_all(engine)
 
 # ### HTTP Server
 httpd = HTTPServer(('localhost', cfg.listen_port), SimpleHTTPRequestHandler)
-logging.debug('Listening on port %s' % cfg.listen_port)
+logging.info('>>> Listening on port %s' % cfg.listen_port)
 httpd.serve_forever()
 
 
