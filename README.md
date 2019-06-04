@@ -22,6 +22,7 @@ By default, the REST API server listens on `localhost` port `8080`.
 | [Golang - Gorm](https://github.com/YugaByte/orm-examples/blob/master/golang/gorm)  | Gorm   |
 | [NodeJS - Sequelize](https://github.com/YugaByte/orm-examples/blob/master/node/sequelize)  | Sequelize   |
 | [Python - SQLAlchemy](https://github.com/YugaByte/orm-examples/blob/master/python/sqlalchemy)  | SQL Alchemy   |
+| [Ruby on Rails - ActiveRecord](https://github.com/YugaByte/orm-examples/tree/master/ruby/ror)  | ActiveRecord   |
 
 
 ## Step 3. Create a user
