@@ -19,6 +19,9 @@ By default, the REST API server listens on `localhost` port `8080`.
 | Directory  | ORM |
 | ------------- | ------------- |
 | [Java - Spring](https://github.com/YugaByte/orm-examples/blob/master/java/spring)  | Spring Data JPA (uses Hibernate internally)   |
+| [Golang - Gorm](https://github.com/YugaByte/orm-examples/blob/master/golang/gorm)  | Gorm   |
+| [NodeJS - Sequelize](https://github.com/YugaByte/orm-examples/blob/master/node/sequelize)  | Sequelize   |
+| [Python - SQLAlchemy](https://github.com/YugaByte/orm-examples/blob/master/python/sqlalchemy)  | SQL Alchemy   |
 
 
 ## Step 3. Create a user
