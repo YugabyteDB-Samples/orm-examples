@@ -76,7 +76,7 @@ returns:
 Create an order
 
 curl \
-  --data '{ "userId": "1", "products": [ { "productId": 1, "units": 2 } ] }' \
+  --data '{ "userId": "1", "products": [ { "productId": 1, "quantity": 2 } ] }' \
   -v -X POST -H 'Content-Type:application/json' http://localhost:8080/orders
 
 returns: 
@@ -150,7 +150,7 @@ returns:
 
 Check out multiple products in one order:
 
-curl --data '{ "userId": "1", "products": [ { "productId": 1, "units": 2 }, { "productId": 2, "units": 4 } ] }' \
+curl --data '{ "userId": "1", "products": [ { "productId": 1, "quantity": 2 }, { "productId": 2, "quantity": 4 } ] }' \
 -v -X POST -H 'Content-Type:application/json' http://localhost:8080/orders
 
 Returns: 

@@ -1,11 +1,14 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
+import config as cfg
 
 Base = declarative_base()
+Base.metadata.schema = 'ysql_sqlalchemy'
 
 class User(Base):
     __tablename__ = 'users'
+    __table_args__ = {"schema": "{0}".format(cfg.schema)}
 
     user_id = Column(Integer, primary_key=True)
     first_name = Column(String)
@@ -28,6 +31,7 @@ class User(Base):
 
 class Order(Base):
     __tablename__ = "orders"
+    __table_args__ = {"schema": "{0}".format(cfg.schema)}
     
     order_id = Column(Integer, primary_key=True)
     user_id = Column(Integer)  
@@ -53,6 +57,7 @@ class Order(Base):
 
 class Product(Base):
     __tablename__ = "products"
+    __table_args__ = {"schema": "{0}".format(cfg.schema)}
     
     product_id = Column(Integer, primary_key=True)
     product_name = Column(String)
@@ -73,21 +78,23 @@ class Product(Base):
 
 class OrderLine(Base):
     __tablename__ = "order_lines"
+    __table_args__ = {"schema": "{0}".format(cfg.schema)}
 
     line_id = Column(Integer, primary_key=True)
     order_id = Column(Integer)
     product_id = Column(Integer)
-    units = Column(Integer)
+    quantity = Column(Integer)
 
     order = relationship("Order", foreign_keys=[order_id], primaryjoin='Order.order_id == OrderLine.order_id')
     product = relationship("Product", foreign_keys=[product_id], primaryjoin='Product.product_id == OrderLine.product_id')
 
     def __repr__(self):
-        return "<OrderLine(line_id=%s order=%s, product=%s)>" % (self.line_id, self.order_id, self.product)
+        return "<OrderLine(line_id=%s order=%s, product=%s, quantity=%s)>" % (self.line_id, self.order_id, self.product, self.quantity)
 
     def to_json(self):
         return {
             "line_id": self.line_id,
             "order_id": self.order_id,
+            "quantity": self.quantity,
             "product": self.product.to_json()
         }
