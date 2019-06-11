@@ -14,45 +14,15 @@ from sqlalchemy import MetaData
 from model import Base
 import sys
 import traceback
-from sqlalchemy import event
-from sqlalchemy.schema import CreateSchema
-from sqlalchemy import DDL
-
-
-def init():
-
-    # try:
-    engine = create_engine('postgresql://{0}:{1}@{2}:{3}/postgres'.format(cfg.db_user, cfg.db_password, cfg.db_host, cfg.db_port))                            
-
-    existing_databases = engine.execute("SELECT datname FROM pg_database;")
-    # Results are a list of single item tuples, so unpack each tuple
-    existing_databases = [d[0] for d in existing_databases]
-
-    created_database = False
-    # Create database if not exists
-    if cfg.database not in existing_databases:
-        conn = engine.connect()
-        conn.execute('commit')
-        conn.execute("CREATE DATABASE {0};".format(cfg.database))
-        print("Created database {0}".format(cfg.database))
-        created_database = True
-
-    # Go ahead and use this engine
-    engine = create_engine('postgresql://{0}:{1}@{2}:{3}/{4}'.format(cfg.db_user, cfg.db_password, cfg.db_host, cfg.db_port, cfg.database))                            
-
-    if created_database == True:
-        conn = engine.connect()
-        conn.execute('commit')
-        conn.execute("CREATE SCHEMA {0}".format(cfg.schema))
-
-    Session = sessionmaker(ddwqbind=engine)
-    Base.metadata.create_all(engine)
-
-    # except Exception as e:
-    #     print('Here was the exception: %s' % e)
 
 
 logging.getLogger('sqlalchemy.engine.base.Engine').setLevel(logging.WARNING)
+
+engine = create_engine('postgresql://%s:%s@%s:%s/%s' % 
+                       (cfg.db_user, cfg.db_password, cfg.db_host, cfg.db_port, cfg.database), echo=True)
+Session = sessionmaker(ddwqbind=engine)
+
+metadata = MetaData(bind=engine)
 
 def add_object(session, to_add):
     session.add(to_add)
@@ -166,7 +136,9 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
         self.handle_write_output(dao.create_order(body['userId'], body['products']))
 
-init()
+
+Base.metadata.create_all(engine)
+
 # ### HTTP Server
 httpd = HTTPServer(('localhost', cfg.listen_port), SimpleHTTPRequestHandler)
 logging.info('>>> Listening on port %s' % cfg.listen_port)
