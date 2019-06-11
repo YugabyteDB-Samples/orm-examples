@@ -6,12 +6,12 @@ module.exports = (sequelize, DataTypes) => {
 			unique: 'compositeKey',
 			allowNull: false
 		},
-	productId:{
+    productId:{
 			type: DataTypes.INTEGER,
 			unique: 'compositeKey',
 			allowNull: false
 		},
-	  quantity: DataTypes.INTEGER
+	quantity: DataTypes.INTEGER
 
   }, {});
   OrderLine.associate = function(models) {
