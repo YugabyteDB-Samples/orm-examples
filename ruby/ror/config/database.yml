@@ -6,7 +6,7 @@ default: &default
 
 development:
   <<: *default
-  database: postgres
+  database: ysql_active_record
   username: postgres
   password:
   host: 127.0.0.1
@@ -14,6 +14,6 @@ development:
 
 production:
   <<: *default
-  database: ror_production
+  database: ysql_active_record
   username: ror
   password: <%= ENV['ROR_DATABASE_PASSWORD'] %>
