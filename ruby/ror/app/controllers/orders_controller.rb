@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
        order = Order.new(orderId:orderId, orderTotal:total, userId:user_id )
        if order.save
             orderInfo.each{|item|
-                o = OrderLine.new(productId:item.productId, orderId:orderId);
+                o = OrderLine.new(productId:item.productId, orderId:orderId, quantity:item.units);
                 if o.save
                      puts("saved #{o}")
                 else
