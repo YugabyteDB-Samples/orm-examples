@@ -7,5 +7,9 @@ class CreateOrders < ActiveRecord::Migration[5.2]
       t.timestamps
     end
     add_index :orders, :orderId, unique: true
+    add_foreign_key :orders,
+                    :users,
+                    column: :userId,
+                    primary_key: "userId"
   end
 end

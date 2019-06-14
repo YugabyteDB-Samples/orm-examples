@@ -47,5 +47,5 @@ ActiveRecord::Schema.define(version: 2019_05_04_204851) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
+  add_foreign_key "orders", "users", column: "userId", primary_key: "userId"
 end
