@@ -77,7 +77,7 @@ class OrderLine(Base):
     line_id = Column(Integer, primary_key=True)
     order_id = Column(Integer)
     product_id = Column(Integer)
-    units = Column(Integer)
+    quantity = Column(Integer)
 
     order = relationship("Order", foreign_keys=[order_id], primaryjoin='Order.order_id == OrderLine.order_id')
     product = relationship("Product", foreign_keys=[product_id], primaryjoin='Product.product_id == OrderLine.product_id')
