@@ -10,7 +10,9 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.INTEGER,
 			unique: 'compositeKey',
 			allowNull: false
-		}
+		},
+	quantity: DataTypes.INTEGER
+
   }, {});
   OrderLine.associate = function(models) {
     // associations can be defined here

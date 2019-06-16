@@ -1,0 +1,2 @@
+class OrderLine < ApplicationRecord
+end

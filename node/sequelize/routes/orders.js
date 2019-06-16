@@ -71,7 +71,8 @@ router.post('/', (req, res, next) => {
 			productInfos.forEach( productInfo => {
 				orderLines.push({
 					orderId: order.orderId,
-					productId: productInfo.productId
+					productId: productInfo.productId,
+					quantity: productInfo.units
 				});
 			});
 
