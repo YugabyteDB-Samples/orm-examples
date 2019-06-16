@@ -1,22 +1,27 @@
 # Build and run
-Install depedencies
+
+Install depedencies by running:
 ```
-npm install
+$ npm install
 ```
 
-Open config/config.json and update DB settings for "development"
-
+To run, simply do:
 ```
-"development": {
-    "username": <username>,
-    "password": <password>,
-    "database": <database>,
-    "host": <host>,
-    "dialect": "postgres"
-  }
+$ npm start
 ```
 
-Run via the following command
+To print debug logs, you can run:
 ```
-DEBUG=sequelize:* npm start
+$ DEBUG=sequelize:* npm start
 ```
+
+# Customizing
+
+You can customize the various options by changing the following variables in the file [config/config.json](https://github.com/YugaByte/orm-examples/blob/master/node/sequelize/config/config.json). The descriptions and default values are listed below.
+
+| Properties    | Description   | Default |
+| ------------- | ------------- | ------- |
+| `host`  | The database host. | `localhost`  |
+| `username` | The username to connect to the database. | `postgres` |
+| `password` | The password to connect to the database. Leave blank for the password. | - |
+
