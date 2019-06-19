@@ -16,9 +16,11 @@ import sys
 import traceback
 
 
+logging.getLogger('sqlalchemy.engine.base.Engine').setLevel(logging.WARNING)
+
+
 def init():
 
-    # try:
     engine = create_engine('postgresql://{0}:{1}@{2}:{3}/postgres'.format(cfg.db_user, cfg.db_password, cfg.db_host, cfg.db_port))                            
 
     existing_databases = engine.execute("SELECT datname FROM pg_database;")
@@ -31,7 +33,7 @@ def init():
         conn = engine.connect()
         conn.execute('commit')
         conn.execute("CREATE DATABASE {0};".format(cfg.database))
-        print("Created database {0}".format(cfg.database))
+        logging.debug("Created database {0}".format(cfg.database))
         created_database = True
 
     # Go ahead and use this engine
@@ -45,11 +47,6 @@ def init():
     Session = sessionmaker(ddwqbind=engine)
     Base.metadata.create_all(engine)
 
-    # except Exception as e:
-    #     print('Here was the exception: %s' % e)
-
-
-logging.getLogger('sqlalchemy.engine.base.Engine').setLevel(logging.WARNING)
 
 engine = create_engine('postgresql://{0}:{1}@{2}:{3}/postgres'.format(cfg.db_user, cfg.db_password, cfg.db_host, cfg.db_port))                            
 Session = sessionmaker(ddwqbind=engine)
