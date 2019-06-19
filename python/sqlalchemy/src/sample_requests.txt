@@ -1,0 +1,183 @@
+Create User
+curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@yb.com" }' \
+       -v -X POST -H 'Content-Type:application/json' http://localhost:8080/users
+
+returns:
+{
+  "user_id": 21,
+  "email": "jsmith@yb.com",
+  "first_name": "John",
+  "last_name": "Smith"
+}
+
+
+List users
+curl http://localhost:8080/users
+
+{
+  "users": [
+    {
+      "email": "syed@12techllc.com",
+      "first_name": "Syed",
+      "last_name": "Shah",
+      "user_id": 4
+    },
+    {
+      "email": "jsmith@yb.com",
+      "first_name": "John",
+      "last_name": "Smith",
+      "user_id": 8
+    }
+ ]
+}
+
+
+-- Create a product
+curl --data '{ "productName": "Notebook", "description": "200 page notebook", "price": 7.50 }' \
+  -v -X POST -H 'Content-Type:application/json' http://localhost:8080/products
+
+returns: 
+{
+  "description": "200 page notebook",
+  "price": 7.5,
+  "product_id": 4,
+  "product_name": "Notebook"
+}
+
+
+curl --data '{ "productName": "Turtle Food", "description": "Gormet turtle food, very nitrituous", "price": 15.50 }' \
+  -v -X POST -H 'Content-Type:application/json' http://localhost:8080/products
+
+
+
+-- List all products
+curl \
+  --data '{ "productName": "Notebook", "description": "200 page notebook", "price": 7.50 }' \
+  -v -X POST -H 'Content-Type:application/json' http://localhost:8080/list-products
+
+returns: 
+{
+  "products": [
+    {
+      "description": "Tunes that are old school",
+      "price": 79.99,
+      "product_id": 3,
+      "product_name": "Sony Walkman"
+    },
+    {
+      "description": "200 page notebook",
+      "price": 7.5,
+      "product_id": 5,
+      "product_name": "Notebook"
+    }
+  ]
+}
+
+Create an order
+
+curl \
+  --data '{ "userId": "1", "products": [ { "productId": 1, "units": 2 } ] }' \
+  -v -X POST -H 'Content-Type:application/json' http://localhost:8080/orders
+
+returns: 
+{
+  "order_id": 17,
+  "order_lines": [
+    {
+      "Product": {
+        "description": "Tunes that are old school",
+        "price": 79.99,
+        "product_id": 1,
+        "product_name": "Sony Walkman"
+      },
+      "line_id": 14
+    }
+  ],
+  "order_total": 79.99,
+  "user_id": 4
+}
+
+List orders for a user:
+curl --data '{ "userId": "1" }' \
+  -v -X POST -H 'Content-Type:application/json' http://localhost:8080/list-orders
+
+
+returns: 
+
+{
+  "email": "syed@12techllc.com",
+  "first_name": "Syed",
+  "last_name": "Shah",
+  "orders": [
+    {
+      "order_id": 3,
+      "order_lines": [
+        {
+          "line_id": 3,
+          "Product": {
+            "description": "Tunes that are old school",
+            "price": 79.99,
+            "product_id": 1,
+            "product_name": "Sony Walkman"
+          }
+        }
+      ],
+      "order_total": 100,
+      "user_id": 4
+    },
+    {
+      "order_id": 4,
+      "order_lines": [
+        {
+          "line_id": 4,
+          "Product": {
+            "description": "Tunes that are old school",
+            "price": 79.99,
+            "product_id": 1,
+            "product_name": "Sony Walkman"
+          }
+        }
+      ],
+      "order_total": 100,
+      "user_id": 4
+    }
+  ],
+  "user_id": 4
+}
+
+
+
+
+Check out multiple products in one order:
+
+curl --data '{ "userId": "1", "products": [ { "productId": 1, "units": 2 }, { "productId": 2, "units": 4 } ] }' \
+-v -X POST -H 'Content-Type:application/json' http://localhost:8080/orders
+
+Returns: 
+{
+  "user_id": 4,
+  "order_id": 16,
+  "order_lines": [
+    {
+      "Product": {
+        "description": "Tunes that are old school",
+        "price": 79.99,
+        "product_id": 1,
+        "product_name": "Sony Walkman"
+      },
+      "line_id": 12
+    },
+    {
+      "Product": {
+        "description": "Tunes that are old school",
+        "price": 79.99,
+        "product_id": 2,
+        "product_name": "Sony Walkman"
+      },
+      "line_id": 13
+    }
+  ],
+  "order_total": 159.98
+}
+
+
