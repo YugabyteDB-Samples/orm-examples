@@ -7,6 +7,9 @@ $ cargo build --release
 ```
 
 Create the DB named `ysql_diesel`
+```
+$ createdb ysql_diesel
+```
 
 Run the REST API server:
 
