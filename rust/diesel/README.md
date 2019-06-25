@@ -10,7 +10,7 @@ Run the REST API server:
 
 ```
 # Modify connection URL as needed
-$ export DATABASE_URL=postgres://postgres:mysecretpassword@localhost/yugabyte_demo
+$ export DATABASE_URL=postgres://postgres@localhost/ysql_diesel
 $ ./target/release/yugadiesel
 ```
 
