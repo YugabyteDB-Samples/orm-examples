@@ -24,11 +24,12 @@ pub struct NewUser {
 }
 
 impl User {
-    pub fn create(user: NewUser, connection: &PgConnection) -> bool {
-        diesel::insert_into(users::table)
+    pub fn create(user: NewUser, connection: &PgConnection) -> User {
+        let insert_result = diesel::insert_into(users::table)
             .values(&user)
-            .execute(connection)
-            .is_ok()
+            .get_result(connection);
+
+        insert_result.map(|user| user).unwrap()
     }
 
     pub fn read_all(connection: &PgConnection) -> Vec<User> {

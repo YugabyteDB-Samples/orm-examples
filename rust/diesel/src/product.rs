@@ -25,11 +25,12 @@ pub struct NewProduct {
 }
 
 impl Product {
-    pub fn create(product: NewProduct, connection: &PgConnection) -> bool {
-        diesel::insert_into(products::table)
+    pub fn create(product: NewProduct, connection: &PgConnection) -> Product {
+        let insert_result = diesel::insert_into(products::table)
             .values(&product)
-            .execute(connection)
-            .is_ok()
+            .get_result(connection);
+
+        insert_result.map(|prod| prod).unwrap()
     }
 
     pub fn read_all(connection: &PgConnection) -> Vec<Product> {

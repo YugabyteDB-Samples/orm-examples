@@ -1,16 +1,27 @@
 use rocket_contrib::json::Json;
+use serde::Serialize;
 
 use crate::db;
 use crate::user::{NewUser, User};
 
 #[post("/users", data = "<user>", format = "json")]
-pub fn create_user(user: Json<NewUser>, connection: db::Connection) {
-    User::create(user.into_inner(), &connection);
+pub fn create_user(user: Json<NewUser>, connection: db::Connection) -> Json<User> {
+    Json(User::create(user.into_inner(), &connection))
+}
+
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct UsersResponse {
+    content: Vec<User>,
 }
 
 #[get("/users")]
-pub fn read_users(connection: db::Connection) -> Json<Vec<User>> {
-    Json(User::read_all(&connection))
+pub fn read_users(connection: db::Connection) -> Json<UsersResponse> {
+    let response = UsersResponse {
+        content: User::read_all(&connection),
+    };
+
+    Json(response)
 }
 
 #[get("/users/<user_id>")]
