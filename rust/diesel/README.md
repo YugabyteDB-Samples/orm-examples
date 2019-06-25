@@ -9,6 +9,10 @@ $ cargo build --release
 Run the REST API server:
 
 ```
+# Prerequisites
+$ cargo install diesel_cli --no-default-features --features postgres --force
+$ diesel setup
+
 # Modify connection URL as needed
 $ export DATABASE_URL=postgres://postgres@localhost/ysql_diesel
 $ ./target/release/yugadiesel
