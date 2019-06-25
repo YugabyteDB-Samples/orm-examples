@@ -19,7 +19,7 @@ table! {
     products (product_id) {
         product_id -> Int4,
         product_name -> Varchar,
-        product_description -> Varchar,
+        description -> Varchar,
         price -> Numeric,
     }
 }
@@ -29,7 +29,7 @@ table! {
         user_id -> Int4,
         first_name -> Varchar,
         last_name -> Varchar,
-        user_email -> Varchar,
+        email -> Varchar,
     }
 }
 

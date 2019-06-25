@@ -11,7 +11,7 @@ pub struct User {
     pub user_id: i32,
     pub first_name: String,
     pub last_name: String,
-    pub user_email: String,
+    pub email: String,
 }
 
 #[table_name = "users"]
@@ -20,7 +20,7 @@ pub struct User {
 pub struct NewUser {
     pub first_name: String,
     pub last_name: String,
-    pub user_email: String,
+    pub email: String,
 }
 
 impl User {
