@@ -11,7 +11,7 @@ use crate::schema::products;
 pub struct Product {
     pub product_id: i32,
     pub product_name: String,
-    pub product_description: String,
+    pub description: String,
     pub price: BigDecimal,
 }
 
@@ -20,7 +20,7 @@ pub struct Product {
 #[serde(rename_all = "camelCase")]
 pub struct NewProduct {
     pub product_name: String,
-    pub product_description: String,
+    pub description: String,
     pub price: BigDecimal,
 }
 
