@@ -34,7 +34,7 @@ fn not_found() -> JsonValue {
 embed_migrations!();
 
 fn main() {
-    embedded_migrations::run_with_output(&db::connect().get().unwrap(), &mut std::io::stdout());
+    embedded_migrations::run_with_output(&db::connect().get().unwrap(), &mut std::io::stdout()).unwrap();
 
     rocket::ignite()
         .manage(db::connect())
