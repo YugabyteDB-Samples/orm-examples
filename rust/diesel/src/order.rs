@@ -46,7 +46,7 @@ pub struct NewUserOrder {
 #[serde(rename_all = "camelCase")]
 pub struct ProductOrder {
     pub product_id: i32,
-    pub quantity: i16,
+    pub units: i16,
 }
 
 impl Order {
@@ -56,15 +56,15 @@ impl Order {
             .iter()
             .flat_map(|product_ref| {
                 Product::read(product_ref.product_id, connection)
-                    .map(|product| (product, product_ref.quantity))
+                    .map(|product| (product, product_ref.units))
             })
             .collect();
 
         let order_total = product_units
             .to_vec()
-            .iter()
+            .into_iter()
             .fold(BigDecimal::from(0.0), |acc, (product, qty)| {
-                acc.add(product.price.clone().mul(BigDecimal::from(qty.clone())))
+                acc.add(product.price.mul(BigDecimal::from(qty)))
             });
 
         if order_total.is_zero() {
@@ -84,11 +84,11 @@ impl Order {
 
             let order_lines: Vec<NewOrderLine> = product_units
                 .to_vec()
-                .iter()
+                .into_iter()
                 .map(|(product, units)| NewOrderLine {
                     order_id: inserted_order.order_id,
                     product_id: product.product_id,
-                    units: units.clone(),
+                    units,
                 })
                 .collect();
 
@@ -120,15 +120,15 @@ impl Order {
             .iter()
             .flat_map(|product_ref| {
                 Product::read(product_ref.product_id, connection)
-                    .map(|product| (product, product_ref.quantity))
+                    .map(|product| (product, product_ref.units))
             })
             .collect();
 
         let order_total = product_units
             .to_vec()
-            .iter()
+            .into_iter()
             .fold(BigDecimal::from(0.0), |acc, (product, qty)| {
-                acc.add(product.price.clone().mul(BigDecimal::from(qty.clone())))
+                acc.add(product.price.mul(BigDecimal::from(qty)))
             });
 
         if order_total.is_zero() {
@@ -149,11 +149,11 @@ impl Order {
 
             let order_lines: Vec<NewOrderLine> = product_units
                 .to_vec()
-                .iter()
+                .into_iter()
                 .map(|(product, units)| NewOrderLine {
                     order_id: inserted_order.order_id,
                     product_id: product.product_id,
-                    units: units.clone(),
+                    units,
                 })
                 .collect();
 
