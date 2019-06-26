@@ -15,7 +15,7 @@ Run the REST API server:
 
 ```
 # Modify connection URL as needed
-$ export DATABASE_URL=postgres://postgres@localhost/ysql_diesel
+$ export DATABASE_URL=postgres://postgres@localhost:5433/ysql_diesel
 
 $ ./target/release/yugadiesel
 ```
