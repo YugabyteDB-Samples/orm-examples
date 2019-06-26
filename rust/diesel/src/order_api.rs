@@ -4,8 +4,9 @@ use crate::db;
 use crate::order::{NewUserOrder, Order};
 
 #[post("/orders", data = "<order>", format = "json")]
-pub fn create_order(order: Json<NewUserOrder>, connection: db::Connection) {
+pub fn create_order(order: Json<NewUserOrder>, connection: db::Connection) -> &'static str {
     Order::create(order.into_inner(), &connection);
+    "TBD"
 }
 
 #[get("/orders")]
