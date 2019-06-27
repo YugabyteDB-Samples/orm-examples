@@ -24,7 +24,7 @@ The REST server will run here: [`http://localhost:8080`](http://localhost:8080)
 # Customizing
 
 There are a number of options that can be customized in the properties file located here:
-[`src/main/resources/application.properties`](https://github.com/YugaByte/orm-examples/blob/master/spring/src/main/resources/application.properties)
+[`src/main/resources/application.properties`](src/main/resources/application.properties)
 
 | Properties    | Description   | Default |
 | ------------- | ------------- | ------- |
