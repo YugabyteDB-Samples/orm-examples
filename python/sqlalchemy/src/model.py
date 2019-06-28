@@ -1,15 +1,11 @@
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Float, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
-import config as cfg
-
 
 Base = declarative_base()
-Base.metadata.schema = 'ysql_sqlalchemy'
 
 class User(Base):
     __tablename__ = 'users'
-    __table_args__ = {"schema": "{0}".format(cfg.schema)}
 
     user_id = Column(Integer, primary_key=True)
     first_name = Column(String)
@@ -32,7 +28,6 @@ class User(Base):
 
 class Order(Base):
     __tablename__ = "orders"
-    __table_args__ = {"schema": "{0}".format(cfg.schema)}
     
     order_id = Column(Integer, primary_key=True)
     user_id = Column(Integer)  
@@ -58,7 +53,6 @@ class Order(Base):
 
 class Product(Base):
     __tablename__ = "products"
-    __table_args__ = {"schema": "{0}".format(cfg.schema)}
     
     product_id = Column(Integer, primary_key=True)
     product_name = Column(String)
@@ -79,7 +73,6 @@ class Product(Base):
 
 class OrderLine(Base):
     __tablename__ = "order_lines"
-    __table_args__ = {"schema": "{0}".format(cfg.schema)}
 
     line_id = Column(Integer, primary_key=True)
     order_id = Column(Integer)
