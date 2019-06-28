@@ -62,9 +62,9 @@ impl Order {
 
         let order_total = product_units
             .clone()
-            .into_iter()
+            .iter()
             .fold(BigDecimal::from(0.0), |acc, (product, qty)| {
-                acc.add(product.price.mul(BigDecimal::from(qty)))
+                acc.add(BigDecimal::from(*qty).mul(&product.price))
             });
 
         if order_total.is_zero() {
@@ -87,11 +87,11 @@ impl Order {
 
                 let order_lines: Vec<NewOrderLine> = product_units
                     .clone()
-                    .into_iter()
+                    .iter()
                     .map(|(product, units)| NewOrderLine {
                         order_id: inserted_order.order_id.clone(),
                         product_id: product.product_id,
-                        units,
+                        units: units.clone(),
                     })
                     .collect();
 
@@ -127,9 +127,9 @@ impl Order {
 
         let order_total = product_units
             .clone()
-            .into_iter()
+            .iter()
             .fold(BigDecimal::from(0.0), |acc, (product, qty)| {
-                acc.add(product.price.mul(BigDecimal::from(qty)))
+                acc.add(BigDecimal::from(*qty).mul(&product.price))
             });
 
         if order_total.is_zero() {
@@ -152,12 +152,11 @@ impl Order {
                     .get_result(connection)?;
 
                 let order_lines: Vec<NewOrderLine> = product_units
-                    .clone()
-                    .into_iter()
+                    .iter()
                     .map(|(product, units)| NewOrderLine {
                         order_id: inserted_order.order_id,
                         product_id: product.product_id,
-                        units,
+                        units: *units,
                     })
                     .collect();
 
