@@ -26,7 +26,7 @@ pub fn read_users(connection: db::Connection) -> Json<UsersResponse> {
 
 #[get("/users/<user_id>")]
 pub fn read_user(user_id: i32, connection: db::Connection) -> Option<Json<User>> {
-    User::read(user_id, &connection).map(|user| Json(user))
+    User::read(user_id, &connection).map(Json)
 }
 
 #[put("/users/<user_id>", data = "<user>", format = "json")]

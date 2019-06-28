@@ -6,9 +6,11 @@ Build the REST API server (written using Diesel and Rocket) as follows:
 $ cargo build --release
 ```
 
+If you encounter build failure, install `libpq` and try again
+
 Create the DB named `ysql_diesel`
 ```
-$ createdb ysql_diesel
+$ createdb -p 5433 ysql_diesel
 ```
 
 Run the REST API server:

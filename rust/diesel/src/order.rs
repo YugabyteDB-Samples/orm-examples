@@ -2,13 +2,13 @@ use bigdecimal::BigDecimal;
 use diesel;
 use diesel::pg::PgConnection;
 use diesel::prelude::*;
+use num_traits::identities::Zero;
 use serde::{Deserialize, Serialize};
 use std::ops::{Add, Mul};
 
 use crate::product::Product;
 use crate::schema::order_lines;
 use crate::schema::orders;
-use num_traits::identities::Zero;
 
 #[derive(AsChangeset, Serialize, Deserialize, Queryable, Insertable)]
 #[serde(rename_all = "camelCase")]
@@ -50,7 +50,7 @@ pub struct ProductOrder {
 }
 
 impl Order {
-    pub fn create(order: NewUserOrder, connection: &PgConnection) -> Option<NewUserOrder> {
+    pub fn create(order: NewUserOrder, connection: &PgConnection) -> Option<Order> {
         let product_units: Vec<(Product, i16)> = order
             .products
             .iter()
@@ -61,10 +61,10 @@ impl Order {
             .collect();
 
         let order_total = product_units
-            .to_vec()
-            .into_iter()
+            .clone()
+            .iter()
             .fold(BigDecimal::from(0.0), |acc, (product, qty)| {
-                acc.add(product.price.mul(BigDecimal::from(qty)))
+                acc.add(BigDecimal::from(*qty).mul(&product.price))
             });
 
         if order_total.is_zero() {
@@ -76,28 +76,32 @@ impl Order {
             order_total,
         };
 
-        let insert_result = connection.build_transaction().read_write().run(|| {
-            let inserted_order: Order = diesel::insert_into(orders::table)
-                .values(&row)
-                .get_result(connection)
-                .unwrap();
+        let insert_result = connection
+            .build_transaction()
+            .serializable()
+            .read_write()
+            .run(|| {
+                let inserted_order: Order = diesel::insert_into(orders::table)
+                    .values(&row)
+                    .get_result(connection)?;
 
-            let order_lines: Vec<NewOrderLine> = product_units
-                .to_vec()
-                .into_iter()
-                .map(|(product, units)| NewOrderLine {
-                    order_id: inserted_order.order_id,
-                    product_id: product.product_id,
-                    units,
-                })
-                .collect();
+                let order_lines: Vec<NewOrderLine> = product_units
+                    .clone()
+                    .iter()
+                    .map(|(product, units)| NewOrderLine {
+                        order_id: inserted_order.order_id.clone(),
+                        product_id: product.product_id,
+                        units: units.clone(),
+                    })
+                    .collect();
 
-            diesel::insert_into(order_lines::table)
-                .values(order_lines)
-                .execute(connection)
-        });
+                diesel::insert_into(order_lines::table)
+                    .values(order_lines)
+                    .execute(connection)
+                    .map(|_| inserted_order)
+            });
 
-        insert_result.map(|_| order).ok()
+        insert_result.ok()
     }
 
     pub fn read_all(connection: &PgConnection) -> Vec<Order> {
@@ -108,10 +112,7 @@ impl Order {
     }
 
     pub fn read(id: i32, connection: &PgConnection) -> Option<Order> {
-        orders::table
-            .filter(orders::order_id.eq(id))
-            .first::<Order>(connection)
-            .ok()
+        orders::table.find(id).get_result(connection).ok()
     }
 
     pub fn update(id: i32, order: NewUserOrder, connection: &PgConnection) -> Option<NewUserOrder> {
@@ -125,10 +126,10 @@ impl Order {
             .collect();
 
         let order_total = product_units
-            .to_vec()
-            .into_iter()
+            .clone()
+            .iter()
             .fold(BigDecimal::from(0.0), |acc, (product, qty)| {
-                acc.add(product.price.mul(BigDecimal::from(qty)))
+                acc.add(BigDecimal::from(*qty).mul(&product.price))
             });
 
         if order_total.is_zero() {
@@ -141,26 +142,28 @@ impl Order {
             order_total,
         };
 
-        let update_result = connection.build_transaction().read_write().run(|| {
-            let inserted_order: Order = diesel::update(orders::table.find(id))
-                .set(&row)
-                .get_result(connection)
-                .unwrap();
+        let update_result = connection
+            .build_transaction()
+            .serializable()
+            .read_write()
+            .run(|| {
+                let inserted_order: Order = diesel::update(orders::table.find(id))
+                    .set(&row)
+                    .get_result(connection)?;
 
-            let order_lines: Vec<NewOrderLine> = product_units
-                .to_vec()
-                .into_iter()
-                .map(|(product, units)| NewOrderLine {
-                    order_id: inserted_order.order_id,
-                    product_id: product.product_id,
-                    units,
-                })
-                .collect();
+                let order_lines: Vec<NewOrderLine> = product_units
+                    .iter()
+                    .map(|(product, units)| NewOrderLine {
+                        order_id: inserted_order.order_id,
+                        product_id: product.product_id,
+                        units: *units,
+                    })
+                    .collect();
 
-            diesel::insert_into(order_lines::table)
-                .values(order_lines)
-                .execute(connection)
-        });
+                diesel::insert_into(order_lines::table)
+                    .values(order_lines)
+                    .execute(connection)
+            });
 
         update_result.map(|_| order).ok()
     }
