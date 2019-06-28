@@ -27,11 +27,11 @@ pub struct ProductView {
 #[get("/products")]
 pub fn read_products(connection: db::Connection) -> Json<ProductsResponse> {
     let product_views = Product::read_all(&connection)
-        .iter()
+        .into_iter()
         .map(|prod| ProductView {
-            product_id: prod.product_id.clone(),
-            product_name: prod.product_name.clone(),
-            price: prod.price.clone(),
+            product_id: prod.product_id,
+            product_name: prod.product_name,
+            price: prod.price,
         })
         .collect();
 
@@ -44,7 +44,7 @@ pub fn read_products(connection: db::Connection) -> Json<ProductsResponse> {
 
 #[get("/products/<product_id>")]
 pub fn read_product(product_id: i32, connection: db::Connection) -> Option<Json<Product>> {
-    Product::read(product_id, &connection).map(|product| Json(product))
+    Product::read(product_id, &connection).map(Json)
 }
 
 #[put("/products/<product_id>", data = "<product>", format = "json")]

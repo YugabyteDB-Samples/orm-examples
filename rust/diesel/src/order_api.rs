@@ -16,7 +16,7 @@ pub fn read_orders(connection: db::Connection) -> Json<Vec<Order>> {
 
 #[get("/orders/<order_id>")]
 pub fn read_order(order_id: i32, connection: db::Connection) -> Option<Json<Order>> {
-    Order::read(order_id, &connection).map(|order| Json(order))
+    Order::read(order_id, &connection).map(Json)
 }
 
 #[put("/orders/<order_id>", data = "<order>", format = "json")]

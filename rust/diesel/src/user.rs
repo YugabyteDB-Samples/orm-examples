@@ -25,11 +25,10 @@ pub struct NewUser {
 
 impl User {
     pub fn create(user: NewUser, connection: &PgConnection) -> User {
-        let insert_result = diesel::insert_into(users::table)
+        diesel::insert_into(users::table)
             .values(&user)
-            .get_result(connection);
-
-        insert_result.map(|user| user).unwrap()
+            .get_result(connection)
+            .unwrap()
     }
 
     pub fn read_all(connection: &PgConnection) -> Vec<User> {
@@ -40,10 +39,7 @@ impl User {
     }
 
     pub fn read(id: i32, connection: &PgConnection) -> Option<User> {
-        users::table
-            .filter(users::user_id.eq(id))
-            .first::<User>(connection)
-            .ok()
+        users::table.find(id).get_result(connection).ok()
     }
 
     pub fn update(id: i32, user: User, connection: &PgConnection) -> Option<User> {
