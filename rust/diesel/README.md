@@ -10,7 +10,7 @@ If you encounter build failure, install `libpq` and try again
 
 Create the DB named `ysql_diesel`
 ```
-$ createdb -p 5433 ysql_diesel
+$ ysqlsh -c "CREATE DATABASE ysql_diesel"
 ```
 
 Run the REST API server:
@@ -22,7 +22,7 @@ $ export DATABASE_URL=postgres://postgres@localhost:5433/ysql_diesel
 $ ./target/release/yugadiesel
 ```
 
-**NOTE:** If you need to clean and rebuild the project, run the folowing command before rebuilding.
+**NOTE:** If you need to clean and rebuild the project, run the following command before rebuilding.
 
 ```
 $ cargo clean
