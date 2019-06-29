@@ -61,7 +61,6 @@ impl Order {
             .collect();
 
         let order_total = product_units
-            .clone()
             .iter()
             .fold(BigDecimal::from(0.0), |acc, (product, qty)| {
                 acc.add(BigDecimal::from(*qty).mul(&product.price))
@@ -86,7 +85,6 @@ impl Order {
                     .get_result(connection)?;
 
                 let order_lines: Vec<NewOrderLine> = product_units
-                    .clone()
                     .iter()
                     .map(|(product, units)| NewOrderLine {
                         order_id: inserted_order.order_id.clone(),

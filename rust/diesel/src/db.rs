@@ -1,4 +1,5 @@
 use diesel::pg::PgConnection;
+use diesel::query_dsl::RunQueryDsl;
 use diesel::r2d2::{ConnectionManager, Pool, PooledConnection};
 use rocket::http::Status;
 use rocket::request::{self, FromRequest};
@@ -22,8 +23,15 @@ impl<'a, 'r> FromRequest<'a, 'r> for Connection {
 
     fn from_request(request: &'a Request<'r>) -> request::Outcome<Self, Self::Error> {
         let pool = request.guard::<State<PgPool>>()?;
+
         match pool.get() {
-            Ok(conn) => Outcome::Success(Connection(conn)),
+            Ok(conn) => diesel::sql_query(
+                "SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE",
+            )
+            .execute(&conn)
+            .map(|_| Outcome::Success(Connection(conn)))
+            .unwrap_or(Outcome::Failure((Status::InternalServerError, ()))),
+
             Err(_) => Outcome::Failure((Status::ServiceUnavailable, ())),
         }
     }
