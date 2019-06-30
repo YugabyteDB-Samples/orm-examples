@@ -1,4 +1,5 @@
 use rocket_contrib::json::Json;
+use serde::Serialize;
 
 use crate::db;
 use crate::order::{NewUserOrder, Order};
@@ -9,9 +10,19 @@ pub fn create_order(order: Json<NewUserOrder>, connection: db::Connection) -> &'
     "TBD"
 }
 
+#[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
+pub struct OrdersResponse {
+    content: Vec<Order>,
+}
+
 #[get("/orders")]
-pub fn read_orders(connection: db::Connection) -> Json<Vec<Order>> {
-    Json(Order::read_all(&connection))
+pub fn read_orders(connection: db::Connection) -> Json<OrdersResponse> {
+    let response = OrdersResponse {
+        content: Order::read_all(&connection),
+    };
+
+    Json(response)
 }
 
 #[get("/orders/<order_id>")]
