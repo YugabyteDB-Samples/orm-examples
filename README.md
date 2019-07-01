@@ -23,6 +23,8 @@ By default, the REST API server listens on `localhost` port `8080`.
 | [NodeJS - Sequelize](https://github.com/YugaByte/orm-examples/blob/master/node/sequelize)  | Sequelize   |
 | [Python - SQLAlchemy](https://github.com/YugaByte/orm-examples/blob/master/python/sqlalchemy)  | SQL Alchemy   |
 | [Ruby on Rails - ActiveRecord](https://github.com/YugaByte/orm-examples/tree/master/ruby/ror)  | ActiveRecord   |
+| [Rust - Diesel](https://github.com/YugaByte/orm-examples/blob/master/rust/diesel)  | Rust Diesel   |
+
 
 
 ## Step 3. Create a user
