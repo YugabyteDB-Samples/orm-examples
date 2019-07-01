@@ -62,14 +62,7 @@ impl Order {
                     .values(&row)
                     .get_result(connection)?;
 
-                let order_lines: Vec<NewOrderLine> = product_units
-                    .iter()
-                    .map(|(product, units)| NewOrderLine {
-                        order_id: inserted_order.order_id,
-                        product_id: product.product_id,
-                        units: *units,
-                    })
-                    .collect();
+                let order_lines = Self::create_order_lines(&inserted_order, product_units);
 
                 diesel::insert_into(order_lines::table)
                     .values(order_lines)
@@ -109,14 +102,7 @@ impl Order {
                     .set(&row)
                     .get_result(connection)?;
 
-                let order_lines: Vec<NewOrderLine> = product_units
-                    .iter()
-                    .map(|(product, units)| NewOrderLine {
-                        order_id: inserted_order.order_id,
-                        product_id: product.product_id,
-                        units: *units,
-                    })
-                    .collect();
+                let order_lines = Self::create_order_lines(&inserted_order, product_units);
 
                 diesel::insert_into(order_lines::table)
                     .values(order_lines)
@@ -137,7 +123,6 @@ impl Order {
             .collect();
 
         let order_total = product_units
-            .clone()
             .iter()
             .fold(BigDecimal::from(0.0), |acc, (product, qty)| {
                 acc.add(BigDecimal::from(*qty).mul(&product.price))
@@ -153,6 +138,17 @@ impl Order {
         };
 
         Some((new_order, product_units))
+    }
+
+    fn create_order_lines(order: &Order, product_units: Vec<(Product, i16)>) -> Vec<NewOrderLine> {
+        product_units
+            .iter()
+            .map(|(product, units)| NewOrderLine {
+                order_id: order.order_id,
+                product_id: product.product_id,
+                units: *units,
+            })
+            .collect()
     }
 
     pub fn delete(id: i32, connection: &PgConnection) -> bool {
