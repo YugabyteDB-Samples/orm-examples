@@ -51,29 +51,7 @@ pub struct ProductOrder {
 
 impl Order {
     pub fn create(order: NewUserOrder, connection: &PgConnection) -> Option<Order> {
-        let product_units: Vec<(Product, i16)> = order
-            .products
-            .iter()
-            .flat_map(|product_ref| {
-                Product::read(product_ref.product_id, connection)
-                    .map(|product| (product, product_ref.units))
-            })
-            .collect();
-
-        let order_total = product_units
-            .iter()
-            .fold(BigDecimal::from(0.0), |acc, (product, qty)| {
-                acc.add(BigDecimal::from(*qty).mul(&product.price))
-            });
-
-        if order_total.is_zero() {
-            return None;
-        }
-
-        let row = NewOrder {
-            user_id: order.user_id,
-            order_total,
-        };
+        let (row, product_units) = Self::create_new_order(&order, connection)?;
 
         let insert_result = connection
             .build_transaction()
@@ -87,9 +65,9 @@ impl Order {
                 let order_lines: Vec<NewOrderLine> = product_units
                     .iter()
                     .map(|(product, units)| NewOrderLine {
-                        order_id: inserted_order.order_id.clone(),
+                        order_id: inserted_order.order_id,
                         product_id: product.product_id,
-                        units: units.clone(),
+                        units: *units,
                     })
                     .collect();
 
@@ -114,30 +92,12 @@ impl Order {
     }
 
     pub fn update(id: i32, order: NewUserOrder, connection: &PgConnection) -> Option<NewUserOrder> {
-        let product_units: Vec<(Product, i16)> = order
-            .products
-            .iter()
-            .flat_map(|product_ref| {
-                Product::read(product_ref.product_id, connection)
-                    .map(|product| (product, product_ref.units))
-            })
-            .collect();
-
-        let order_total = product_units
-            .clone()
-            .iter()
-            .fold(BigDecimal::from(0.0), |acc, (product, qty)| {
-                acc.add(BigDecimal::from(*qty).mul(&product.price))
-            });
-
-        if order_total.is_zero() {
-            return None;
-        }
+        let (new_order, product_units) = Self::create_new_order(&order, connection)?;
 
         let row = Order {
-            user_id: order.user_id,
             order_id: id,
-            order_total,
+            user_id: new_order.user_id,
+            order_total: new_order.order_total
         };
 
         let update_result = connection
@@ -164,6 +124,35 @@ impl Order {
             });
 
         update_result.map(|_| order).ok()
+    }
+
+    fn create_new_order(order: &NewUserOrder, connection: &PgConnection) -> Option<(NewOrder, Vec<(Product, i16)>)> {
+        let product_units: Vec<(Product, i16)> = order
+            .products
+            .iter()
+            .flat_map(|product_ref| {
+                Product::read(product_ref.product_id, connection)
+                    .map(|product| (product, product_ref.units))
+            })
+            .collect();
+
+        let order_total = product_units
+            .clone()
+            .iter()
+            .fold(BigDecimal::from(0.0), |acc, (product, qty)| {
+                acc.add(BigDecimal::from(*qty).mul(&product.price))
+            });
+
+        if order_total.is_zero() {
+            return None;
+        }
+
+        let new_order = NewOrder {
+            user_id: order.user_id,
+            order_total,
+        };
+
+        Some((new_order, product_units))
     }
 
     pub fn delete(id: i32, connection: &PgConnection) -> bool {
