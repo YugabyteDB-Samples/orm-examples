@@ -30,9 +30,9 @@ pub fn read_user(user_id: i32, connection: db::Connection) -> Option<Json<User>>
 }
 
 #[put("/users/<user_id>", data = "<user>", format = "json")]
-pub fn update_user(user_id: i32, user: Json<User>, connection: db::Connection) -> Json<User> {
-    let updated_user = User::update(user_id, user.into_inner(), &connection).unwrap();
-    Json(updated_user)
+pub fn update_user(user_id: i32, user: Json<User>, connection: db::Connection) -> Option<Json<User>> {
+    let updated_user = User::update(user_id, user.into_inner(), &connection);
+    updated_user.map(Json)
 }
 
 #[delete("/users/<user_id>")]

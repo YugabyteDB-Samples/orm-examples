@@ -52,9 +52,9 @@ pub fn update_product(
     product_id: i32,
     product: Json<Product>,
     connection: db::Connection,
-) -> Json<Product> {
-    let updated_product = Product::update(product_id, product.into_inner(), &connection).unwrap();
-    Json(updated_product)
+) -> Option<Json<Product>> {
+    let updated_product = Product::update(product_id, product.into_inner(), &connection);
+    updated_product.map(Json)
 }
 
 #[delete("/products/<product_id>")]

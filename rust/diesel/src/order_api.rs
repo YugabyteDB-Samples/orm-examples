@@ -35,9 +35,9 @@ pub fn update_order(
     order_id: i32,
     order: Json<NewUserOrder>,
     connection: db::Connection,
-) -> Json<NewUserOrder> {
-    let updated_order = Order::update(order_id, order.into_inner(), &connection).unwrap();
-    Json(updated_order)
+) -> Option<Json<NewUserOrder>> {
+    let updated_order = Order::update(order_id, order.into_inner(), &connection);
+    updated_order.map(Json)
 }
 
 #[delete("/orders/<order_id>")]
