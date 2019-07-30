@@ -11,6 +11,8 @@ extern crate diesel_migrations;
 
 use rocket_contrib::json::JsonValue;
 
+mod api;
+
 mod db;
 mod schema;
 
@@ -28,6 +30,14 @@ fn not_found() -> JsonValue {
     json!({
         "status": "NotFound",
         "reason": "Resource was not found."
+    })
+}
+
+#[catch(500)]
+fn internal_error() -> JsonValue {
+    json!({
+        "status": "InternalServerError",
+        "reason": "Error occurred, try again."
     })
 }
 
@@ -59,6 +69,6 @@ fn main() {
                 order_api::delete_order
             ],
         )
-        .register(catchers![not_found])
+        .register(catchers![internal_error, not_found])
         .launch();
 }

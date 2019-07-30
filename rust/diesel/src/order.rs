@@ -90,7 +90,7 @@ impl Order {
         let row = Order {
             order_id: id,
             user_id: new_order.user_id,
-            order_total: new_order.order_total
+            order_total: new_order.order_total,
         };
 
         let update_result = connection
@@ -112,7 +112,10 @@ impl Order {
         update_result.map(|_| order).ok()
     }
 
-    fn create_new_order(order: &NewUserOrder, connection: &PgConnection) -> Option<(NewOrder, Vec<(Product, i16)>)> {
+    fn create_new_order(
+        order: &NewUserOrder,
+        connection: &PgConnection,
+    ) -> Option<(NewOrder, Vec<(Product, i16)>)> {
         let product_units: Vec<(Product, i16)> = order
             .products
             .iter()

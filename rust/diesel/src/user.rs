@@ -24,29 +24,38 @@ pub struct NewUser {
 }
 
 impl User {
-    pub fn create(user: NewUser, connection: &PgConnection) -> User {
+    pub fn create(user: NewUser, connection: &PgConnection) -> Result<User, String> {
         diesel::insert_into(users::table)
             .values(&user)
             .get_result(connection)
-            .unwrap()
+            .map_err(|err| err.to_string())
     }
 
-    pub fn read_all(connection: &PgConnection) -> Vec<User> {
+    pub fn read_all(connection: &PgConnection) -> Result<Vec<User>, String> {
         users::table
             .order(users::user_id)
             .load::<User>(connection)
-            .unwrap()
+            .map_err(|err| err.to_string())
     }
 
-    pub fn read(id: i32, connection: &PgConnection) -> Option<User> {
-        users::table.find(id).get_result(connection).ok()
+    pub fn read(id: i32, connection: &PgConnection) -> Result<Option<User>, String> {
+        match users::table.find(id).first(connection) {
+            Ok(user) => Ok(Some(user)),
+            Err(diesel::result::Error::NotFound) => Ok(None),
+            Err(err) => Err(err.to_string()),
+        }
     }
 
-    pub fn update(id: i32, user: User, connection: &PgConnection) -> Option<User> {
+    pub fn update(id: i32, user: User, connection: &PgConnection) -> Result<Option<User>, String> {
         let update_result = diesel::update(users::table.find(id))
             .set(&user)
             .execute(connection);
-        update_result.map(|_| user).ok()
+
+        match update_result {
+            Err(diesel::result::Error::NotFound) | Ok(0) => Ok(None),
+            Err(err) => Err(err.to_string()),
+            Ok(_) => Ok(Some(user)),
+        }
     }
 
     pub fn delete(id: i32, connection: &PgConnection) -> bool {
