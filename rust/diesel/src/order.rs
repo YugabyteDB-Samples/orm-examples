@@ -126,20 +126,23 @@ impl Order {
         order: &NewUserOrder,
         connection: &PgConnection,
     ) -> Result<(NewOrder, Vec<(Product, i16)>), String> {
-        let product_units: Vec<(Product, i16)> = order
-            .products
-            .iter()
-            .flat_map(|product_ref| {
-                let ret: Vec<(Product, i16)> = Product::read(product_ref.product_id, connection)
-                    .into_iter()
-                    .flat_map(|maybe_product| {
-                        maybe_product.map(|product| (product, product_ref.units))
-                    })
-                    .collect();
+        let product_units: Vec<(Product, i16)> = {
+            let result: Result<Vec<(Product, i16)>, String> = order
+                .products
+                .iter()
+                .map(
+                    |product_ref| match Product::read(product_ref.product_id, connection)? {
+                        None => Err(format!(
+                            "Product with id {} does not exist",
+                            product_ref.product_id
+                        )),
+                        Some(product) => Ok((product, product_ref.units)),
+                    },
+                )
+                .collect();
 
-                ret
-            })
-            .collect();
+            result?
+        };
 
         let order_total = product_units
             .iter()
