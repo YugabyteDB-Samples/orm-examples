@@ -88,6 +88,13 @@ pub fn update_product(
 }
 
 #[delete("/products/<product_id>")]
-pub fn delete_product(product_id: i32, connection: db::Connection) {
-    Product::delete(product_id, &connection);
+pub fn delete_product(product_id: i32, connection: db::Connection) -> Result<Option<()>, ApiError> {
+    match Product::delete(product_id, &connection) {
+        Ok(true) => Ok(Some(())),
+        Ok(false) => Err(ApiError::NotFound),
+        Err(err) => {
+            error!("Unable to delete product - {}", err);
+            Err(ApiError::InternalServerError)
+        }
+    }
 }

@@ -65,6 +65,13 @@ pub fn update_user(
 }
 
 #[delete("/users/<user_id>")]
-pub fn delete_user(user_id: i32, connection: db::Connection) {
-    User::delete(user_id, &connection);
+pub fn delete_user(user_id: i32, connection: db::Connection) -> Result<Option<()>, ApiError> {
+    match User::delete(user_id, &connection) {
+        Ok(true) => Ok(Some(())),
+        Ok(false) => Err(ApiError::NotFound),
+        Err(err) => {
+            error!("Unable to delete user - {}", err);
+            Err(ApiError::InternalServerError)
+        }
+    }
 }

@@ -12,7 +12,6 @@ extern crate diesel_migrations;
 use rocket_contrib::json::JsonValue;
 
 mod api;
-
 mod db;
 mod schema;
 

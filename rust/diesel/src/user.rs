@@ -58,9 +58,10 @@ impl User {
         }
     }
 
-    pub fn delete(id: i32, connection: &PgConnection) -> bool {
+    pub fn delete(id: i32, connection: &PgConnection) -> Result<bool, String> {
         diesel::delete(users::table.find(id))
             .execute(connection)
-            .is_ok()
+            .map(|aff_rows| aff_rows > 0)
+            .map_err(|err| err.to_string())
     }
 }
