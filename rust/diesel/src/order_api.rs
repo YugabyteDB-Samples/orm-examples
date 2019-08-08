@@ -65,9 +65,9 @@ pub fn update_order(
 }
 
 #[delete("/orders/<order_id>")]
-pub fn delete_order(order_id: i32, connection: db::Connection) -> Result<Option<()>, ApiError> {
+pub fn delete_order(order_id: i32, connection: db::Connection) -> Result<(), ApiError> {
     match Order::delete(order_id, &connection) {
-        Ok(true) => Ok(Some(())),
+        Ok(true) => Ok(()),
         Ok(false) => Err(ApiError::NotFound),
         Err(err) => {
             error!("Unable to delete user - {}", err);
