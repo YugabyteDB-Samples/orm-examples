@@ -6,7 +6,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::schema::products;
 
-#[derive(AsChangeset, Serialize, Deserialize, Queryable, Insertable, Clone)]
+#[derive(AsChangeset, Serialize, Deserialize, Queryable, Insertable, Identifiable, Clone)]
+#[primary_key(product_id)]
 #[serde(rename_all = "camelCase")]
 pub struct Product {
     pub product_id: i32,
@@ -48,11 +49,11 @@ impl Product {
     }
 
     pub fn update(
-        id: i32,
+        _: i32,
         product: Product,
         connection: &PgConnection,
     ) -> Result<Option<Product>, String> {
-        let update_result = diesel::update(products::table.find(id))
+        let update_result = diesel::update(&product)
             .set(&product)
             .execute(connection);
 

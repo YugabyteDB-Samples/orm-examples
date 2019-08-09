@@ -5,7 +5,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::schema::users;
 
-#[derive(AsChangeset, Serialize, Deserialize, Queryable, Insertable)]
+#[derive(AsChangeset, Serialize, Deserialize, Queryable, Insertable, Identifiable)]
+#[primary_key(user_id)]
 #[serde(rename_all = "camelCase")]
 pub struct User {
     pub user_id: i32,
@@ -46,8 +47,8 @@ impl User {
         }
     }
 
-    pub fn update(id: i32, user: User, connection: &PgConnection) -> Result<Option<User>, String> {
-        let update_result = diesel::update(users::table.find(id))
+    pub fn update(_: i32, user: User, connection: &PgConnection) -> Result<Option<User>, String> {
+        let update_result = diesel::update(&user)
             .set(&user)
             .execute(connection);
 

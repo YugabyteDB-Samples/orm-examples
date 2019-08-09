@@ -10,7 +10,8 @@ use crate::product::Product;
 use crate::schema::order_lines;
 use crate::schema::orders;
 
-#[derive(AsChangeset, Serialize, Deserialize, Queryable, Insertable)]
+#[derive(AsChangeset, Serialize, Deserialize, Queryable, Insertable, Identifiable)]
+#[primary_key(order_id)]
 #[serde(rename_all = "camelCase")]
 pub struct Order {
     pub order_id: i32,
@@ -104,7 +105,7 @@ impl Order {
             .serializable()
             .read_write()
             .run(|| {
-                let inserted_order: Order = diesel::update(orders::table.find(id))
+                let inserted_order: Order = diesel::update(&row)
                     .set(&row)
                     .get_result(connection)?;
 
