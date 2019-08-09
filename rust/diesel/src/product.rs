@@ -25,34 +25,48 @@ pub struct NewProduct {
 }
 
 impl Product {
-    pub fn create(product: NewProduct, connection: &PgConnection) -> Product {
+    pub fn create(product: NewProduct, connection: &PgConnection) -> Result<Product, String> {
         diesel::insert_into(products::table)
             .values(&product)
             .get_result(connection)
-            .unwrap()
+            .map_err(|err| err.to_string())
     }
 
-    pub fn read_all(connection: &PgConnection) -> Vec<Product> {
+    pub fn read_all(connection: &PgConnection) -> Result<Vec<Product>, String> {
         products::table
             .order(products::product_id)
             .load::<Product>(connection)
-            .unwrap()
+            .map_err(|err| err.to_string())
     }
 
-    pub fn read(id: i32, connection: &PgConnection) -> Option<Product> {
-        products::table.find(id).get_result(connection).ok()
+    pub fn read(id: i32, connection: &PgConnection) -> Result<Option<Product>, String> {
+        match products::table.find(id).first(connection) {
+            Ok(product) => Ok(Some(product)),
+            Err(diesel::result::Error::NotFound) => Ok(None),
+            Err(err) => Err(err.to_string()),
+        }
     }
 
-    pub fn update(id: i32, product: Product, connection: &PgConnection) -> Option<Product> {
+    pub fn update(
+        id: i32,
+        product: Product,
+        connection: &PgConnection,
+    ) -> Result<Option<Product>, String> {
         let update_result = diesel::update(products::table.find(id))
             .set(&product)
             .execute(connection);
-        update_result.map(|_| product).ok()
+
+        match update_result {
+            Err(diesel::result::Error::NotFound) | Ok(0) => Ok(None),
+            Err(err) => Err(err.to_string()),
+            Ok(_) => Ok(Some(product)),
+        }
     }
 
-    pub fn delete(id: i32, connection: &PgConnection) -> bool {
+    pub fn delete(id: i32, connection: &PgConnection) -> Result<bool, String> {
         diesel::delete(products::table.find(id))
             .execute(connection)
-            .is_ok()
+            .map(|aff_rows| aff_rows > 0)
+            .map_err(|err| err.to_string())
     }
 }
