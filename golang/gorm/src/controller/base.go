@@ -20,6 +20,11 @@ func init() {
 		panic(err)
 	}
 
+	err = dbConn.Exec("SET SESSION CHARACTERISTICS AS TRANSACTION ISOLATION LEVEL SERIALIZABLE").Error
+	if err != nil {
+		panic(err)
+	}
+
 	dbConn.Debug().AutoMigrate(&model.User{}, &model.Product{}, &model.Order{}, &model.OrderLine{})
 
 	dbConn.Model(&model.OrderLine{}).AddForeignKey("order_id", "orders(order_id)", "CASCADE", "CASCADE")
