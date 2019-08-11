@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "users", schema = "ysql_hibernate")
+@Table(name = "users")
 public class User {
 
     @Id
