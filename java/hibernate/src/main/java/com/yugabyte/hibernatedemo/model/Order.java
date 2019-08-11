@@ -4,7 +4,7 @@ import java.util.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "orders", schema = "ysql_hibernate")
+@Table(name = "orders")
 public class Order {
 
     @Id
