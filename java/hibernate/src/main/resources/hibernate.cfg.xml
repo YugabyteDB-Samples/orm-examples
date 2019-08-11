@@ -13,6 +13,7 @@
         <property name="show_sql">true</property>
         <property name="generate-ddl">true</property>
         <property name="hibernate.ddl-auto">generate</property>
+        <property name="hibernate.connection.isolation">8</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="javax.persistence.create-database-schemas">true</property>
         <mapping class="com.yugabyte.hibernatedemo.model.User"/>
