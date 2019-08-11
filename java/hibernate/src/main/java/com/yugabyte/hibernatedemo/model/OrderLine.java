@@ -10,7 +10,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "orderline", schema = "ysql_hibernate")
+@Table(name = "orderline")
 @IdClass(OrderLine.IdClass.class)
 public class OrderLine {
 
