@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5433/yugabyte</property>
+        <property name="hibernate.connection.username">yugabyte</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="show_sql">true</property>
+        <property name="generate-ddl">true</property>
+        <property name="hibernate.ddl-auto">generate</property>
+        <property name="hibernate.connection.isolation">8</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="javax.persistence.create-database-schemas">true</property>
+        <mapping class="com.yugabyte.hibernatedemo.model.User"/>
+        <mapping class="com.yugabyte.hibernatedemo.model.Product"/>
+        <mapping class="com.yugabyte.hibernatedemo.model.Order"/>
+        <mapping class="com.yugabyte.hibernatedemo.model.OrderLine"/>
+    </session-factory>
+</hibernate-configuration>
