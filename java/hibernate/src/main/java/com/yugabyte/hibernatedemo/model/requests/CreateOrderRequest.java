@@ -6,7 +6,7 @@ public class CreateOrderRequest {
 
     public static class OrderDetails {
         private Long productId;
-        private Integer quantity;
+        private Integer units;
 
         public Long getProductId() {
             return productId;
@@ -17,11 +17,11 @@ public class CreateOrderRequest {
         }
 
         public Integer getQuantity() {
-            return quantity;
+            return units;
         }
 
         public void setQuantity(Integer quantity) {
-            this.quantity = quantity;
+            this.units = quantity;
         }
     }
 

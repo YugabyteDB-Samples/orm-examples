@@ -3,7 +3,7 @@
 Build the REST API server (written using core Java code) as follows:
 
 ```
-$ mvn -DskipTests package
+$ mvn -DskipTests clean package
 ```
 
 Run the REST API server:
@@ -12,16 +12,9 @@ Run the REST API server:
 $ mvn exec:java -Dexec.mainClass=com.yugabyte.hibernatedemo.server.BasicHttpServer
 ```
 
-**NOTE:** If you need to clean and rebuild the project, run the folowing command before rebuilding.
-
-```
-$ mvn clean
-```
-
-
 The REST server will run here: [`http://localhost:8080`](http://localhost:8080)
 
-# Customizing
+### Customizing
 
 There are a number of options that can be customized in the properties file located here:
 [`src/main/resources/application.properties`](https://github.com/YugaByte/orm-examples/blob/master/hibernate/src/main/resources/application.properties)

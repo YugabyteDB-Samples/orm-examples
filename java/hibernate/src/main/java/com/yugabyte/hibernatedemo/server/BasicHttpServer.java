@@ -46,10 +46,7 @@ public class BasicHttpServer {
                 .setHandler(BasicHttpServer::handleUsersRequest);
 
         server.createContext("/products")
-                .setHandler(BasicHttpServer::handleCreateProduct);
-
-        server.createContext("/list-products")
-                .setHandler(BasicHttpServer::handleListProducts);
+                .setHandler(BasicHttpServer::handleProductRequest);
 
         server.createContext("/orders")
                 .setHandler(BasicHttpServer::handleCreateOrder);
@@ -65,6 +62,15 @@ public class BasicHttpServer {
     private static void handleRootRequest(final HttpExchange exchange) throws IOException {
         exchange.sendResponseHeaders(404, 0);
         exchange.close();
+    }
+    
+    private static void handleProductRequest(final HttpExchange exchange) throws IOException {
+
+        if (exchange.getRequestMethod().equals("POST")) {
+        	handleCreateProduct(exchange);
+        } else {
+        	handleListProducts(exchange);
+        }
     }
 
     private static void handleUsersRequest(final HttpExchange exchange) throws IOException {
