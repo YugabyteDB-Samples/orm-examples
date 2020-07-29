@@ -1,8 +1,17 @@
+# Prerequisites
+
+ysqlsh is installed and added to PATH
+
 # Build and run
 
 Install depedencies by running:
 ```
 $ npm install
+```
+
+Create Database
+```
+ysqlsh -c "CREATE DATABASE ysql_sequelize"
 ```
 
 To run, simply do:
