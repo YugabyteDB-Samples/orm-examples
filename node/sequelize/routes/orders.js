@@ -1,3 +1,4 @@
+'use strict';
 var express = require('express');
 var router = express.Router();
 
@@ -9,7 +10,7 @@ router.get('/', function(req, res, next) {
 	models.orders
 	.findAll()
 	.then(orders => {
-		responseBody = {
+		var responseBody = {
 			content:[]
 		}
 		orders.forEach(order => {
@@ -59,32 +60,32 @@ router.post('/', (req, res, next) => {
 		});
 
 		// persist order
-		models.orders
-		.create({
-				orderTotal: orderTotal,
-				userId: req.body.userId
-		})
-		.then( order => {
-			// persist order lines.
-			// First construct order lines array
-			var orderLines = [];
-			productInfos.forEach( productInfo => {
-				orderLines.push({
-					orderId: order.orderId,
-					productId: productInfo.productId,
-					quantity: productInfo.units
-				});
-			});
+		models.sequelize.transaction({isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE}, t => {
+			return models.orders.create({
+					orderTotal: orderTotal,
+					userId: req.body.userId
+			}, {transaction: t})
+			.then( order => {
+				// prep to persist order lines.
 
-			//then persist to order lines record
-			models.orderlines
-			.bulkCreate(orderLines)
+				// First construct order lines array
+				var orderLines = [];
+				productInfos.forEach( productInfo => {
+					orderLines.push({
+						orderId: order.orderId,
+						productId: productInfo.productId,
+						quantity: productInfo.units
+					});
+				});
+
+				// finally persist to order lines record
+				return models.orderlines.bulkCreate(orderLines, {transaction: t})
+			})
 			.then( l => {
 				console.log('Order lines created');
 				res.send('TBD');
 			});
-		});
+		})
 	});
-
 });
 module.exports = router;

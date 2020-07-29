@@ -1,8 +1,8 @@
+'use strict';
 var express = require('express');
 var router = express.Router();
 
-
-const Sequelize = require('sequelize');
+var Sequelize = require('sequelize');
 var models = require('../models');
 
 // GET users listing
@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   models.users
       .findAll()
       .then(users => {
-        responseBody = {
+        var responseBody = {
           content:[]
         }
         users.forEach(user => {
@@ -27,15 +27,16 @@ router.get('/', function(req, res, next) {
 
 // create a user
 router.post('/', (req, res, next) => {
-  models.users
-      .create(req.body)
-      .then(user => {
-        res.send(user);
-      })
-      .catch(err => {
-        console.error('Error: ', err);
-        res.status(500).send(err);
-      })
+  models.sequelize.transaction({isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE}, t => {
+    return models.users.create(req.body, {transaction: t})
+  })
+  .then(result => {
+    res.send(result);
+  })
+  .catch(err => {
+    console.error('Error: ', err);
+    res.status(500).send(err);
+  });
 });
 
 module.exports = router;

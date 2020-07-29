@@ -1,3 +1,4 @@
+'use strict';
 var express = require('express');
 var router = express.Router();
 
@@ -9,7 +10,7 @@ router.get('/', function(req, res, next) {
 	models.products
 	.findAll()
 	.then(products => {
-		responseBody = {
+		var responseBody = {
 			content:[]
 		}
 		products.forEach(product => {

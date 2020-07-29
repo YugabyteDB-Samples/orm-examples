@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     orderId: {
 			type: DataTypes.UUID,
 			field: 'id',
-			defaultValue: uuid(),
+			defaultValue: () => uuid(),
 			primaryKey: true
 		},
     orderTotal: DataTypes.DECIMAL(10,2),
