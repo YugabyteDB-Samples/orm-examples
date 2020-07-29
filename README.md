@@ -1,6 +1,6 @@
 # Using ORMs with YugaByte DB
 
-This repository has examples showing build a simple Rest API server using ORMs on top of YugaByte DB (using the YSQL API). The scenario modelled is that of a simple online e-commerce store. It consists of the following.
+This repository has examples showing build a simple REST API server using ORMs on top of YugaByte DB (using the YSQL API). The scenario modelled is that of a simple online e-commerce store. It consists of the following.
 
 * The users of the ecommerce site are stored in the `users` table. 
 * The `products` table contains a list of products the ecommerce site sells.
@@ -8,7 +8,7 @@ This repository has examples showing build a simple Rest API server using ORMs o
 
 ## Step 1. Install YugaByte DB
 
-You should first [install YugaByte DB](https://docs.yugabyte.com/latest/quick-start/), which is a distributed PostgreSQL-compatible database.
+You should first [install YugaByte DB](https://docs.yugabyte.com/latest/quick-start/), which is a distributed SQL database compatible with the PostgreSQL language.
 
 ## Step 2. Bring up the REST API server
 
@@ -18,7 +18,13 @@ By default, the REST API server listens on `localhost` port `8080`.
 
 | Directory  | ORM |
 | ------------- | ------------- |
-| [spring](https://github.com/YugaByte/orm-examples/blob/master/spring)  | Spring Data JPA (uses Hibernate internally)   |
+| [Java - Spring](https://github.com/YugaByte/orm-examples/blob/master/java/spring)  | Spring Data JPA (uses Hibernate internally)   |
+| [Golang - Gorm](https://github.com/YugaByte/orm-examples/blob/master/golang/gorm)  | Gorm   |
+| [NodeJS - Sequelize](https://github.com/YugaByte/orm-examples/blob/master/node/sequelize)  | Sequelize   |
+| [Python - SQLAlchemy](https://github.com/YugaByte/orm-examples/blob/master/python/sqlalchemy)  | SQL Alchemy   |
+| [Ruby on Rails - ActiveRecord](https://github.com/YugaByte/orm-examples/tree/master/ruby/ror)  | ActiveRecord   |
+| [Rust - Diesel](https://github.com/YugaByte/orm-examples/blob/master/rust/diesel)  | Rust Diesel   |
+
 
 
 ## Step 3. Create a user

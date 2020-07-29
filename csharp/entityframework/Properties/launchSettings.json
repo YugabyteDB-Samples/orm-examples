@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "YugaByteStore": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "values",
+      "applicationUrl": "http://localhost:8080",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Production"
+      }
+    }
+  }
+}

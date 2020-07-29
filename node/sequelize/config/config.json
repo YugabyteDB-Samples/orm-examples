@@ -2,22 +2,25 @@
   "development": {
     "username": "postgres",
     "password": "",
-    "database": "postgres",
+    "database": "ysql_sequelize",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "port": "5433"
   },
   "test": {
     "username": "postgres",
     "password": "",
-    "database": "postgres",
+    "database": "ysql_sequelize",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "port": "5433"
   },
   "production": {
     "username": "nobody",
     "password": "",
-    "database": "database_production",
+    "database": "ysql_sequelize",
     "host": "127.0.0.1",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "port": "5433"
   }
 }

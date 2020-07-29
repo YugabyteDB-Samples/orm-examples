@@ -1,0 +1,10 @@
+{
+	"platform" : "postgres",
+	"host" : "localhost",
+	"dbport" : 5433,
+	"username" : "postgres",
+	"password" : "",
+	"dbname" : "ysql_gorm",
+	"sslmode" : "disable",
+	"bindport" : 8080
+}
