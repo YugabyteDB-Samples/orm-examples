@@ -24,7 +24,7 @@ default.password=""
 # Build and run
 Manually create database (configured in application.conf above) using following command:
 ```
-./ysqlsh -C "CREATE DATABASE ysql_ebeans"
+./ysqlsh -c "CREATE DATABASE ysql_ebeans"
 ```
 Build the REST API server (written using ebeans and Java Play framework) as follows:
 ```
