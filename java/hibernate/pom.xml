@@ -19,6 +19,11 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.4.19.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-tools</artifactId>
+            <version>5.4.19.Final</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-annotations -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -54,6 +59,19 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <configuration>
+                    <target>
+                        <property name="compile_classpath" refid="maven.compile.classpath" />
+                        <ant antfile="build.xml">
+                            <target name="schemaexportTarget" />
+                        </ant>
+                    </target>
                 </configuration>
             </plugin>
         </plugins>
