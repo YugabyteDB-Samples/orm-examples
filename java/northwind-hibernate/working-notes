@@ -1,0 +1,37 @@
+### Useful Links
+
+https://techdocs.broadcom.com/us/en/ca-enterprise-software/layer7-api-management/live-api-creator/4-0/tutorials-and-samples/northwind-api-sample.html#concept.dita_6cb7efe035157d5f817bcff80db869df25ff35a2_ValidatetheNorthwindAPISample
+
+https://northwind.now.sh/
+
+https://github.com/NetCoreTemplates/rockwind-app
+http://rockwind-sqlite.web-app.io/
+
+http://docshare04.docshare.tips/files/22476/224761915.pdf
+
+
+
+### Queries
+
+
+Joins
+
+
+
+
+Sub Queries
+
+
+Min/Max
+
+
+Aggregates
+
+case statements 
+
+
+### Next Steps:
+
+1. Review the APIs
+2. Implement Join Queries
+3. Implement an API for adhoc Queries

@@ -1,0 +1,15 @@
+<project name="hbm2ddl" default="schemaexportTarget">
+    <target name="schemaexportTarget">
+        <taskdef name="schemaexport"
+                    classname="org.hibernate.tool.hbm2ddl.SchemaExportTask"
+                    classpath="${compile_classpath}"/>
+ 
+                <schemaexport
+                    config="src/main/resources/hibernate.cfg.xml"
+                    quiet="no"
+                    text="no"
+                    drop="no"
+                    delimiter=";"
+                    output="schema-export.sql"/>
+    </target>
+</project>
