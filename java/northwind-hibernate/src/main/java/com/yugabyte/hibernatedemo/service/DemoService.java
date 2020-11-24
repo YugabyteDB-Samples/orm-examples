@@ -6,6 +6,7 @@ import com.yugabyte.hibernatedemo.dao.CustomerDAO;
 import com.yugabyte.hibernatedemo.dao.OrderDAO;
 import com.yugabyte.hibernatedemo.dao.ProductDAO;
 import com.yugabyte.hibernatedemo.dao.UserDAO;
+import com.yugabyte.hibernatedemo.model.Order;
 import com.yugabyte.hibernatedemo.model.Product;
 import com.yugabyte.hibernatedemo.model.User;
 import com.yugabyte.hibernatedemo.model.requests.CreateOrderRequest;
@@ -100,39 +101,9 @@ public class DemoService {
     	  return null;
     }
 
-    public ListOrdersResponse listOrders(Long userId) {
-//        ListOrdersResponse response = new ListOrdersResponse();
-//
-//        User user = userDao.findById(userId)
-//                .orElseThrow(() -> new ResourceNotFoundException("User not found: userId: " + userId));
-//
-//
-//        response.setUser_id(userId);
-//        response.setFirst_name(user.getFirstName());
-//        response.setLast_name(user.getLastName());
-//        response.setEmail(user.getEmail());
-//
-//        response.setOrders(new ArrayList<>());
-//
-//        for( Order order : orderDao.findOrdersForUser(userId.intValue())) {
-//
-//
-//            ListOrdersResponse.ResponseOrder responseOrder = new ListOrdersResponse.ResponseOrder();
-//
-//            response.getOrders().add(responseOrder);
-//            responseOrder.setOrder_id(order.getOrderId());
-//            responseOrder.setOrder_total(order.getOrderTotal());
-//            responseOrder.setOrder_lines(new ArrayList<>());
-//
-//            for (OrderLine lineForOrder : orderLineDao.findAllForOrder(order.getOrderId())) {
-//                responseOrder.getOrder_lines().add(new ResponseOrderLine(
-//                        productDao.findById(lineForOrder.getProductId())
-//                                .orElseThrow(() -> new ResourceNotFoundException("Product not found. ProductId: " + lineForOrder.getProductId())),
-//                        lineForOrder.getQuantity()
-//                ));
-//            }
-//        }
-//        return response;
-    	return null;
+    public List<Order> listOrders(String userId) {
+    	
+    	List<Order> orders = orderDao.findOrdersForUser(userId);
+    	return orders;
     }
 }

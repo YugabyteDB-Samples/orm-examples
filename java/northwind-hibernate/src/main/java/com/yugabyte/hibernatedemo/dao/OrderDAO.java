@@ -29,9 +29,15 @@ public class OrderDAO extends GenericDAO  implements DAO <Order, Integer> {
         return Optional.ofNullable(openCurrentSession().get(Order.class, id.longValue()));
     }
 
-    public List<Order> findOrdersForUser(final Integer userId) {
+    public List<Order> findOrdersForUser(final String customerId) {
         try (Session session = openCurrentSession()) {
-            return session.createQuery("from Order where user_id = " + userId, Order.class).list();
+        	
+        	String hql = "FROM Order WHERE customer_id = :customer_id";
+        	return session
+        			.createQuery(hql, Order.class)
+        			.setParameter("customer_id", customerId)
+        			.list();
+//            return session.createQuery("from orders where customer_id = " + customerId, Order.class).list();
         }
 
     }

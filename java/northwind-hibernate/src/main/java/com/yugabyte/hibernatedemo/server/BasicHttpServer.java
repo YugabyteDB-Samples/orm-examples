@@ -189,7 +189,7 @@ public class BasicHttpServer {
             final BufferedReader reader =
                     new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
             UserIdClass request = gson.fromJson(reader, UserIdClass.class);
-            sendJsonResponse(exchange, gson.toJson(service.listOrders(request.userId)));
+            sendJsonResponse(exchange, gson.toJson(service.listOrders(request.customerId)));
         } catch( ResourceNotFoundException rnfe ) {
             sendErrorResponse(exchange, 400, rnfe.getMessage());
             rnfe.printStackTrace();
