@@ -61,7 +61,7 @@ public class Employee {
     private String notes;
     
     @Column(name = "reports_to")
-    private int reportsTo;
+    private Integer reportsTo;
     
     @Column(name = "photo_path", length = 255)
     private String photoPath;
@@ -73,7 +73,7 @@ public class Employee {
 
     public Employee(int employeeID, String lastname, String firstname, String title, String titleOfCourtesy,
 			String birthdate, String hiredate, String address, String city, String region, String postal_code,
-			String country, String homePhone, String extension, byte[] photo, String notes, int reportsTo, String photoPath) {
+			String country, String homePhone, String extension, byte[] photo, String notes, Integer reportsTo, String photoPath) {
 		super();
 		this.employeeID = employeeID;
 		this.lastname = lastname;
@@ -223,12 +223,14 @@ public class Employee {
 		this.notes = notes;
 	}
 
-	public int getReportsTo() {
+	public Integer getReportsTo() {
 		return reportsTo;
 	}
 
-	public void setReportsTo(int reportsTo) {
-		this.reportsTo = reportsTo;
+	public void setReportsTo(Integer reportsTo) {
+		if (reportsTo != null) {
+			this.reportsTo = reportsTo;
+		}
 	}
 
 	public String getPhotoPath() {

@@ -15,8 +15,7 @@ $ mvn exec:java -Dexec.mainClass=com.yugabyte.hibernatedemo.server.BasicHttpServ
 The REST server will run here: [`http://localhost:8080`](http://localhost:8080)
 
 
-## Load Northwind Dataset
-
+## YugabyteDB with Northwind Dataset
 
 ### Connect using ysqlsh
 
@@ -44,7 +43,7 @@ $ ysqlsh -f ./northwind-hibernate/northwind-data/northwind_data.sql
 You can do this as follows:
 
 ```
-$ curl http://localhost:8080/products
+$ curl -v GET -H 'Content-Type:application/json' http://localhost:8080/products | jq
 ```
 You should see an output as follows:
 ```
@@ -85,12 +84,67 @@ You should see an output as follows:
 
 ## List Orders of a Customer
 
-```
-curl --data '{ "customerId": "VINET" }' -v GET -H 'Content-Type:application/json' http://localhost:8080/list-ordersREADME.md
-```
+This query demos support for Inner Join in YugabyteDB.
 
-## Shipping Details of a Order
-
+```
+curl --data '{ "customerId": "WHITC" }' -v GET -H 'Content-Type:application/json' http://localhost:8080/list-orders | jq
+```
+You should see an output as follows:
+```
+[
+  {
+      "orderId": 10483,
+      "customer": {
+          "customerID": "WHITC",
+          "companyName": "White Clover Markets",
+          "contactName": "Karl Jablonski",
+          "contactTitle": "Owner",
+          "address": "305 - 14th Ave. S. Suite 3B",
+          "city": "Seattle",
+          "region": "WA",
+          "postalCode": "98128",
+          "country": "USA",
+          "phone": "(206) 555-4112",
+          "fax": "(206) 555-4115"
+      },
+      "employee": {
+          "employeeID": 7,
+          "lastname": "King",
+          "firstname": "Robert",
+          "title": "Sales Representative",
+          "titleOfCourtesy": "Mr.",
+          "birthdate": "1960-05-29",
+          "hiredate": "1994-01-02",
+          "address": "Edgeham Hollow\\nWinchester Way",
+          "city": "London",
+          "postal_code": "RG1 9SP",
+          "country": "UK",
+          "homePhone": "(71) 555-5598",
+          "extension": "465",
+          "photo": [],
+          "notes": "Robert King served in the Peace Corps and traveled extensively before completing his degree in English at the University of Michigan in 1992, the year he joined the company.  After completing a course entitled Selling in Europe, he was transferred to the London office in March 1993.",
+          "reportsTo": 5,
+          "photoPath": "http://accweb/emmployees/davolio.bmp"
+      },
+      "orderDate": "Mar 24, 1997",
+      "requiredDate": "Apr 21, 1997",
+      "shippedDate": "Apr 25, 1997",
+      "shipVia": {
+          "shipperId": 2,
+          "companyName": "United Package",
+          "phone": "(503) 555-3199"
+      },
+      "freight": 15.28,
+      "shipName": "White Clover Markets",
+      "shipAddress": "1029 - 12th Ave. S.",
+      "shipCity": "Seattle",
+      "shipRegion": "WA",
+      "shipPostalCode": "98124",
+      "shipCountry": "USA"
+  }
+]
+```
+If you notice the above response, It shows results of inner join between `orders`, `customers` and `employees` table.
 
 ### Customizing
 
