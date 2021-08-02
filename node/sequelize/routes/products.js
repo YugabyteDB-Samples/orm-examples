@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize-yugabytedb');
 var models = require('../models');
 
 // GET products listing
