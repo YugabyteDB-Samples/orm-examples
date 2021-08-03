@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize-yugabytedb');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
@@ -21,7 +21,9 @@ fs
     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
   })
   .forEach(file => {
-    const model = sequelize['import'](path.join(__dirname, file));
+    // const model = sequelize['import'](path.join(__dirname, file)); 
+    //REASON of not using above line of code: sequelize.import function has been depreciated. link: https://github.com/sequelize/sequelize/pull/12175
+    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
 

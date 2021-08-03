@@ -13,7 +13,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
     "pg": "^8.6.0",
-    "sequelize": "^5.7.0",
+    "sequelize-yugabytedb": "^1.0.5",
     "uuid": "^3.3.2"
   }
 }

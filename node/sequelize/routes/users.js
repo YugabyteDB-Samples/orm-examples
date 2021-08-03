@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Sequelize = require('sequelize');
+var Sequelize = require('sequelize-yugabytedb');
 var models = require('../models');
 
 // GET users listing
