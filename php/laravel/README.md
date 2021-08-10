@@ -102,9 +102,7 @@ php artisan make:controller OrderController
 php artisan make:controller UserController
 ```
 
-Note: laravel create updated_at and created_at columns by default on all tables. In order to prevent it - https://stackoverflow.com/questions/28277955/laravel-unknown-column-updated-at
-
-- https://stackoverflow.com/questions/63882034/target-class-does-not-exist-problem-in-laravel-8
+Note: laravel create updated_at and created_at columns by default on all tables.
 
 
 
