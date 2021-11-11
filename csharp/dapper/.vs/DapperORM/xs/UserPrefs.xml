@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{E77A126B-661D-464A-AC6F-BF2050830044}|Default">
+  <MonoDevelop.Ide.ItemProperties.DapperORM PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="DapperORM/Properties/launchSettings.json">
+    <Files>
+      <File FileName="DapperORM/ReadMe.md" Line="1" Column="1" />
+      <File FileName="DapperORM/Properties/launchSettings.json" Line="24" Column="22" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DapperORM" expanded="True">
+            <Node name="DapperORM" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True">
+                <Node name="launchSettings.json" selected="True" />
+              </Node>
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
