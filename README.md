@@ -2,7 +2,7 @@
 
 This repository has examples showing build a simple REST API server using ORMs on top of YugaByte DB (using the YSQL API). The scenario modelled is that of a simple online e-commerce store. It consists of the following.
 
-* The users of the ecommerce site are stored in the `users` table. 
+* The users of the ecommerce site are stored in the `users` table.
 * The `products` table contains a list of products the ecommerce site sells.
 * The orders placed by the users are populated in the `orders` table. An order can consist of multiple line items, each of these are inserted in the `orderline` table.
 
@@ -32,10 +32,10 @@ By default, the REST API server listens on `localhost` port `8080`.
 
 ## Step 3. Create a user
 
-You can create a user named `John Smith` and email `jsmith@yb.com` as follows:
+You can create a user named `John Smith` and email `jsmith@example.com` as follows:
 
 ```
-$ curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@yb.com" }' \
+$ curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@example.com" }' \
        -v -X POST -H 'Content-Type:application/json' http://localhost:8080/users
 ```
 
@@ -45,7 +45,7 @@ This will return the inserted record as a JSON document:
   "userId": "1",
   "firstName": "John",
   "lastName": "Smith",
-  "email": "jsmith@yb.com"
+  "email": "jsmith@example.com"
 }
 ```
 
@@ -54,7 +54,7 @@ You can connect to YugaByte DB using `psql` and select these records:
 postgres=# select * from users;
  user_id | first_name | last_name |  user_email
 ---------+------------+-----------+---------------
-       1 | John       | Smith     | jsmith@yb.com(1 row)
+       1 | John       | Smith     | jsmith@example.com(1 row)
 ```
 
 ## Step 4. List all users
@@ -70,7 +70,7 @@ You should see the following output:
   "content": [
     {
       "userId":"1",
-      "email":"jsmith@yb.com",
+      "email":"jsmith@example.com",
       "firstName":"John",
       "lastName":"Smith"
     }
