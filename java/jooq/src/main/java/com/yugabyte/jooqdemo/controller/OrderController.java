@@ -107,7 +107,7 @@ public class OrderController {
 		ctx.deleteFrom(ORDER_LINES).where(ORDER_LINES.ORDER_ID.eq(orderId)).execute();
     	insertOrderLines(order, orderId);
 		ctx.update(ORDERS)
-			.set(ORDERS.USER_ID, order.user().userId())
+			.set(ORDERS.USER_ID, order.userId())
 			.set(ORDERS.ORDER_TOTAL, orderTotal(order))
 			.where(ORDERS.ORDER_ID.eq(orderId))
 			.execute();
