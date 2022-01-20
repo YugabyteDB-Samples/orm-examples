@@ -28,8 +28,8 @@ There are a number of options that can be customized in the properties file loca
 
 | Properties    | Description   | Default |
 | ------------- | ------------- | ------- |
-| `spring.datasource.url`  | The connection string. | `jdbc:postgresql://localhost:5433/postgres`  |
+| `spring.datasource.url`  | The connection string. | `jdbc:postgresql://localhost:5433/yugabyte`  |
 | `server.port`  | The port on which the REST API server should listen. | 8080 |
-| `spring.datasource.username` | The username to connect to the database. | `postgres` |
+| `spring.datasource.username` | The username to connect to the database. | `yugabyte` |
 | `spring.datasource.password` | The password to connect to the database. Leave blank for the password. | - |
 
