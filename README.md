@@ -61,7 +61,7 @@ postgres=# select * from users;
 
 You can list the current set of users by running the following:
 ```
-$ curl http://localhost:8080/getAllUsers
+$ curl http://localhost:8080/users
 ```
 
 You should see the following output:
