@@ -35,4 +35,15 @@ public class ProductDAO extends GenericDAO  implements DAO <Product, Long> {
         }
     }
 
+    public void delete(final Product product){
+          Session session = openCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.delete(product);
+            transaction.commit();
+        } catch(RuntimeException rte) {
+            transaction.rollback();
+        }
+        session.close();
+    }
 }

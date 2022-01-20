@@ -1,0 +1,105 @@
+2022-01-19 05:39:30 INFO  BasicHttpServer:43 - Listening on port: 8080
+2022-01-19 05:41:08 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-19 05:41:08 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-19 05:41:08 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-19 05:41:08 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-19 05:41:08 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-19 05:41:08 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-19 05:41:08 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-19 05:41:08 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-19 05:41:08 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-19 05:41:10 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-19 05:41:10 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-19 05:41:10 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@93d8803] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-20 10:53:15 INFO  BasicHttpServer:43 - Listening on port: 8080
+2022-01-20 10:56:37 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-20 10:56:38 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-20 10:56:38 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-20 10:56:38 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-20 10:56:38 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-20 10:56:38 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-20 10:56:38 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-20 10:56:38 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-20 10:56:38 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-20 10:56:40 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 10:56:40 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 10:56:40 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3a49ecce] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-20 11:35:24 INFO  BasicHttpServer:43 - Listening on port: 8080
+2022-01-20 11:36:01 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-20 11:36:02 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-20 11:36:02 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-20 11:36:02 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-20 11:36:02 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-20 11:36:02 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-20 11:36:02 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-20 11:36:02 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-20 11:36:02 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-20 11:36:03 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 11:36:03 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 11:36:04 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2b9e2ee] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-20 11:52:36 INFO  BasicHttpServer:43 - Listening on port: 8080
+2022-01-20 11:53:35 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-20 11:53:36 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-20 11:53:36 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-20 11:53:36 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-20 11:53:36 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-20 11:53:36 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-20 11:53:36 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-20 11:53:36 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-20 11:53:36 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-20 11:53:38 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 11:53:38 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 11:53:38 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7498ac1a] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-20 12:05:29 INFO  BasicHttpServer:43 - Listening on port: 8080
+2022-01-20 12:07:47 INFO  BasicHttpServer:43 - Listening on port: 8080
+2022-01-20 12:09:42 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-20 12:09:43 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-20 12:09:43 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-20 12:09:43 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-20 12:09:43 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-20 12:09:43 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-20 12:09:43 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-20 12:09:43 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-20 12:09:43 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-20 12:09:44 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 12:09:44 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 12:09:45 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@31e164cb] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-20 13:11:27 INFO  BasicHttpServer:44 - Listening on port: 8080
+2022-01-20 13:12:33 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-20 13:12:34 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-20 13:12:34 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-20 13:12:34 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-20 13:12:34 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-20 13:12:34 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-20 13:12:34 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-20 13:12:34 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-20 13:12:34 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-20 13:12:36 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 13:12:36 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 13:12:36 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@2864e832] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-20 13:57:00 INFO  BasicHttpServer:45 - Listening on port: 8080
+2022-01-20 13:57:48 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-20 13:57:49 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-20 13:57:49 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-20 13:57:49 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-20 13:57:49 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-20 13:57:49 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-20 13:57:49 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-20 13:57:49 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-20 13:57:49 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-20 13:57:50 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 13:57:50 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 13:57:51 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@68559971] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-20 14:10:40 INFO  BasicHttpServer:45 - Listening on port: 8080
+2022-01-20 14:10:53 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-20 14:10:54 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-20 14:10:54 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-20 14:10:54 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-20 14:10:54 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-20 14:10:54 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-20 14:10:54 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-20 14:10:54 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-20 14:10:54 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-20 14:10:55 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 14:10:55 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-20 14:10:56 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4f3dcf4b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.

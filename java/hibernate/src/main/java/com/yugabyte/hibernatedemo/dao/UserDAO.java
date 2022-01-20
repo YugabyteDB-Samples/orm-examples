@@ -34,4 +34,16 @@ public class UserDAO extends GenericDAO implements DAO <User, Long> {
         }
     }
 
+    public void delete(final User user){
+          Session session = openCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.delete(user);
+            transaction.commit();
+        } catch(RuntimeException rte) {
+            transaction.rollback();
+        }
+        session.close();
+    }
+
 }

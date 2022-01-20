@@ -9,6 +9,8 @@ import com.yugabyte.hibernatedemo.model.Product;
 import com.yugabyte.hibernatedemo.model.User;
 import com.yugabyte.hibernatedemo.model.requests.CreateOrderRequest;
 import com.yugabyte.hibernatedemo.model.requests.UserIdClass;
+import com.yugabyte.hibernatedemo.model.requests.ProductIdClass;
+import com.yugabyte.hibernatedemo.model.requests.OrderIdClass;
 import com.yugabyte.hibernatedemo.model.response.CreateOrderResponse;
 import com.yugabyte.hibernatedemo.service.DemoService;
 import org.apache.log4j.Logger;
@@ -49,13 +51,14 @@ public class BasicHttpServer {
                 .setHandler(BasicHttpServer::handleProductRequest);
 
         server.createContext("/orders")
-                .setHandler(BasicHttpServer::handleCreateOrder);
+                .setHandler(BasicHttpServer::handleOrderRequest);
 
         server.createContext("/list-orders")
                 .setHandler(BasicHttpServer::handleListOrders);
 
         server.createContext("/")
                 .setHandler(BasicHttpServer::handleRootRequest);
+     
         server.start();
     }
 
@@ -68,8 +71,18 @@ public class BasicHttpServer {
 
         if (exchange.getRequestMethod().equals("POST")) {
         	handleCreateProduct(exchange);
-        } else {
+        } else if(exchange.getRequestMethod().equals("DELETE")){
+            handleDeleteProduct(exchange);
+        }else {
         	handleListProducts(exchange);
+        }
+    }
+    private static void handleOrderRequest(final HttpExchange exchange) throws IOException {
+
+        if (exchange.getRequestMethod().equals("POST")) {
+        	handleCreateOrder(exchange);
+        }else {
+        	handleDeleteOrder(exchange);
         }
     }
 
@@ -77,10 +90,13 @@ public class BasicHttpServer {
 
         if (exchange.getRequestMethod().equals("POST")) {
             handleUserPostRequest(exchange);
-        } else {
+        } else if(exchange.getRequestMethod().equals("GET")){
             handleUserGetRequest(exchange);
+        } else {
+            handleUserDeleteRequest(exchange);
         }
     }
+
 
     private static void handleUserPostRequest(final HttpExchange exchange) throws IOException {
         final Gson gson = new Gson();
@@ -113,6 +129,23 @@ public class BasicHttpServer {
         }
     }
 
+    private static void handleUserDeleteRequest(final HttpExchange exchange) throws IOException {
+        try {
+           final Gson gson = new Gson();
+            final BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
+            UserIdClass request = gson.fromJson(reader, UserIdClass.class);
+            User userDeleted = service.delete(request.userId);
+            sendJsonResponse(exchange, gson.toJson(userDeleted));
+        } catch( ResourceNotFoundException rnfe ) {
+            sendErrorResponse(exchange, 400, rnfe.getMessage());
+            rnfe.printStackTrace();
+        } catch( RuntimeException rte) {
+            sendErrorResponse(exchange, 500, "Internal Server error");
+            rte.printStackTrace();
+        }
+    }
+    
     private static void handleCreateProduct(final HttpExchange exchange) throws IOException {
         final Gson gson = new Gson();
         final BufferedReader reader =
@@ -122,6 +155,23 @@ public class BasicHttpServer {
         try {
             service.create(product);
             sendJsonResponse(exchange, gson.toJson(product));
+        } catch( ResourceNotFoundException rnfe ) {
+            sendErrorResponse(exchange, 400, rnfe.getMessage());
+            rnfe.printStackTrace();
+        } catch( RuntimeException rte) {
+            sendErrorResponse(exchange, 500, "Internal Server error");
+            rte.printStackTrace();
+        }
+    }
+
+     private static void handleDeleteProduct(final HttpExchange exchange) throws IOException {
+        try {
+           final Gson gson = new Gson();
+            final BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
+            ProductIdClass request = gson.fromJson(reader, ProductIdClass.class);
+            Product productDeleted = service.deleteProduct(request.productId);
+            sendJsonResponse(exchange, gson.toJson(productDeleted));
         } catch( ResourceNotFoundException rnfe ) {
             sendErrorResponse(exchange, 400, rnfe.getMessage());
             rnfe.printStackTrace();
@@ -189,6 +239,23 @@ public class BasicHttpServer {
                     new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
             UserIdClass request = gson.fromJson(reader, UserIdClass.class);
             sendJsonResponse(exchange, gson.toJson(service.listOrders(request.userId)));
+        } catch( ResourceNotFoundException rnfe ) {
+            sendErrorResponse(exchange, 400, rnfe.getMessage());
+            rnfe.printStackTrace();
+        } catch( RuntimeException rte) {
+            sendErrorResponse(exchange, 500, "Internal Server error");
+            rte.printStackTrace();
+        }
+    }
+
+    private static void handleDeleteOrder(final HttpExchange exchange) throws IOException {
+        try {
+           final Gson gson = new Gson();
+            final BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
+            OrderIdClass request = gson.fromJson(reader, OrderIdClass.class);
+            CreateOrderResponse response = service.deleteOrder(request.orderId);
+            sendJsonResponse(exchange, gson.toJson(response));
         } catch( ResourceNotFoundException rnfe ) {
             sendErrorResponse(exchange, 400, rnfe.getMessage());
             rnfe.printStackTrace();
