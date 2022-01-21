@@ -39,10 +39,14 @@ public class DemoService {
         return newUser;
     }
 
-    public User delete(final Long userId){
+    public User delete(final Long userId){;
         User user= userDao.findById(userId) .orElseThrow(() -> new ResourceNotFoundException("User not found: userId: " + userId));
-        userDao.delete(user);
-        return user;
+        try{
+            userDao.delete(user);
+            return user;
+        }catch(RuntimeException rte){
+            throw rte;
+        }
     }
 
     public User getById(final Long userId) {
@@ -62,9 +66,12 @@ public class DemoService {
     public Product deleteProduct(final Long productId){
         Product product= productDao.findById(productId)
         .orElseThrow(() -> new ResourceNotFoundException("Product not found: userId: " + productId));
-
-        productDao.delete(product);
-        return product;
+        try{
+            productDao.delete(product);
+            return product;
+        }catch(RuntimeException rte){
+            throw rte;
+        }
     }
 
     public List<Product> getAllProducts() {
@@ -153,21 +160,31 @@ public class DemoService {
     }
 
     public CreateOrderResponse deleteOrder(final UUID orderId){
-        Order order= orderDao.find(orderId) .orElseThrow(() -> new ResourceNotFoundException("Order not found: orderId: " + orderId));
+        Order order= orderDao.find(orderId)
+         .orElseThrow(() -> new ResourceNotFoundException("Order not found: orderId: " + orderId));
+
         CreateOrderResponse deletedOrder=new CreateOrderResponse();
         deletedOrder.setOrderId(order.getOrderId().toString());
         deletedOrder.setUserId(order.getUserId());
         deletedOrder.setOrderTotal(order.getOrderTotal());
+
         List<OrderLine> orderLines = orderLineDao.findAllForOrder(order.getOrderId());
         List<ResponseOrderLine> deletedOrderLines = new ArrayList<ResponseOrderLine>();
+
         for (OrderLine orderLine : orderLines){
             Product product = productDao.findById(orderLine.getProductId())
             .orElseThrow(() -> new ResourceNotFoundException("Product not found: userId: " + orderLine.getProductId()));
             ResponseOrderLine responseOrderLine = new ResponseOrderLine(product,orderLine.getQuantity());
             deletedOrderLines.add(responseOrderLine);
         }
+
         deletedOrder.setOrderLines(deletedOrderLines);
-        orderDao.delete(order);
-        return deletedOrder;
+
+        try{
+            orderDao.delete(order);
+            return deletedOrder;
+        }catch(RuntimeException rte){
+            throw rte;
+        }
     }
 }

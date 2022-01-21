@@ -49,6 +49,7 @@ public class OrderDAO extends GenericDAO  implements DAO <Order, Integer> {
             transaction.commit();
         } catch(RuntimeException rte) {
             transaction.rollback();
+            throw rte;
         }
         session.close();
     }

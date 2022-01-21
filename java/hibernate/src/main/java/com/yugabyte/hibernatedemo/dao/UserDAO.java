@@ -42,7 +42,8 @@ public class UserDAO extends GenericDAO implements DAO <User, Long> {
             transaction.commit();
         } catch(RuntimeException rte) {
             transaction.rollback();
-        }
+            throw rte;
+        } 
         session.close();
     }
 

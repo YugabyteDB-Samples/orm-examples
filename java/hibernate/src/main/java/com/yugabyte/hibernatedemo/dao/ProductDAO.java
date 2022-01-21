@@ -43,6 +43,7 @@ public class ProductDAO extends GenericDAO  implements DAO <Product, Long> {
             transaction.commit();
         } catch(RuntimeException rte) {
             transaction.rollback();
+            throw rte;
         }
         session.close();
     }

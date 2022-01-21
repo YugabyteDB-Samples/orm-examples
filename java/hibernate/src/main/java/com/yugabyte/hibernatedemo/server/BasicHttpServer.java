@@ -140,8 +140,8 @@ public class BasicHttpServer {
         } catch( ResourceNotFoundException rnfe ) {
             sendErrorResponse(exchange, 400, rnfe.getMessage());
             rnfe.printStackTrace();
-        } catch( RuntimeException rte) {
-            sendErrorResponse(exchange, 500, "Internal Server error");
+        }  catch( RuntimeException rte) {
+            sendErrorResponse(exchange, 500, rte.getMessage());
             rte.printStackTrace();
         }
     }

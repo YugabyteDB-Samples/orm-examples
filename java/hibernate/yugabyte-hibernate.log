@@ -103,3 +103,197 @@
 2022-01-20 14:10:55 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
 2022-01-20 14:10:55 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
 2022-01-20 14:10:56 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4f3dcf4b] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 03:40:15 INFO  BasicHttpServer:45 - Listening on port: 8080
+2022-01-21 03:52:09 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-21 03:52:09 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-21 03:52:09 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-21 03:52:09 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-21 03:52:09 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-21 03:52:09 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-21 03:52:09 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-21 03:52:09 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-21 03:52:09 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-21 03:52:11 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 03:52:11 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 03:52:11 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@7f45e614] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 04:03:52 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 04:03:52 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 04:03:52 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 04:19:21 INFO  BasicHttpServer:45 - Listening on port: 8080
+2022-01-21 05:03:47 INFO  BasicHttpServer:45 - Listening on port: 8080
+2022-01-21 05:04:22 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-21 05:04:23 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-21 05:04:23 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-21 05:04:23 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-21 05:04:23 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-21 05:04:23 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-21 05:04:23 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-21 05:04:23 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-21 05:04:23 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-21 05:04:24 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:04:24 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:04:25 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4679b4ad] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 05:04:26 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 05:04:26 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 05:04:26 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 05:05:56 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 05:05:56 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 05:05:56 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 05:06:16 INFO  BasicHttpServer:45 - Listening on port: 8080
+2022-01-21 05:06:22 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-21 05:06:23 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-21 05:06:23 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-21 05:06:23 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-21 05:06:23 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-21 05:06:23 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-21 05:06:23 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-21 05:06:23 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-21 05:06:23 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-21 05:06:25 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:06:25 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:06:25 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5311c6d5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 05:06:26 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 05:06:26 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 05:06:26 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 05:07:35 INFO  BasicHttpServer:45 - Listening on port: 8080
+2022-01-21 05:07:55 INFO  BasicHttpServer:45 - Listening on port: 8080
+2022-01-21 05:08:04 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-21 05:08:05 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-21 05:08:05 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-21 05:08:05 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-21 05:08:05 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-21 05:08:05 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-21 05:08:05 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-21 05:08:05 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-21 05:08:05 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-21 05:08:07 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:08:07 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:08:07 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@62db8138] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 05:08:08 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 05:08:08 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 05:08:08 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 05:10:05 INFO  BasicHttpServer:45 - Listening on port: 8080
+2022-01-21 05:10:15 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-21 05:10:15 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-21 05:10:16 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-21 05:10:16 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-21 05:10:16 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-21 05:10:16 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-21 05:10:16 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-21 05:10:16 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-21 05:10:16 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-21 05:10:17 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:10:17 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:10:18 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5311c6d5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 05:10:18 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 05:10:18 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 05:10:18 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 05:12:35 INFO  BasicHttpServer:46 - Listening on port: 8080
+2022-01-21 05:12:45 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-21 05:12:45 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-21 05:12:45 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-21 05:12:46 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-21 05:12:46 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-21 05:12:46 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-21 05:12:46 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-21 05:12:46 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-21 05:12:46 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-21 05:12:47 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:12:47 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:12:48 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5311c6d5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 05:12:48 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 05:12:48 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 05:12:48 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 05:16:10 INFO  BasicHttpServer:46 - Listening on port: 8080
+2022-01-21 05:16:19 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-21 05:16:19 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-21 05:16:19 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-21 05:16:19 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-21 05:16:19 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-21 05:16:19 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-21 05:16:19 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-21 05:16:19 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-21 05:16:20 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-21 05:16:21 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:16:21 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:16:22 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@54e43057] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 05:16:22 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 05:16:22 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 05:16:22 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 05:17:54 INFO  BasicHttpServer:46 - Listening on port: 8080
+2022-01-21 05:17:59 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-21 05:18:00 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-21 05:18:00 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-21 05:18:00 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-21 05:18:00 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-21 05:18:00 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-21 05:18:00 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-21 05:18:00 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-21 05:18:00 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-21 05:18:02 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:18:02 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:18:02 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@62db8138] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 05:18:03 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 05:18:03 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 05:18:03 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 05:20:17 INFO  BasicHttpServer:46 - Listening on port: 8080
+2022-01-21 05:20:23 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-21 05:20:23 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-21 05:20:23 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-21 05:20:23 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-21 05:20:23 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-21 05:20:23 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-21 05:20:23 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-21 05:20:23 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-21 05:20:24 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-21 05:20:25 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:20:25 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:20:25 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3f927da8] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 05:20:26 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 05:20:26 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 05:20:26 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 05:23:06 INFO  BasicHttpServer:46 - Listening on port: 8080
+2022-01-21 05:23:11 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-21 05:23:11 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-21 05:23:12 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-21 05:23:12 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-21 05:23:12 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-21 05:23:12 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-21 05:23:12 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-21 05:23:12 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-21 05:23:12 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-21 05:23:13 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:23:13 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:23:14 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@3a44e609] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 05:23:14 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 05:23:14 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 05:23:14 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 05:27:35 INFO  BasicHttpServer:45 - Listening on port: 8080
+2022-01-21 05:27:41 INFO  Version:44 - HHH000412: Hibernate ORM core version 5.4.19.Final
+2022-01-21 05:27:42 INFO  Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2022-01-21 05:27:42 WARN  pooling:72 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+2022-01-21 05:27:42 INFO  pooling:115 - HHH10001005: using driver [org.postgresql.Driver] at URL [jdbc:postgresql://localhost:5433/yugabyte]
+2022-01-21 05:27:42 INFO  pooling:124 - HHH10001001: Connection properties: {user=yugabyte, password=****}
+2022-01-21 05:27:42 INFO  pooling:129 - HHH10001003: Autocommit mode: false
+2022-01-21 05:27:42 INFO  pooling:134 - HHH10001007: JDBC isolation level: SERIALIZABLE
+2022-01-21 05:27:42 INFO  DriverManagerConnectionProviderImpl:249 - HHH000115: Hibernate connection pool size: 20 (min=1)
+2022-01-21 05:27:42 INFO  Dialect:170 - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2022-01-21 05:27:44 WARN  RootClass:287 - HHH000038: Composite-id class does not override equals(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:27:44 WARN  RootClass:290 - HHH000039: Composite-id class does not override hashCode(): com.yugabyte.hibernatedemo.model.OrderLine$IdClass
+2022-01-21 05:27:44 INFO  access:47 - HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@5311c6d5] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+2022-01-21 05:27:45 WARN  SqlExceptionHelper:137 - SQL Error: 0, SQLState: 23503
+2022-01-21 05:27:45 ERROR SqlExceptionHelper:142 - ERROR: update or delete on table "users" violates foreign key constraint "fk32ql8ubntj5uh44ph9659tiih" on table "orders"
+  Detail: Key (userid)=(3) is still referenced from table "orders".
+2022-01-21 05:27:45 INFO  AbstractBatchImpl:208 - HHH000010: On release of batch it still contained JDBC statements
+2022-01-21 05:36:30 INFO  BasicHttpServer:45 - Listening on port: 8080
