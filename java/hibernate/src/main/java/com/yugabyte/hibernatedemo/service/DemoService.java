@@ -165,7 +165,7 @@ public class DemoService {
 
         CreateOrderResponse deletedOrder=new CreateOrderResponse();
         deletedOrder.setOrderId(order.getOrderId().toString());
-        deletedOrder.setUserId(order.getUserId());
+        deletedOrder.setUserId(order.getUser().getUserId());
         deletedOrder.setOrderTotal(order.getOrderTotal());
 
         List<OrderLine> orderLines = orderLineDao.findAllForOrder(order.getOrderId());
@@ -179,7 +179,6 @@ public class DemoService {
         }
 
         deletedOrder.setOrderLines(deletedOrderLines);
-
         try{
             orderDao.delete(order);
             return deletedOrder;

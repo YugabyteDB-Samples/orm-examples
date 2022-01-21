@@ -64,5 +64,83 @@ We have generated schema definitions that are currently applied in the database 
 ./flway migrate
 ```
 
+## Delete REST API request 
+
+### 1. `/users` end point
+  
+ You can use the following curl command for deleting a user:
+ 
+ ```
+ curl --data '{ "userId": “1” }' -v -X DELETE -H 'Content-Type:application/json' http://localhost:8080/users
+ ```
+
+This will return the user details which is deleted:
+
+```
+{
+  "userId": "1",
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "jsmith@example.com"
+}
+```
+
+### 2.`/products` end point
+ You can use the following curl command for deleting a product:
+ 
+ ```
+curl --data '{ "productId": "1" }' -v -X DELETE -H 'Content-Type:application/json' http://localhost:8080/products
+ ```
+
+This will return the product details which is deleted:
+
+```
+{
+  "productId": "1",
+  "productName": "Notebook",
+  "description": "200 page, hardbound, blank notebook",
+  "price": 7.5
+}
+```
+### 2.`/orders` end point
+ You can use the following curl command for deleting an order by the orderId which is a auto generated unique Id:
+ 
+ ```
+curl --data '{ "orderId": "2e963950-4d0f-4674-a18e-8b33e9505bf6" }' -v -X DELETE -H 'Content-Type:application/json' http://localhost:8080/orders
+ ```
+
+This will return the order details with all the orderlines and the userId who had placed this order which are deleted:
+
+```
+{
+    "orderId":"2e963950-4d0f-4674-a18e-8b33e9505bf6",
+    "userId":"1",
+    "orderTotal":85.0,
+    "orderLines":[
+        {
+            "product":{
+                "productId":1,
+                "productName":"Notebook",
+                "description":"200 page notebook",
+                "price":7.5
+            },
+            "quantity":10
+        },
+        {
+            "product":{
+                "productId":2,
+                "productName":"Pen",
+                "description":"Cello Blue Pen",
+                "price":5
+            },
+            "quantity":2
+        }
+    ]
+}
+```
+
+
+
+
 
 
