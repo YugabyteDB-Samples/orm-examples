@@ -35,7 +35,7 @@ By default, the REST API server listens on `localhost` port `8080`.
 You can create a user named `John Smith` and email `jsmith@example.com` as follows:
 
 ```
-$ curl --data '{ "firstName" : "John", "lastName" : "Smith", "userEmail" : "jsmith@example.com" }' \
+$ curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@example.com" }' \
        -v -X POST -H 'Content-Type:application/json' http://localhost:8080/users
 ```
 
