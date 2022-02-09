@@ -49,7 +49,7 @@ This will return the inserted record as a JSON document:
 }
 ```
 
-You can connect to YugaByte DB using `psql` and select these records:
+You can connect to YugabyteDB using `psql` and select these records:
 ```
 postgres=# select * from users;
  user_id | first_name | last_name |  user_email
