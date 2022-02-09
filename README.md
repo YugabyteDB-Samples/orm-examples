@@ -1,14 +1,14 @@
-# Using ORMs with YugaByte DB
+# Using ORMs with YugabyteDB
 
-This repository has examples showing build a simple REST API server using ORMs on top of YugaByte DB (using the YSQL API). The scenario modelled is that of a simple online e-commerce store. It consists of the following.
+This repository has examples showing build a simple REST API server using ORMs on top of YugabyteDB (using the YSQL API). The scenario modelled is that of a simple online e-commerce store. It consists of the following.
 
 * The users of the ecommerce site are stored in the `users` table.
 * The `products` table contains a list of products the ecommerce site sells.
 * The orders placed by the users are populated in the `orders` table. An order can consist of multiple line items, each of these are inserted in the `orderline` table.
 
-## Step 1. Install YugaByte DB
+## Step 1. Install YugabyteDB
 
-You should first [install YugaByte DB](https://docs.yugabyte.com/latest/quick-start/), which is a distributed SQL database compatible with the PostgreSQL language.
+You should first [install YugabyteDB](https://docs.yugabyte.com/latest/quick-start/), which is a distributed SQL database compatible with the PostgreSQL language.
 
 ## Step 2. Bring up the REST API server
 
