@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDAO extends GenericDAO implements DAO <User, Long> {
+public class UserDAO extends GenericDAO implements DAO < User, Long > {
 
     @Override
     public void save(final User entity) {
@@ -16,34 +16,34 @@ public class UserDAO extends GenericDAO implements DAO <User, Long> {
         try {
             session.save(entity);
             transaction.commit();
-        } catch(RuntimeException rte) {
+        } catch (RuntimeException rte) {
             transaction.rollback();
         }
         session.close();
     }
 
     @Override
-    public Optional<User> findById(final Long id) {
+    public Optional < User > findById(final Long id) {
         return Optional.ofNullable(openCurrentSession().get(User.class, id));
     }
 
     @Override
-    public List<User> findAll() {
+    public List < User > findAll() {
         try (Session session = openCurrentSession()) {
             return session.createQuery("from User", User.class).list();
         }
     }
 
-    public void delete(final User user){
-          Session session = openCurrentSession();
+    public void delete(final User user) {
+        Session session = openCurrentSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.delete(user);
             transaction.commit();
-        } catch(RuntimeException rte) {
+        } catch (RuntimeException rte) {
             transaction.rollback();
             throw rte;
-        } 
+        }
         session.close();
     }
 
