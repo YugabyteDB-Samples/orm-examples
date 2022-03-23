@@ -84,17 +84,6 @@ public class DemoService {
         return product;
     }
 
-    public Product deleteProduct(final Long productId) {
-        Product product = productDao.findById(productId)
-            .orElseThrow(() -> new ResourceNotFoundException("Product not found with productId: " + productId));
-        try {
-            productDao.delete(product);
-        } catch (RuntimeException rte) {
-            throw rte;
-        }
-        return product;
-    }
-
     public List < Product > getAllProducts() {
         return productDao.findAll();
     }
