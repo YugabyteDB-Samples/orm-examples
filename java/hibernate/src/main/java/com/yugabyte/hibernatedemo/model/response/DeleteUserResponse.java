@@ -12,10 +12,10 @@ public class DeleteUserResponse {
     public User getUser() {
         return this.user;
     }
-    public List < CreateOrderResponse > getordersPlacedbyUser() {
+    public List < CreateOrderResponse > getOrdersPlacedByUser() {
         return this.ordersPlacedbyUser;
     }
-    public void setordersPlacedbyUser(List < CreateOrderResponse > ordersPlacedbyUser) {
+    public void setOrdersPlacedByUser(List < CreateOrderResponse > ordersPlacedbyUser) {
         this.ordersPlacedbyUser = ordersPlacedbyUser;
     }
     public void setUser(User user) {

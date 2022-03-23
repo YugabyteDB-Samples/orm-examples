@@ -55,8 +55,7 @@ public class DemoService {
                 responseOrdersPlacedbyUser.add(orderResponse);
             }
         }
-
-        deletedUserResponse.setordersPlacedbyUser(responseOrdersPlacedbyUser);
+        deletedUserResponse.setOrdersPlacedByUser(responseOrdersPlacedbyUser);
 
         User user = userDao.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with userId: " + userId));
         deletedUserResponse.setUser(user);
