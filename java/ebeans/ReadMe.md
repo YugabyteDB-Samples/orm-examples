@@ -34,12 +34,11 @@ Build the REST API server (written using ebeans and Java Play framework) as foll
 ```
 sbt compile
 ```
-Note: In case of issue regarding jdk.nashorn package not existing please add the following dependency in the build.sbt file:
+Some subversions of JDK 1.8 would require the nashorn package. If you get a compile error due to a missing jdk.nashorn package, add the dependency to the build.sbt file.
 ```
 libraryDependencies += "com.xenoamess" % "nashorn" % "jdk8u265-b01-x3"
 ```
-
-Run the REST API server:'
+Run the REST API server:
 ```
 sbt run
 ```
