@@ -26,11 +26,19 @@ Manually create database (configured in application.conf above) using following 
 ```
 ./ysqlsh -c "CREATE DATABASE ysql_ebeans"
 ```
+Create the `build.properties` file under the `project` directory and add the following line into it to specify the SBT version for the project.
+```
+sbt.version=1.2.8
+```
 Build the REST API server (written using ebeans and Java Play framework) as follows:
 ```
 sbt compile
 ```
-Run the REST API server:'
+Some subversions of JDK 1.8 would require the nashorn package. If you get a compile error due to a missing jdk.nashorn package, add the dependency to the build.sbt file.
+```
+libraryDependencies += "com.xenoamess" % "nashorn" % "jdk8u265-b01-x3"
+```
+Run the REST API server:
 ```
 sbt run
 ```

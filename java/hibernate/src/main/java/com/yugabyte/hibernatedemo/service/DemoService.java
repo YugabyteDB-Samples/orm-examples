@@ -13,11 +13,15 @@ import com.yugabyte.hibernatedemo.model.requests.CreateOrderRequest;
 import com.yugabyte.hibernatedemo.model.response.CreateOrderResponse;
 import com.yugabyte.hibernatedemo.model.response.ListOrdersResponse;
 import com.yugabyte.hibernatedemo.model.response.ResponseOrderLine;
+import com.yugabyte.hibernatedemo.model.response.DeleteUserResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
+import java.sql.*;
+
 
 public class DemoService {
     private UserDAO userDao;
@@ -37,7 +41,40 @@ public class DemoService {
         return newUser;
     }
 
-    public List<User> getAllUsers() {
+    public DeleteUserResponse deleteUser(final Long userId) {
+
+        DeleteUserResponse deletedUserResponse = new DeleteUserResponse();
+
+        ListOrdersResponse ordersResponse = listOrders(userId);
+        List < CreateOrderResponse > responseOrdersPlacedbyUser = new ArrayList < > ();
+        
+        if (ordersResponse.getOrders().size() > 0) {
+            List < ListOrdersResponse.ResponseOrder > ordersPlacedbyUser = ordersResponse.getOrders();
+            for (ListOrdersResponse.ResponseOrder eachOrder: ordersPlacedbyUser) {
+                CreateOrderResponse orderResponse = deleteOrder(eachOrder.getOrder_id());
+                responseOrdersPlacedbyUser.add(orderResponse);
+            }
+        }
+        deletedUserResponse.setOrdersPlacedByUser(responseOrdersPlacedbyUser);
+
+        User user = userDao.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with userId: " + userId));
+        deletedUserResponse.setUser(user);
+
+        try {
+            userDao.delete(user);
+        } catch (RuntimeException rte) {
+            throw rte;
+        }
+
+        return deletedUserResponse;
+    }
+
+    public User getById(final Long userId) {
+        User user = userDao.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with userId: " + userId));
+        return user;
+    }
+
+    public List < User > getAllUsers() {
         return userDao.findAll();
     }
 
@@ -46,7 +83,7 @@ public class DemoService {
         return product;
     }
 
-    public List<Product> getAllProducts() {
+    public List < Product > getAllProducts() {
         return productDao.findAll();
     }
 
@@ -56,12 +93,12 @@ public class DemoService {
         CreateOrderResponse response = new CreateOrderResponse();
         Order newOrder = new Order();
 
-        Map<OrderLine, Product> orderLineMap = new HashMap<>();
+        Map < OrderLine, Product > orderLineMap = new HashMap < > ();
         double orderTotal = 0;
-        for( CreateOrderRequest.OrderDetails detailLine : request.getProducts() ) {
+        for (CreateOrderRequest.OrderDetails detailLine: request.getProducts()) {
 
             Product product = productDao.findById(detailLine.getProductId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Product not found: productId: " + detailLine.getProductId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with productId: " + detailLine.getProductId()));
 
             orderTotal += product.getPrice() * detailLine.getQuantity();
 
@@ -74,15 +111,15 @@ public class DemoService {
 
         newOrder.setUser(
             userDao.findById(request.getUserId())
-                .orElseThrow(() ->  new ResourceNotFoundException("User not found: UserId: " + request.getUserId())));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found with UserId: " + request.getUserId())));
 
 
         newOrder.setOrderTotal(orderTotal);
 
         orderDao.save(newOrder);
 
-        List<ResponseOrderLine> responseOrderDetails = new ArrayList<>();
-        for ( OrderLine line : orderLineMap.keySet() ) {
+        List < ResponseOrderLine > responseOrderDetails = new ArrayList < > ();
+        for (OrderLine line: orderLineMap.keySet()) {
             line.setOrderId(newOrder.getOrderId());
             orderLineDao.save(line);
             responseOrderDetails.add(new ResponseOrderLine(orderLineMap.get(line), line.getQuantity()));
@@ -100,7 +137,7 @@ public class DemoService {
         ListOrdersResponse response = new ListOrdersResponse();
 
         User user = userDao.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found: userId: " + userId));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found with userId: " + userId));
 
 
         response.setUser_id(userId);
@@ -108,9 +145,9 @@ public class DemoService {
         response.setLast_name(user.getLastName());
         response.setEmail(user.getEmail());
 
-        response.setOrders(new ArrayList<>());
+        response.setOrders(new ArrayList < > ());
 
-        for( Order order : orderDao.findOrdersForUser(userId.intValue())) {
+        for (Order order: orderDao.findOrdersForUser(userId.intValue())) {
 
 
             ListOrdersResponse.ResponseOrder responseOrder = new ListOrdersResponse.ResponseOrder();
@@ -118,16 +155,44 @@ public class DemoService {
             response.getOrders().add(responseOrder);
             responseOrder.setOrder_id(order.getOrderId());
             responseOrder.setOrder_total(order.getOrderTotal());
-            responseOrder.setOrder_lines(new ArrayList<>());
+            responseOrder.setOrder_lines(new ArrayList < > ());
 
-            for (OrderLine lineForOrder : orderLineDao.findAllForOrder(order.getOrderId())) {
+            for (OrderLine lineForOrder: orderLineDao.findAllForOrder(order.getOrderId())) {
                 responseOrder.getOrder_lines().add(new ResponseOrderLine(
-                        productDao.findById(lineForOrder.getProductId())
-                                .orElseThrow(() -> new ResourceNotFoundException("Product not found. ProductId: " + lineForOrder.getProductId())),
-                        lineForOrder.getQuantity()
+                    productDao.findById(lineForOrder.getProductId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found with productId: " + lineForOrder.getProductId())),
+                    lineForOrder.getQuantity()
                 ));
             }
         }
         return response;
+    }
+
+    public CreateOrderResponse deleteOrder(final UUID orderId) {
+        Order order = orderDao.find(orderId)
+            .orElseThrow(() -> new ResourceNotFoundException("Order not found with orderId: " + orderId));
+
+        CreateOrderResponse deletedOrder = new CreateOrderResponse();
+        deletedOrder.setOrderId(order.getOrderId().toString());
+        deletedOrder.setUserId(order.getUser().getUserId());
+        deletedOrder.setOrderTotal(order.getOrderTotal());
+
+        List < OrderLine > orderLines = orderLineDao.findAllForOrder(order.getOrderId());
+        List < ResponseOrderLine > deletedOrderLines = new ArrayList < ResponseOrderLine > ();
+
+        for (OrderLine orderLine: orderLines) {
+            Product product = productDao.findById(orderLine.getProductId())
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with userId: " + orderLine.getProductId()));
+            ResponseOrderLine responseOrderLine = new ResponseOrderLine(product, orderLine.getQuantity());
+            deletedOrderLines.add(responseOrderLine);
+        }
+
+        deletedOrder.setOrderLines(deletedOrderLines);
+        try {
+            orderDao.delete(order);
+            return deletedOrder;
+        } catch (RuntimeException rte) {
+            throw rte;
+        }
     }
 }
