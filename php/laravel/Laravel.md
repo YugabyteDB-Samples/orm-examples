@@ -60,7 +60,7 @@ php artisan db:seed
 
 ### Start the Laravel app
 
-API endpoints will get started on [http://127.0.0.1/8000/api]
+API endpoints will get started on [http://127.0.0.1:8000/api]
 
 ```
 php artisan serve
