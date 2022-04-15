@@ -16,7 +16,7 @@ DB_PASSWORD=
 ## Setup the database to use Laravel migrations
 
 ```
-cd yb-laravel-example/
+cd php/laravel/
 php artisan migrate:install
 php artisan migrate:fresh
 ```
