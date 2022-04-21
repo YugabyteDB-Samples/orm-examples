@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mybatis TransactionDao mapper configuration -->
+<mapper namespace="org.mybatis.samples.mappers.TransactionDao">
+
+    <!-- mapping between table columns and object fields -->
+    <resultMap id="transactionResult" type="org.mybatis.samples.model.Transaction">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <!-- in the examples with TransactionDao try useCache=false in this case cache won't be used and each time query the db-->
+    <select id="findAll" resultMap="transactionResult" fetchSize="256" flushCache="false" useCache="true" timeout="60000" statementType="PREPARED" resultSetType="FORWARD_ONLY">
+        SELECT * FROM TRANSACTIONS
+    </select>
+
+    <!-- flushCache to db configuration -->
+    <insert id="insertTransaction" parameterType="org.mybatis.samples.model.Transaction" flushCache="true">
+        INSERT INTO transactions
+        (id, name)
+        VALUES (#{id}, #{name})
+    </insert>
+
+    <!-- cache 2 level configuration for TransactionDao. Can be commented out and in this case it won't be used-->
+    <cache  eviction="FIFO" flushInterval="60000" size="512" readOnly="true" type="org.mybatis.samples.cache.CustomDefaultCache">
+        <property name="stringProperty" value="foo" />
+        <property name="integerProperty" value="199" />
+    </cache>
+
+</mapper>
