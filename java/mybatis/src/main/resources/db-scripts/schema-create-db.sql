@@ -1,14 +1,13 @@
 
     create table orderline (
-       order_id uuid not null,
+       order_id int8 not null,
         product_id int8 not null,
         units int4,
         primary key (order_id, product_id)
     )
 
     create table orders (
-       order_id uuid not null,
-        order_time timestamp not null,
+       order_id bigserial not null,
         order_total numeric(10,2),
         user_id serial,
         primary key (order_id)

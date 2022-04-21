@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class OrderLine {
 
-    private UUID orderId;
+    private Long orderId;
 
     private Order order;
 
@@ -19,17 +19,17 @@ public class OrderLine {
     public OrderLine() {
     }
 
-    public OrderLine(UUID orderId, Long productId, Integer quantity) {
+    public OrderLine(Long orderId, Long productId, Integer quantity) {
         this.orderId = orderId;
         this.productId = productId;
         this.quantity = quantity;
     }
 
-    public UUID getOrderId() {
+    public Long getOrderId() {
         return this.orderId;
     }
 
-    public void setOrderId(UUID orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 

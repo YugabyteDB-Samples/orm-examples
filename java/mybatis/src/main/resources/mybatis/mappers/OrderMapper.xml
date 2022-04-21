@@ -3,11 +3,11 @@
 
 <mapper namespace="mybatis.mapper.OrderMapper">
 
-	<insert id="save" useGeneratedKeys="true" keyProperty="order_id">
+	<insert id = "save" useGeneratedKeys = "true" parameterType = "order">
         insert into orders (order_total, user_id) values (#{orderTotal}, #{userId})
     </insert>
     
-    <resultMap id="orderResultMap" type="Order">
+    <resultMap id="orderResultMap" type="Order" >
         <id property="orderId" column="order_id"/>
         <result property="userId" column="user_id"/>
         <association property="user"
@@ -16,15 +16,15 @@
     </resultMap>
     
     <select id="findById" resultMap="orderResultMap">
-        select <include refid="allColumns"/> from orders where order_id = #{orderId}
+        select * from orders where order_id = #{orderId}
     </select>
     
     <select id="findOrdersForUser" resultMap="orderResultMap">
-        select <include refid="allColumns"/> from orders where user_id = #{userId}
+        select * from orders where user_id = #{userId}
     </select>
     
     <select id="findAll" resultMap="orderResultMap" fetchSize="10" flushCache="false" useCache="false" timeout="60000" statementType="PREPARED" resultSetType="FORWARD_ONLY">
-        select <include refid="allColumns"/> from orders
+        select * from orders
     </select>
     
     <delete id="delete">

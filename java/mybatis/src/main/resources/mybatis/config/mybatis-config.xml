@@ -29,10 +29,10 @@
         <setting name="lazyLoadingEnabled" value="false" />
     </settings>
     <typeAliases>
-        <typeAlias type="com.yugabyte.mybatis.mode.Order" alias="Order"/>
-        <typeAlias type="com.yugabyte.mybatis.mode.OrderLine" alias="OrderLine"/>
-        <typeAlias type="com.yugabyte.mybatis.mode.Product" alias="Product"/>
-        <typeAlias type="com.yugabyte.mybatis.mode.User" alias="User"/>
+        <typeAlias type="com.yugabyte.mybatis.model.Order" alias="Order"/>
+        <typeAlias type="com.yugabyte.mybatis.model.OrderLine" alias="OrderLine"/>
+        <typeAlias type="com.yugabyte.mybatis.model.Product" alias="Product"/>
+        <typeAlias type="com.yugabyte.mybatis.model.User" alias="User"/>
     </typeAliases>
     <environments default="development">
         <environment id="development">
@@ -47,7 +47,10 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mybatis/mappers/mybatis.xml" />
+        <mapper resource="mybatis/mappers/OrderMapper.xml" />
+        <mapper resource="mybatis/mappers/OrderLineMapper.xml" />
+        <mapper resource="mybatis/mappers/ProductMapper.xml" />
+        <mapper resource="mybatis/mappers/UserMapper.xml" />
     </mappers>
 </configuration>
 

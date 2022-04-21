@@ -3,8 +3,8 @@
 
 <mapper namespace="mybatis.mapper.UserMapper">
 
-	<insert id="save">
-        insert into users (user_id, email, first_name, last_name) values (#{userId}, #{email}, #{firstName}, #{lastName})
+	<insert id="save" useGeneratedKeys = "true" parameterType = "User">
+        insert into users (email, first_name, last_name) values (#{email}, #{firstName}, #{lastName})
     </insert>
     
     <resultMap id="userResultMap" type="User">
@@ -15,11 +15,11 @@
     </resultMap>
     
     <select id="findById" resultMap="userResultMap">
-        select <include refid="allColumns"/> from users where user_id = #{userId}
+        select * from users where user_id = #{userId}
     </select>
     
     <select id="findAll" resultMap="userResultMap" fetchSize="10" flushCache="false" useCache="false" timeout="60000" statementType="PREPARED" resultSetType="FORWARD_ONLY">
-        select <include refid="allColumns"/> from users
+        select * from users
     </select>
     
     <delete id = "delete" parameterType = "User">

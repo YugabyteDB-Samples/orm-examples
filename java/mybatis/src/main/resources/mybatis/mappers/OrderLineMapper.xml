@@ -17,11 +17,11 @@
     </resultMap>
     
     <select id="findAll" resultMap="orderLineResultMap" fetchSize="10" flushCache="false" useCache="false" timeout="60000" statementType="PREPARED" resultSetType="FORWARD_ONLY">
-        select <include refid="allColumns"/> from orderline
+        select * from orderline
     </select>
     
     <select id="findAllForOrder" resultMap="orderLineResultMap">
-        select <include refid="allColumns"/> from orderline where order_id = #{orderId}
+        select * from orderline where order_id = #{orderId}
     </select>
     
     

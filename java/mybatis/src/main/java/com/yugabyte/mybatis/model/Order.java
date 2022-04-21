@@ -1,10 +1,9 @@
 package com.yugabyte.mybatis.model;
 
-import java.util.UUID;
-
 public class Order {
 
-    private UUID orderId;
+//    private UUID orderId;
+    private Long orderId;
 
     private User user;
 
@@ -12,11 +11,11 @@ public class Order {
 
     private double orderTotal;
 
-    public UUID getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(UUID orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 

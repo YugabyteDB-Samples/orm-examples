@@ -168,7 +168,7 @@ public class DemoService {
         return response;
     }
 
-    public CreateOrderResponse deleteOrder(final UUID orderId) {
+    public CreateOrderResponse deleteOrder(final Long orderId) {
         Order order = orderDao.find(orderId)
             .orElseThrow(() -> new ResourceNotFoundException("Order not found with orderId: " + orderId));
 

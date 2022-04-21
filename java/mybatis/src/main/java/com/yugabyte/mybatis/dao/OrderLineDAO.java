@@ -2,7 +2,6 @@ package com.yugabyte.mybatis.dao;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -11,13 +10,14 @@ import com.yugabyte.mybatis.model.OrderLine;
 public class OrderLineDAO extends GenericDAO  implements DAO <OrderLine, Integer> {
     @Override
     public void save(OrderLine entity) {
-        try (SqlSession session = openCurrentSession()) {
-            try {
-                session.insert("mybatis.mapper.OrderLineMapper.save", entity);
-            } catch( Exception e) {
-                e.printStackTrace();
-            }
-        }
+    	
+        SqlSession session = openCurrentSession();
+        try {
+        	session.insert("mybatis.mapper.OrderLineMapper.save", entity);
+        	session.commit();
+         } catch (RuntimeException rte) {
+         }  
+        session.close();
 
     }
 
@@ -26,7 +26,7 @@ public class OrderLineDAO extends GenericDAO  implements DAO <OrderLine, Integer
         throw new UnsupportedOperationException();
     }
 
-    public List<OrderLine> findAllForOrder(final UUID orderId) {
+    public List<OrderLine> findAllForOrder(final Long orderId) {
         try (SqlSession session = openCurrentSession()) {
             return session.selectList("mybatis.mapper.OrderLineMapper.findAllForOrder", orderId);
         }

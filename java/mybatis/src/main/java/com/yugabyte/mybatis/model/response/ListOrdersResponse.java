@@ -9,15 +9,15 @@ import com.yugabyte.mybatis.model.Product;
 public class ListOrdersResponse {
 
     public static class ResponseOrder {
-        private UUID order_id;
+        private Long order_id;
         private Double order_total;
         private List<ResponseOrderLine> order_lines;
 
-        public UUID getOrder_id() {
+        public Long getOrder_id() {
             return order_id;
         }
 
-        public void setOrder_id(UUID order_id) {
+        public void setOrder_id(Long order_id) {
             this.order_id = order_id;
         }
 

@@ -3,27 +3,27 @@
 
 <mapper namespace="mybatis.mapper.ProductMapper">
 
-	<insert id="save">
-        insert into products (product_id, description, price, product_name) values (#{productId}, #{description}, #{price}, #{productName})
+	<insert id="save" useGeneratedKeys = "true" parameterType = "Product">
+        insert into products (description, price, product_name) values (#{description}, #{price}, #{productName})
     </insert>
     
     <resultMap id="productResultMap" type="Product">
-        <id property="product_id" column="productId"/>
+        <id property="productId" column="product_id"/>
         <result property="description" column="description"/>
         <result property="price" column="price"/>
-        <result property="product_name" column="productName"/>
+        <result property="productName" column="product_name"/>
     </resultMap>
     
     <select id="findById" resultMap="productResultMap">
-        select <include refid="allColumns"/> from products where product_id = #{productId}
+        select * from products where product_id = #{productId}
     </select>
     
     <select id="findAll" resultMap="productResultMap" fetchSize="10" flushCache="false" useCache="false" timeout="60000" statementType="PREPARED" resultSetType="FORWARD_ONLY">
-        select <include refid="allColumns"/> from products
+        select * from products
     </select>
     
     <delete id = "delete" parameterType = "Product">
-      delete from products where product_id = #{product_id};
+      delete from products where product_id = #{productId};
     </delete>
     
 </mapper>

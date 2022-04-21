@@ -10,13 +10,14 @@ import com.yugabyte.mybatis.model.Product;
 public class ProductDAO extends GenericDAO implements DAO < Product, Long > {
     @Override
     public void save(Product entity) {
-        try (SqlSession session = openCurrentSession()) {
-            try {
-                session.insert("mybatis.mapper.ProductMapper.save", entity);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        
+        SqlSession session = openCurrentSession();
+        try {
+        	session.insert("mybatis.mapper.ProductMapper.save", entity);
+        	session.commit();
+         } catch (RuntimeException rte) {
+         }  
+        session.close();
     }
 
     @Override
@@ -34,7 +35,7 @@ public class ProductDAO extends GenericDAO implements DAO < Product, Long > {
     public void delete(final Product product) {
         SqlSession session = openCurrentSession();
         try {
-        	session.delete("mybatis.mapper.OrderMapper.delete", product.getProductId());
+        	session.delete("mybatis.mapper.ProductMapper.delete", product.getProductId());
         } catch (RuntimeException rte) {
             throw rte;
         }
