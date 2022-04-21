@@ -22,7 +22,7 @@ public class UserDAO extends GenericDAO implements DAO < User, Long > {
 
     @Override
     public Optional <User> findById(final Long id) {
-        return Optional.ofNullable(openCurrentSession().selectOne("mybatis.mapper.UserMapper.findByID", id));
+        return Optional.ofNullable(openCurrentSession().selectOne("mybatis.mapper.UserMapper.findById", id));
     }
 
     @Override

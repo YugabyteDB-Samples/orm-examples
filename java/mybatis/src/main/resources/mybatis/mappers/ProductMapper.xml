@@ -23,7 +23,7 @@
     </select>
     
     <delete id = "delete" parameterType = "Product">
-      delete from products where product_id = #{productId};
+    	delete from products where product_id = #{productId};
     </delete>
     
 </mapper>

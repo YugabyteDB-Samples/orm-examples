@@ -3,13 +3,12 @@
 
 <mapper namespace="mybatis.mapper.OrderMapper">
 
-	<insert id = "save" useGeneratedKeys = "true" parameterType = "order">
-        insert into orders (order_total, user_id) values (#{orderTotal}, #{userId})
+	<insert id = "save" useGeneratedKeys = "true" parameterType = "order" keyProperty = "orderId">
+        insert into orders (order_total, user_id) values (#{orderTotal}, #{userId}) RETURNING order_id;
     </insert>
     
     <resultMap id="orderResultMap" type="Order" >
         <id property="orderId" column="order_id"/>
-        <result property="userId" column="user_id"/>
         <association property="user"
                      column="user_id"
                      select="mybatis.mapper.UserMapper.findById"/>

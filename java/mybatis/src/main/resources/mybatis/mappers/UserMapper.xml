@@ -8,10 +8,10 @@
     </insert>
     
     <resultMap id="userResultMap" type="User">
-        <id property="user_id" column="userId"/>
+        <id property="userId" column="user_id"/>
         <result property="email" column="email"/>
-        <result property="first_name" column="firstName"/>
-        <result property="last_name" column="lastName"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_ame"/>
     </resultMap>
     
     <select id="findById" resultMap="userResultMap">
@@ -23,7 +23,7 @@
     </select>
     
     <delete id = "delete" parameterType = "User">
-      delete from users where user_id = #{user_id};
+      delete from users where user_id = #{userId};
     </delete>
     
 </mapper>

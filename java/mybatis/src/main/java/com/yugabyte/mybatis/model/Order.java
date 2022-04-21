@@ -7,8 +7,6 @@ public class Order {
 
     private User user;
 
-    private Long userId;
-
     private double orderTotal;
 
     public Long getOrderId() {
@@ -28,12 +26,12 @@ public class Order {
     }
 
     public Long getUserId() {
-        return this.userId;
+        return this.user.getUserId();
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+//    public void setUserId(Long userId) {
+//        this.userId = userId;
+//    }
 
     public double getOrderTotal() {
         return orderTotal;

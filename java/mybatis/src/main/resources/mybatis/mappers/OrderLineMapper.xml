@@ -8,12 +8,15 @@
     </insert>
     
     <resultMap id="orderLineResultMap" type="OrderLine">
-        <id property="orderId" column="order_id"/>
-        <id property="productId" column="product_id"/>
-        <result property="userId" column="user_id"/>
-        <association property="user"
-                     column="user_id"
-                     select="mybatis.mapper.UserMapper.findById"/>
+<!--         <id property="orderId" column="order_id"/>
+        <id property="productId" column="product_id"/> -->
+        <result property="units" column="units"/>
+        <association property="order"
+                     column="order_id"
+                     select="mybatis.mapper.OrderMapper.findById"/>
+        <association property="Product"
+                     column="product_id"
+                     select="mybatis.mapper.ProductMapper.findById"/>
     </resultMap>
     
     <select id="findAll" resultMap="orderLineResultMap" fetchSize="10" flushCache="false" useCache="false" timeout="60000" statementType="PREPARED" resultSetType="FORWARD_ONLY">

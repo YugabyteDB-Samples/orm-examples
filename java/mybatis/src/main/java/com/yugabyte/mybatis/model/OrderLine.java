@@ -1,9 +1,5 @@
 package com.yugabyte.mybatis.model;
 
-
-import java.io.Serializable;
-import java.util.UUID;
-
 public class OrderLine {
 
     private Long orderId;
@@ -47,10 +43,5 @@ public class OrderLine {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    static class IdClass implements Serializable {
-        private UUID orderId;
-        private Long productId;
     }
 }

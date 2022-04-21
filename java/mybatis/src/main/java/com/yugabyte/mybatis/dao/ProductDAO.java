@@ -22,7 +22,7 @@ public class ProductDAO extends GenericDAO implements DAO < Product, Long > {
 
     @Override
     public Optional < Product > findById(Long id) {
-        return Optional.ofNullable(openCurrentSession().selectOne("mybatis.mapper.ProductMapper.findByID", id));
+        return Optional.ofNullable(openCurrentSession().selectOne("mybatis.mapper.ProductMapper.findById", id));
     }
 
     @Override
