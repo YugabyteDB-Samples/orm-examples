@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.6.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.yugabyte</groupId>
+	<artifactId>yugabyte-jooq</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>yugabyte-jooq</name>
+	<description>Demo project for Spring Boot with jOOQ</description>
+
+	<properties>
+		<java.version>17</java.version>
+		<testcontainers.yugabytedb.version>1.0.0-beta-3</testcontainers.yugabytedb.version>
+		<jooq.version>3.16.2</jooq.version>
+		<pgjdbc.version>42.3.1</pgjdbc.version>
+		<db.username>yugabyte</db.username>
+		<db.password>yugabyte</db.password>
+		<db.url>jdbc:postgresql://localhost:5433/yugabyte</db.url>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jooq</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${pgjdbc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!--
+		  Spring Boot 2.x requiring Java 8 supports only up to jOOQ 3.14 out of the box
+		  Spring Boot 3.x will support newer jOOQ versions again.
+		  Hence: Upgrade the jOOQ version manually.
+		  -->
+		<dependency>
+			<groupId>org.jooq</groupId>
+			<artifactId>jooq</artifactId>
+			<version>${jooq.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.yugabyte</groupId>
+			<artifactId>testcontainers-yugabytedb</artifactId>
+			<version>${testcontainers.yugabytedb.version}</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<!-- You can generate jOOQ code from:
+			     - A live database connection: https://www.jooq.org/doc/latest/manual/code-generation/codegen-configuration/
+			     - A DDL file (limited support for vendor-specific syntax): https://www.jooq.org/doc/latest/manual/code-generation/codegen-ddl/
+			     - JPA entities: https://www.jooq.org/doc/latest/manual/code-generation/codegen-jpa/
+			     - XML files: https://www.jooq.org/doc/latest/manual/code-generation/codegen-xml/
+			     - Liquibase migrations: https://www.jooq.org/doc/latest/manual/code-generation/codegen-liquibase/
+			     - A testcontainers instance: https://blog.jooq.org/using-testcontainers-to-generate-jooq-code/
+			     -->
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>8.4.2</version>
+				<executions>
+					<execution>
+
+						<!-- We run the migration in the same phase, before jOOQ's
+                             code generation -->
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>migrate</goal>
+						</goals>
+						<configuration>
+
+							<!-- This URL has been set by groovy, above -->
+							<url>${db.url}</url>
+							<user>${db.username}</user>
+							<password>${db.password}</password>
+							<schemas>
+								<schema>jooq</schema>
+							</schemas>
+							<locations>
+								<location>
+									filesystem:src/main/resources/db/migration
+								</location>
+							</locations>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jooq</groupId>
+				<artifactId>jooq-codegen-maven</artifactId>
+				<version>${jooq.version}</version>
+
+				<executions>
+					<execution>
+						<id>java-generator</id>
+
+						<!-- Same phase as above, but the previous plugins have already
+                             executed, so we're generating the db post migration -->
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+
+						<configuration>
+							<jdbc>
+
+								<!-- Again, this URL has been set by groovy, above -->
+								<url>${db.url}</url>
+								<user>${db.username}</user>
+								<password>${db.password}</password>
+							</jdbc>
+							<generator>
+								<database>
+									<inputSchema>jooq</inputSchema>
+									<excludes>
+										flyway_schema_history
+									</excludes>
+									<schemaVersionProvider>SELECT :schema_name || '_' || MAX("version") FROM "jooq"."flyway_schema_history"</schemaVersionProvider>
+								</database>
+								<target>
+									<packageName>com.yugabyte.jooqdemo.db</packageName>
+
+									<!-- We're putting generated code under version control. There are pros and cons
+									     to that, see: https://www.jooq.org/doc/latest/manual/code-generation/codegen-version-control/
+
+									     One obvious pro (especially for this example) is that generated example code can be
+									     browsed on github without having to run the code generator.
+									     -->
+									<directory>src/main/java</directory>
+								</target>
+							</generator>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>17</source>
+					<target>17</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
