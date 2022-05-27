@@ -18,7 +18,7 @@
 		<java.version>17</java.version>
 		<testcontainers.yugabytedb.version>1.0.0-beta-3</testcontainers.yugabytedb.version>
 		<jooq.version>3.16.2</jooq.version>
-		<pgjdbc.version>42.3.1</pgjdbc.version>
+		<pgjdbc.version>42.3.3</pgjdbc.version>
 		<db.username>yugabyte</db.username>
 		<db.password>yugabyte</db.password>
 		<db.url>jdbc:postgresql://localhost:5433/yugabyte</db.url>
