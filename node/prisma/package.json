@@ -1,0 +1,19 @@
+{
+  "name": "prisma-orm-example",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.14.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0",
+    "prisma": "^3.14.0",
+    "uuid": "^3.3.2"
+  }
+}
