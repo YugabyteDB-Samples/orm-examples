@@ -1,5 +1,5 @@
 # Prerequisites
-1. Node/Npm
+1. Node/Npm/Npx
 2. YugabyteDB 
 
 # Build and run
@@ -16,8 +16,12 @@ echo 'DATABASE_URL="postgresql://<user>:<password>@<host>:<port>/<db_name>"' > .
 
 Create the tables in the YugabyteDB by applying the migration for the data models in the file `prisma/schema.prisma` using the following command and generate the `PrismaClient`: 
 ```
-prisma migrate dev --name first_migration
+npx prisma migrate dev --name first_migration
 ```
+Note: If you want to use the Prisma CLI without `npx`, you need to install Prisma globally using: 
+```
+npm i -g prisma
+``` 
 
 To run the server, simply do:
 ```
