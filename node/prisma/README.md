@@ -8,6 +8,7 @@ Create Database
 ```
 ysqlsh -c "CREATE DATABASE ysql_prisma"
 ```
+Note: By default, app tries to connect to the local cluster with `ysql_prisma` database, to change the configuration use `.env` file and modify the `DATABASE_URL` variable.
 
 Install depedencies by running :
 ```
