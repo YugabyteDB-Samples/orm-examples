@@ -24,7 +24,7 @@ default.password=""
 # Build and run
 Manually create database (configured in application.conf above) using following command:
 ```
-./ysqlsh -c "CREATE DATABASE ."
+./ysqlsh -c "CREATE DATABASE ysql_ebean"
 ```
 Create the `build.properties` file under the `project` directory and add the following line into it to specify the SBT version for the project.
 ```
