@@ -20,7 +20,7 @@ By default, the REST API server listens on `localhost` port `8080`.
 | ------------- | ------------- |
 | [Java - Spring](https://github.com/YugaByte/orm-examples/blob/master/java/spring)  | Spring Data JPA (uses Hibernate internally)   |
 | [Core Java - Hibernate](https://github.com/YugaByte/orm-examples/blob/master/java/hibernate)  | Core Java - Hibernate Example   |
-| [Scala - Play](https://github.com/YugaByte/orm-examples/blob/master/java/ebeans)  | Play Framework Example   |
+| [Scala - Play](https://github.com/YugaByte/orm-examples/blob/master/java/ebean)  | Play Framework Example   |
 | [Golang - Gorm](https://github.com/YugaByte/orm-examples/blob/master/golang/gorm)  | Gorm   |
 | [NodeJS - Sequelize](https://github.com/YugaByte/orm-examples/blob/master/node/sequelize)  | Sequelize   |
 | [Python - SQLAlchemy](https://github.com/YugaByte/orm-examples/blob/master/python/sqlalchemy)  | SQL Alchemy   |
