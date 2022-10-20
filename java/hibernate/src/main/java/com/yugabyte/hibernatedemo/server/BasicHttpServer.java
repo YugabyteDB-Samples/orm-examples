@@ -8,7 +8,10 @@ import com.yugabyte.hibernatedemo.Exceptions.ResourceNotFoundException;
 import com.yugabyte.hibernatedemo.model.Product;
 import com.yugabyte.hibernatedemo.model.User;
 import com.yugabyte.hibernatedemo.model.requests.CreateOrderRequest;
+import com.yugabyte.hibernatedemo.model.response.DeleteUserResponse;
 import com.yugabyte.hibernatedemo.model.requests.UserIdClass;
+import com.yugabyte.hibernatedemo.model.requests.ProductIdClass;
+import com.yugabyte.hibernatedemo.model.requests.OrderIdClass;
 import com.yugabyte.hibernatedemo.model.response.CreateOrderResponse;
 import com.yugabyte.hibernatedemo.service.DemoService;
 import org.apache.log4j.Logger;
@@ -29,7 +32,7 @@ public class BasicHttpServer {
         try (InputStream in = BasicHttpServer.class.getClassLoader().getResourceAsStream("config.properties")) {
             applicationProperties = new Properties();
             assert in != null;
-            applicationProperties.load(in);
+            applicationProperties.load( in );
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,19 +46,20 @@ public class BasicHttpServer {
         logger.info("Listening on port: " + port);
 
         server.createContext("/users")
-                .setHandler(BasicHttpServer::handleUsersRequest);
+            .setHandler(BasicHttpServer::handleUsersRequest);
 
         server.createContext("/products")
-                .setHandler(BasicHttpServer::handleProductRequest);
+            .setHandler(BasicHttpServer::handleProductRequest);
 
         server.createContext("/orders")
-                .setHandler(BasicHttpServer::handleCreateOrder);
+            .setHandler(BasicHttpServer::handleOrderRequest);
 
         server.createContext("/list-orders")
-                .setHandler(BasicHttpServer::handleListOrders);
+            .setHandler(BasicHttpServer::handleListOrders);
 
         server.createContext("/")
-                .setHandler(BasicHttpServer::handleRootRequest);
+            .setHandler(BasicHttpServer::handleRootRequest);
+
         server.start();
     }
 
@@ -63,13 +67,21 @@ public class BasicHttpServer {
         exchange.sendResponseHeaders(404, 0);
         exchange.close();
     }
-    
+
     private static void handleProductRequest(final HttpExchange exchange) throws IOException {
 
         if (exchange.getRequestMethod().equals("POST")) {
-        	handleCreateProduct(exchange);
-        } else {
-        	handleListProducts(exchange);
+            handleCreateProduct(exchange);
+        } else if (exchange.getRequestMethod().equals("GET")) {
+            handleListProducts(exchange);
+        }
+    }
+    private static void handleOrderRequest(final HttpExchange exchange) throws IOException {
+
+        if (exchange.getRequestMethod().equals("POST")) {
+            handleCreateOrder(exchange);
+        } else if (exchange.getRequestMethod().equals("DELETE")) {
+            handleDeleteOrder(exchange);
         }
     }
 
@@ -77,23 +89,26 @@ public class BasicHttpServer {
 
         if (exchange.getRequestMethod().equals("POST")) {
             handleUserPostRequest(exchange);
-        } else {
+        } else if (exchange.getRequestMethod().equals("GET")) {
             handleUserGetRequest(exchange);
+        } else {
+            handleUserDeleteRequest(exchange);
         }
     }
+
 
     private static void handleUserPostRequest(final HttpExchange exchange) throws IOException {
         final Gson gson = new Gson();
         final BufferedReader reader =
-                new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
+            new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
         User user = gson.fromJson(reader, User.class);
         try {
             service.create(user);
             sendJsonResponse(exchange, gson.toJson(user));
-        } catch( ResourceNotFoundException rnfe ) {
+        } catch (ResourceNotFoundException rnfe) {
             sendErrorResponse(exchange, 400, rnfe.getMessage());
             rnfe.printStackTrace();
-        } catch( RuntimeException rte) {
+        } catch (RuntimeException rte) {
             sendErrorResponse(exchange, 500, "Internal Server error");
             rte.printStackTrace();
         }
@@ -102,13 +117,30 @@ public class BasicHttpServer {
     private static void handleUserGetRequest(final HttpExchange exchange) throws IOException {
         final Gson gson = new Gson();
         try {
-            List<User> allUsers = service.getAllUsers();
+            List < User > allUsers = service.getAllUsers();
             sendJsonResponse(exchange, gson.toJson(allUsers));
-        } catch( ResourceNotFoundException rnfe ) {
+        } catch (ResourceNotFoundException rnfe) {
             sendErrorResponse(exchange, 400, rnfe.getMessage());
             rnfe.printStackTrace();
-        } catch( RuntimeException rte) {
+        } catch (RuntimeException rte) {
             sendErrorResponse(exchange, 500, "Internal Server error");
+            rte.printStackTrace();
+        }
+    }
+
+    private static void handleUserDeleteRequest(final HttpExchange exchange) throws IOException {
+        try {
+            final Gson gson = new Gson();
+            final BufferedReader reader =
+                new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
+            UserIdClass request = gson.fromJson(reader, UserIdClass.class);
+            DeleteUserResponse userDeleted = service.deleteUser(request.userId);
+            sendJsonResponse(exchange, gson.toJson(userDeleted));
+        } catch (ResourceNotFoundException rnfe) {
+            sendErrorResponse(exchange, 400, rnfe.getMessage());
+            rnfe.printStackTrace();
+        } catch (RuntimeException rte) {
+            sendErrorResponse(exchange, 500, rte.getMessage());
             rte.printStackTrace();
         }
     }
@@ -116,16 +148,16 @@ public class BasicHttpServer {
     private static void handleCreateProduct(final HttpExchange exchange) throws IOException {
         final Gson gson = new Gson();
         final BufferedReader reader =
-                new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
+            new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
         Product product = gson.fromJson(reader, Product.class);
 
         try {
             service.create(product);
             sendJsonResponse(exchange, gson.toJson(product));
-        } catch( ResourceNotFoundException rnfe ) {
+        } catch (ResourceNotFoundException rnfe) {
             sendErrorResponse(exchange, 400, rnfe.getMessage());
             rnfe.printStackTrace();
-        } catch( RuntimeException rte) {
+        } catch (RuntimeException rte) {
             sendErrorResponse(exchange, 500, "Internal Server error");
             rte.printStackTrace();
         }
@@ -152,12 +184,12 @@ public class BasicHttpServer {
     private static void handleListProducts(final HttpExchange exchange) throws IOException {
         final Gson gson = new Gson();
         try {
-            List<Product> allProducts = service.getAllProducts();
+            List < Product > allProducts = service.getAllProducts();
             sendJsonResponse(exchange, gson.toJson(allProducts));
-        } catch( ResourceNotFoundException rnfe ) {
+        } catch (ResourceNotFoundException rnfe) {
             sendErrorResponse(exchange, 400, rnfe.getMessage());
             rnfe.printStackTrace();
-        } catch( RuntimeException rte) {
+        } catch (RuntimeException rte) {
             sendErrorResponse(exchange, 500, "Internal Server error");
             rte.printStackTrace();
         }
@@ -169,30 +201,47 @@ public class BasicHttpServer {
         try {
             final Gson gson = new Gson();
             final BufferedReader reader =
-                    new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
+                new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
             CreateOrderRequest request = gson.fromJson(reader, CreateOrderRequest.class);
             CreateOrderResponse response = service.create(request);
             sendJsonResponse(exchange, gson.toJson(response));
-        } catch( ResourceNotFoundException rnfe ) {
+        } catch (ResourceNotFoundException rnfe) {
             sendErrorResponse(exchange, 400, rnfe.getMessage());
             rnfe.printStackTrace();
-        } catch( RuntimeException rte) {
+        } catch (RuntimeException rte) {
             sendErrorResponse(exchange, 500, "Internal Server error");
             rte.printStackTrace();
         }
     }
 
-    private static void handleListOrders(final HttpExchange exchange) throws  IOException {
+    private static void handleListOrders(final HttpExchange exchange) throws IOException {
         try {
             final Gson gson = new Gson();
             final BufferedReader reader =
-                    new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
+                new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
             UserIdClass request = gson.fromJson(reader, UserIdClass.class);
             sendJsonResponse(exchange, gson.toJson(service.listOrders(request.userId)));
-        } catch( ResourceNotFoundException rnfe ) {
+        } catch (ResourceNotFoundException rnfe) {
             sendErrorResponse(exchange, 400, rnfe.getMessage());
             rnfe.printStackTrace();
-        } catch( RuntimeException rte) {
+        } catch (RuntimeException rte) {
+            sendErrorResponse(exchange, 500, "Internal Server error");
+            rte.printStackTrace();
+        }
+    }
+
+    private static void handleDeleteOrder(final HttpExchange exchange) throws IOException {
+        try {
+            final Gson gson = new Gson();
+            final BufferedReader reader =
+                new BufferedReader(new InputStreamReader(exchange.getRequestBody()));
+            OrderIdClass request = gson.fromJson(reader, OrderIdClass.class);
+            CreateOrderResponse response = service.deleteOrder(request.orderId);
+            sendJsonResponse(exchange, gson.toJson(response));
+        } catch (ResourceNotFoundException rnfe) {
+            sendErrorResponse(exchange, 400, rnfe.getMessage());
+            rnfe.printStackTrace();
+        } catch (RuntimeException rte) {
             sendErrorResponse(exchange, 500, "Internal Server error");
             rte.printStackTrace();
         }

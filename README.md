@@ -1,14 +1,14 @@
-# Using ORMs with YugaByte DB
+# Using ORMs with YugabyteDB
 
-This repository has examples showing build a simple REST API server using ORMs on top of YugaByte DB (using the YSQL API). The scenario modelled is that of a simple online e-commerce store. It consists of the following.
+This repository has examples showing build a simple REST API server using ORMs on top of YugabyteDB (using the YSQL API). The scenario modelled is that of a simple online e-commerce store. It consists of the following.
 
-* The users of the ecommerce site are stored in the `users` table. 
+* The users of the ecommerce site are stored in the `users` table.
 * The `products` table contains a list of products the ecommerce site sells.
 * The orders placed by the users are populated in the `orders` table. An order can consist of multiple line items, each of these are inserted in the `orderline` table.
 
-## Step 1. Install YugaByte DB
+## Step 1. Install YugabyteDB
 
-You should first [install YugaByte DB](https://docs.yugabyte.com/latest/quick-start/), which is a distributed SQL database compatible with the PostgreSQL language.
+You should first [install YugabyteDB](https://docs.yugabyte.com/latest/quick-start/), which is a distributed SQL database compatible with the PostgreSQL language.
 
 ## Step 2. Bring up the REST API server
 
@@ -20,7 +20,7 @@ By default, the REST API server listens on `localhost` port `8080`.
 | ------------- | ------------- |
 | [Java - Spring](https://github.com/YugaByte/orm-examples/blob/master/java/spring)  | Spring Data JPA (uses Hibernate internally)   |
 | [Core Java - Hibernate](https://github.com/YugaByte/orm-examples/blob/master/java/hibernate)  | Core Java - Hibernate Example   |
-| [Scala - Play](https://github.com/YugaByte/orm-examples/blob/master/java/ebeans)  | Play Framework Example   |
+| [Scala - Play](https://github.com/YugaByte/orm-examples/blob/master/java/ebean)  | Play Framework Example   |
 | [Golang - Gorm](https://github.com/YugaByte/orm-examples/blob/master/golang/gorm)  | Gorm   |
 | [NodeJS - Sequelize](https://github.com/YugaByte/orm-examples/blob/master/node/sequelize)  | Sequelize   |
 | [Python - SQLAlchemy](https://github.com/YugaByte/orm-examples/blob/master/python/sqlalchemy)  | SQL Alchemy   |
@@ -28,15 +28,16 @@ By default, the REST API server listens on `localhost` port `8080`.
 | [Ruby on Rails - ActiveRecord](https://github.com/YugaByte/orm-examples/tree/master/ruby/ror)  | ActiveRecord   |
 | [Rust - Diesel](https://github.com/YugaByte/orm-examples/blob/master/rust/diesel)  | Rust Diesel   |
 | [C# - Dapper](https://github.com/YugaByte/orm-examples/blob/master/csharp/dapper)  | Dapper   |
+| [Php - Laravel](https://github.com/YugaByte/orm-examples/blob/master/php/laravel/)  | Php Laravel   |
 
 
 
 ## Step 3. Create a user
 
-You can create a user named `John Smith` and email `jsmith@yb.com` as follows:
+You can create a user named `John Smith` and email `jsmith@example.com` as follows:
 
 ```
-$ curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@yb.com" }' \
+$ curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@example.com" }' \
        -v -X POST -H 'Content-Type:application/json' http://localhost:8080/users
 ```
 
@@ -46,16 +47,16 @@ This will return the inserted record as a JSON document:
   "userId": "1",
   "firstName": "John",
   "lastName": "Smith",
-  "email": "jsmith@yb.com"
+  "email": "jsmith@example.com"
 }
 ```
 
-You can connect to YugaByte DB using `psql` and select these records:
+You can connect to YugabyteDB using `psql` and select these records:
 ```
 postgres=# select * from users;
  user_id | first_name | last_name |  user_email
 ---------+------------+-----------+---------------
-       1 | John       | Smith     | jsmith@yb.com(1 row)
+       1 | John       | Smith     | jsmith@example.com(1 row)
 ```
 
 ## Step 4. List all users
@@ -71,7 +72,7 @@ You should see the following output:
   "content": [
     {
       "userId":"1",
-      "email":"jsmith@yb.com",
+      "email":"jsmith@example.com",
       "firstName":"John",
       "lastName":"Smith"
     }

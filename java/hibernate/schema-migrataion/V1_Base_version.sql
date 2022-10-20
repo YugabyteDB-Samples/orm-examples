@@ -8,7 +8,7 @@ drop table if exists users cascade;
 create table orderline (orderId uuid not null, productId int8 not null, quantity int4, primary key (orderId, productId));
 create table orders (orderId uuid not null, orderTotal numeric(10,2), user_id serial, primary key (orderId));
 create table products (productId  bigserial not null, description varchar(255), price numeric(10,2), productName varchar(255), primary key (productId));
-create table users (userId  bigserial not null, firstName varchar(255), lastName varchar(255), userEmail varchar(255), primary key (userId));
+create table users (userId  bigserial not null, firstName varchar(255), lastName varchar(255), email varchar(255), primary key (userId));
 alter table orderline add constraint FK9vhr8iiadsj0qxh4ln3xpjmim foreign key (productId) references products;
 alter table orderline add constraint FKxmemqodmkblytojev2mfggxv foreign key (orderId) references orders on delete cascade;
 alter table orders add constraint FK32ql8ubntj5uh44ph9659tiih foreign key (user_id) references users;

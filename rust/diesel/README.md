@@ -13,12 +13,14 @@ Create the DB named `ysql_diesel`
 $ ysqlsh -c "CREATE DATABASE ysql_diesel"
 ```
 
+Modify the database url as per needed for the following format in the `.env` file 
+```
+postgres://<user>:<password>@<host_name>:<port>/<db_name>
+```
+
 Run the REST API server:
 
 ```
-# Modify connection URL as needed
-$ export DATABASE_URL=postgres://postgres@localhost:5433/ysql_diesel
-
 $ ./target/release/yugadiesel
 ```
 

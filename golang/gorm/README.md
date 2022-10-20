@@ -18,7 +18,7 @@ Append source code location to GOPATH environment variable
 export GOPATH=$GOPATH:/orm-examples/golang/gorm
 ```
 
-Create database in YugaByte. Follow the name as specified in configuration.
+Create database in YugabyteDB. Follow the name as specified in configuration.
 ```
 ./ysqlsh -c "CREATE DATABASE ysql_gorm"
 ```

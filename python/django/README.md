@@ -1,5 +1,5 @@
 ### Pre-requisites and Dependencies
-* Yugabyte (https://docs.yugabyte.com/latest/quick-start/install/)
+* YugabyteDB (https://docs.yugabyte.com/latest/quick-start/install/)
 * Python3 (https://www.python.org/downloads/)
 * django 2.2 or above (https://docs.djangoproject.com/en/2.2/topics/install/)
 * django rest framework (run command 'pip3 install djangorestframework')
@@ -29,7 +29,7 @@ Generate Django secret key using any django secret key generator and place newly
 SECRET_KEY = 'YOUR-SECRET-KEY'
 ```
 
-Once these properties are customized, create database in YugaByte as specified in configuration
+Once these properties are customized, create database in YugabyteDB as specified in configuration
 ```
 ./ysqlsh -c "CREATE DATABASE ysql_django"
 ```

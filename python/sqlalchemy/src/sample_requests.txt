@@ -1,11 +1,11 @@
 Create User
-curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@yb.com" }' \
+curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith" }' \
        -v -X POST -H 'Content-Type:application/json' http://localhost:8080/users
 
 returns:
 {
   "user_id": 21,
-  "email": "jsmith@yb.com",
+  "email": "jsmith@example.com",
   "first_name": "John",
   "last_name": "Smith"
 }
@@ -23,7 +23,7 @@ curl http://localhost:8080/users
       "user_id": 4
     },
     {
-      "email": "jsmith@yb.com",
+      "email": "jsmith@example.com",
       "first_name": "John",
       "last_name": "Smith",
       "user_id": 8
@@ -36,7 +36,7 @@ curl http://localhost:8080/users
 curl --data '{ "productName": "Notebook", "description": "200 page notebook", "price": 7.50 }' \
   -v -X POST -H 'Content-Type:application/json' http://localhost:8080/products
 
-returns: 
+returns:
 {
   "description": "200 page notebook",
   "price": 7.5,
@@ -55,7 +55,7 @@ curl \
   --data '{ "productName": "Notebook", "description": "200 page notebook", "price": 7.50 }' \
   -v -X POST -H 'Content-Type:application/json' http://localhost:8080/list-products
 
-returns: 
+returns:
 {
   "products": [
     {
@@ -79,7 +79,7 @@ curl \
   --data '{ "userId": "1", "products": [ { "productId": 1, "quantity": 2 } ] }' \
   -v -X POST -H 'Content-Type:application/json' http://localhost:8080/orders
 
-returns: 
+returns:
 {
   "order_id": 17,
   "order_lines": [
@@ -102,7 +102,7 @@ curl --data '{ "userId": "1" }' \
   -v -X POST -H 'Content-Type:application/json' http://localhost:8080/list-orders
 
 
-returns: 
+returns:
 
 {
   "email": "syed@12techllc.com",
@@ -153,7 +153,7 @@ Check out multiple products in one order:
 curl --data '{ "userId": "1", "products": [ { "productId": 1, "quantity": 2 }, { "productId": 2, "quantity": 4 } ] }' \
 -v -X POST -H 'Content-Type:application/json' http://localhost:8080/orders
 
-Returns: 
+Returns:
 {
   "user_id": 4,
   "order_id": 16,

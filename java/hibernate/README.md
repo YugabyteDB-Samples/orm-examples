@@ -23,7 +23,8 @@ There are a number of options that can be customized in the properties file loca
 | ------------- | ------------- | ------- |
 | `server.port`  | The port on which the REST API server should listen. | 8080 |
 
-## For the Hibernate connection info, please modify the file: [`src/main/resources/hibernate.cfg.xml`](https://github.com/YugaByte/orm-examples/blob/master/hibernate/src/main/resources/hibernate.cfg.xml)
+## For the Hibernate connection info, please modify the file: 
+[`src/main/resources/hibernate.cfg.xml`](https://github.com/YugaByte/orm-examples/blob/master/hibernate/src/main/resources/hibernate.cfg.xml)
 
 | Properties    | Description   | Default |
 | ------------- | ------------- | ------- |
@@ -31,6 +32,95 @@ There are a number of options that can be customized in the properties file loca
 | `hibernate.connection.username` | The username to connect to the database. | `postgres` |
 | `hibernate.connection.password` | The password to connect to the database. Leave blank for the password. | - |
 
+
+## Delete REST API request 
+Here, in addition to GET/POST, You can send DELETE request to delete records from corresponding tables.
+
+### 1. `/users` end point
+  
+ You can use the following curl command for deleting a user:
+ 
+ ```
+ curl --data '{ "userId": "1" }' -v -X DELETE -H 'Content-Type:application/json' http://localhost:8080/users
+ ```
+
+This will return the user details and the details of all the orders placed by that user which are now deleted:
+
+```
+{
+    "user": {
+        "userId": 1,
+        "firstName": "John",
+        "lastName": "Smith",
+        "email": "jsmith@example.com"
+    },
+    "ordersPlacedbyUser": [
+        {
+            "orderId": "2e963950-4d0f-4674-a18e-8b33e9505bf6",
+            "userId": 1,
+            "orderTotal": 85.0,
+            "orderLines": [
+                {
+                    "product":{
+                        "productId": 1,
+                        "productName": "Notebook",
+                        "description": "200 page notebook",
+                        "price": 7.5
+                    },
+                    "quantity": 10
+                },
+                {
+                    "product": {
+                        "productId": 2,
+                        "productName": "Pen",
+                        "description": "Cello Blue Pen",
+                        "price": 5
+                    },
+                    "quantity": 2
+                }
+            ]
+        }
+    ]
+}
+
+```
+
+### 2.`/orders` end point
+ You can use the following curl command for deleting an order by the orderId which is a auto generated unique Id:
+ 
+ ```
+curl --data '{ "orderId": "2e963950-4d0f-4674-a18e-8b33e9505bf6" }' -v -X DELETE -H 'Content-Type:application/json' http://localhost:8080/orders
+ ```
+
+This will return the order details of that orderId with all the orderlines which are now deleted:
+
+```
+{
+    "orderId": "2e963950-4d0f-4674-a18e-8b33e9505bf6",
+    "userId": "1",
+    "orderTotal": 85.0,
+    "orderLines": [
+        {
+            "product":{
+                "productId": 1,
+                "productName": "Notebook",
+                "description": "200 page notebook",
+                "price": 7.5
+            },
+            "quantity": 10
+        },
+        {
+            "product": {
+                "productId": 2,
+                "productName": "Pen",
+                "description": "Cello Blue Pen",
+                "price": 5
+            },
+            "quantity": 2
+        }
+    ]
+}
+```
 # Schema Migration
 
 ## Export the current schemas on the database
@@ -63,6 +153,3 @@ We have generated schema definitions that are currently applied in the database 
 ```
 ./flway migrate
 ```
-
-
-

@@ -24,7 +24,7 @@ public class User {
     @NotBlank
     private String lastName;
 
-    private String userEmail;
+    private String email;
 
     public void setUserId(Long userId) {
         this.userId = userId;
@@ -51,10 +51,10 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.userEmail = email;
+        this.email = email;
     }
 
     public String getEmail() {
-        return this.userEmail;
+        return this.email;
     }
 }
