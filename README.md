@@ -27,6 +27,7 @@ By default, the REST API server listens on `localhost` port `8080`.
 | [Python - django](https://github.com/YugaByte/orm-examples/blob/master/python/django)  | Django   |
 | [Ruby on Rails - ActiveRecord](https://github.com/YugaByte/orm-examples/tree/master/ruby/ror)  | ActiveRecord   |
 | [Rust - Diesel](https://github.com/YugaByte/orm-examples/blob/master/rust/diesel)  | Rust Diesel   |
+| [C# - Dapper](https://github.com/YugaByte/orm-examples/blob/master/csharp/dapper)  | Dapper   |
 | [Php - Laravel](https://github.com/YugaByte/orm-examples/blob/master/php/laravel/)  | Php Laravel   |
 
 
