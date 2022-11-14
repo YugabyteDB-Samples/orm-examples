@@ -17,20 +17,20 @@ default.password={db-password}
 Below are the default settings for YugaByte
 ```
 default.driver=org.postgresql.Driver
-default.url="jdbc: postgresql://127.0.0.1:5433/ysql_ebeans"
+default.url="jdbc: postgresql://127.0.0.1:5433/ysql_ebean"
 default.username=postgres
 default.password=""
 ```
 # Build and run
 Manually create database (configured in application.conf above) using following command:
 ```
-./ysqlsh -c "CREATE DATABASE ysql_ebeans"
+./ysqlsh -c "CREATE DATABASE ysql_ebean"
 ```
 Create the `build.properties` file under the `project` directory and add the following line into it to specify the SBT version for the project.
 ```
 sbt.version=1.2.8
 ```
-Build the REST API server (written using ebeans and Java Play framework) as follows:
+Build the REST API server (written using ebean and Java Play framework) as follows:
 ```
 sbt compile
 ```
