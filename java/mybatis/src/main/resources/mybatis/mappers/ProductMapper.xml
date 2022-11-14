@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mybatis.mapper.ProductMapper">
+
+	<insert id="save" useGeneratedKeys = "true" parameterType = "Product">
+        insert into products (description, price, product_name) values (#{description}, #{price}, #{productName})
+    </insert>
+    
+    <resultMap id="productResultMap" type="Product">
+        <id property="productId" column="product_id"/>
+        <result property="description" column="description"/>
+        <result property="price" column="price"/>
+        <result property="productName" column="product_name"/>
+    </resultMap>
+    
+    <select id="findById" resultMap="productResultMap">
+        select * from products where product_id = #{productId}
+    </select>
+    
+    <select id="findAll" resultMap="productResultMap" fetchSize="10" flushCache="false" useCache="false" timeout="60000" statementType="PREPARED" resultSetType="FORWARD_ONLY">
+        select * from products
+    </select>
+    
+    <delete id = "delete" parameterType = "Product">
+    	delete from products where product_id = #{productId};
+    </delete>
+    
+</mapper>

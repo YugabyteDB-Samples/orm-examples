@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Mybatis config sample -->
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties>
+        <!-- enabling default property values -->
+        <property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+        <property name="stringProperty" value="bar" />
+        <property name="integerProperty" value="99" />
+    </properties>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="multipleResultSetsEnabled" value="true"/>
+        <setting name="useColumnLabel" value="true"/>
+        <setting name="useGeneratedKeys" value="false"/>
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+        <setting name="defaultExecutorType" value="SIMPLE"/>
+        <setting name="defaultStatementTimeout" value="25"/>
+        <setting name="defaultFetchSize" value="100"/>
+        <setting name="safeRowBoundsEnabled" value="false"/>
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <setting name="localCacheScope" value="SESSION"/>
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+        <setting name="lazyLoadingEnabled" value="false" />
+    </settings>
+    <typeAliases>
+        <typeAlias type="com.yugabyte.mybatis.model.Order" alias="Order"/>
+        <typeAlias type="com.yugabyte.mybatis.model.OrderLine" alias="OrderLine"/>
+        <typeAlias type="com.yugabyte.mybatis.model.Product" alias="Product"/>
+        <typeAlias type="com.yugabyte.mybatis.model.User" alias="User"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="org.postgresql.Driver" />
+                <property name="url" value="jdbc:postgresql://localhost:5433/yugabyte" />
+                <!-- default property values support -->
+                <property name="username" value="${db.username:yugabyte}" />
+                <property name="password" value="${db.password:}" />
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mybatis/mappers/OrderMapper.xml" />
+        <mapper resource="mybatis/mappers/OrderLineMapper.xml" />
+        <mapper resource="mybatis/mappers/ProductMapper.xml" />
+        <mapper resource="mybatis/mappers/UserMapper.xml" />
+    </mappers>
+</configuration>
+

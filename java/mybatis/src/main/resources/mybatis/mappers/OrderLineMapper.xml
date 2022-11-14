@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mybatis.mapper.OrderLineMapper">
+
+	<insert id="save">
+        insert into orderline (order_id, product_id, units) values (#{orderId}, #{productId}, #{quantity})
+    </insert>
+    
+    <resultMap id="orderLineResultMap" type="OrderLine">
+<!--         <id property="orderId" column="order_id"/>
+        <id property="productId" column="product_id"/> -->
+        <result property="units" column="units"/>
+        <association property="order"
+                     column="order_id"
+                     select="mybatis.mapper.OrderMapper.findById"/>
+        <association property="Product"
+                     column="product_id"
+                     select="mybatis.mapper.ProductMapper.findById"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="orderLineResultMap" fetchSize="10" flushCache="false" useCache="false" timeout="60000" statementType="PREPARED" resultSetType="FORWARD_ONLY">
+        select * from orderline
+    </select>
+    
+    <select id="findAllForOrder" resultMap="orderLineResultMap">
+        select * from orderline where order_id = #{orderId}
+    </select>
+    
+    
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="mybatis.mapper.UserMapper">
+
+	<insert id="save" useGeneratedKeys = "true" parameterType = "User">
+        insert into users (email, first_name, last_name) values (#{email}, #{firstName}, #{lastName})
+    </insert>
+    
+    <resultMap id="userResultMap" type="User">
+        <id property="userId" column="user_id"/>
+        <result property="email" column="email"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_ame"/>
+    </resultMap>
+    
+    <select id="findById" resultMap="userResultMap">
+        select * from users where user_id = #{userId}
+    </select>
+    
+    <select id="findAll" resultMap="userResultMap" fetchSize="10" flushCache="false" useCache="false" timeout="60000" statementType="PREPARED" resultSetType="FORWARD_ONLY">
+        select * from users
+    </select>
+    
+    <delete id = "delete" parameterType = "User">
+      delete from users where user_id = #{userId};
+    </delete>
+    
+</mapper>
+
+    
