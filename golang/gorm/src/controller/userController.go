@@ -3,10 +3,11 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
-	"model"
+	"gorm-example/src/model"
 	"net/http"
 	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 /* handler function for GET method */

@@ -1,11 +1,12 @@
 package controller
 
 import (
-	"config"
 	"fmt"
+	"gorm-example/src/config"
+	"gorm-example/src/model"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	"model"
 )
 
 var dbConn *gorm.DB
@@ -14,7 +15,7 @@ func init() {
 	dbUri := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable password=%s", config.Config.Host, config.Config.DbPort, config.Config.Username, config.Config.Dbname, config.Config.Password)
 	fmt.Println("Connecting: " + dbUri)
 
-	var err error 
+	var err error
 	dbConn, err = gorm.Open("postgres", dbUri)
 	if err != nil {
 		panic(err)
