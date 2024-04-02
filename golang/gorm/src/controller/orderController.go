@@ -3,9 +3,12 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+
+	"gorm-example/src/model"
+
 	"github.com/google/uuid"
 	"github.com/gorilla/mux"
-	"model"
+
 	"net/http"
 )
 
@@ -62,6 +65,7 @@ var CreateOrder = func(w http.ResponseWriter, r *http.Request) {
 	}
 
 	/* set the calculated total in the order structure and create the order */
+	/* This also creates the orderline */
 	order.OrderTotal = orderTotal
 	err2 := GetDB().Create(&order).Error
 	if err2 != nil {
@@ -69,18 +73,6 @@ var CreateOrder = func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(msg)
 		return
-	}
-
-	/* once the order is created, also store products ordered for that order in orderline table */
-	for _, orderline := range order.Products {
-		orderline.OrderId = order.OrderId
-		err := GetDB().Create(&orderline).Error
-		if err != nil {
-			msg := map[string]interface{}{"status": false, "message": err}
-			w.Header().Add("Content-Type", "application/json")
-			json.NewEncoder(w).Encode(msg)
-			return
-		}
 	}
 
 	w.Header().Add("Content-Type", "application/json")
