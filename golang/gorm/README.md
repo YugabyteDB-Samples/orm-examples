@@ -36,6 +36,6 @@ You can customize the various options by changing the following variables in the
 | `host`  | The database host. | `localhost`  |
 | `dbport`  | The database port. | `5433`  |
 | `bindport`  | The port on which the REST API server should listen. | 8080 |
-| `username` | The username to connect to the database. | `postgres` |
-| `password` | The password to connect to the database. Leave blank for the password. | - |
+| `username` | The username to connect to the database. | `yugabyte` |
+| `password` | The password to connect to the database. Leave blank for the password. | `yugabyte` |
 | `load_balance` | Specify as true if connections are to be balanced | true |
