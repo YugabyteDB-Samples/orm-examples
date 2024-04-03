@@ -13,7 +13,7 @@ import (
 var dbConn *gorm.DB
 
 func init() {
-	dbUri := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable password=%s", config.Config.Host, config.Config.DbPort, config.Config.Username, config.Config.Dbname, config.Config.Password)
+	dbUri := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable password=%s load_balance=%t", config.Config.Host, config.Config.DbPort, config.Config.Username, config.Config.Dbname, config.Config.Password, config.Config.LoadBalance)
 	fmt.Println("Connecting: " + dbUri)
 
 	var err error
