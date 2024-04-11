@@ -3,8 +3,11 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+
+	"gorm-example/src/model"
+
 	"github.com/gorilla/mux"
-	"model"
+
 	"net/http"
 	"strconv"
 )

@@ -1,13 +1,15 @@
 package main
 
 import (
-	"config"
-	"controller"
-	"github.com/gorilla/mux"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
 	"log"
 	"net/http"
 	"strconv"
+
+	"gorm-example/src/config"
+	"gorm-example/src/controller"
+
+	"github.com/gorilla/mux"
+	_ "github.com/yugabyte/gorm-yugabytedb"
 )
 
 func main() {

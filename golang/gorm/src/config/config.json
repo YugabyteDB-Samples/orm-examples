@@ -2,9 +2,10 @@
 	"platform" : "postgres",
 	"host" : "localhost",
 	"dbport" : 5433,
-	"username" : "postgres",
-	"password" : "",
+	"username" : "yugabyte",
+	"password" : "yugabyte",
 	"dbname" : "ysql_gorm",
 	"sslmode" : "disable",
-	"bindport" : 8080
+	"bindport" : 8080,
+	"load_balance" : true
 }
