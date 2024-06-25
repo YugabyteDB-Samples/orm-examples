@@ -1,13 +1,13 @@
 
 default: &default
-  adapter: postgresql
+  adapter: yugabytedb
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
   database: ysql_active_record
-  username: postgres
+  username: yugabyte
   password:
   host: 127.0.0.1
   port: 5433
