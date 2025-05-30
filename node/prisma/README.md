@@ -24,6 +24,12 @@ Note: If you want to use the Prisma CLI without `npx`, you need to install Prism
 npm i -g prisma
 ``` 
 
+Note: If you want to enable driver logs, you need to install `winston` and set the log level: 
+```
+npm install winston
+export LOG_LEVEL=silly
+```
+
 To run the server, simply do:
 ```
 $ npm start

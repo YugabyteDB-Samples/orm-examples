@@ -1,11 +1,15 @@
 'use strict';
 var express = require('express');
 var router = express.Router();
-const { PrismaClient }  = require('@prisma/client')
 
-const prisma = new PrismaClient({
-  log: ['query', 'info', 'warn', 'error'],
-})
+const { PrismaPg } = require('@yugabytedb/prisma-adapter');
+const { PrismaClient } = require('@prisma/client');
+
+const connectionString = `${process.env.DATABASE_URL}`
+
+const adapter = new PrismaPg({ connectionString })
+
+const prisma = new PrismaClient({ adapter })
 
 
 router.get('/', function(req, res, next) {
