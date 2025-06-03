@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",
-    "@yugabytedb/prisma-adapter": "6.8.2-yb-1",
+    "@yugabytedb/prisma-adapter": "6.8.2-yb-2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
