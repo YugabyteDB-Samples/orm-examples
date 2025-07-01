@@ -12,7 +12,7 @@ Note: By default, app tries to connect to the local cluster with `ysql_prisma` d
 
 Install depedencies by running :
 ```
-$ cd node/prisma && npm install
+cd node/prisma && npm install
 ```
 
 Create the tables in the YugabyteDB by applying the migration for the data models in the file `prisma/schema.prisma` using the following command and generate the `PrismaClient`: 
@@ -24,7 +24,13 @@ Note: If you want to use the Prisma CLI without `npx`, you need to install Prism
 npm i -g prisma
 ``` 
 
+Note: If you want to enable driver logs, you need to install `winston` and set the log level: 
+```
+npm install winston
+export LOG_LEVEL=silly
+```
+
 To run the server, simply do:
 ```
-$ npm start
+npm start
 ```
