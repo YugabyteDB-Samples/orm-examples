@@ -38,7 +38,7 @@ By default, the REST API server listens on `localhost` port `8080`.
 You can create a user named `John Smith` and email `jsmith@example.com` as follows:
 
 ```
-$ curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@example.com" }' \
+curl --data '{ "firstName" : "John", "lastName" : "Smith", "email" : "jsmith@example.com" }' \
        -v -X POST -H 'Content-Type:application/json' http://localhost:8080/users
 ```
 
@@ -64,7 +64,7 @@ postgres=# select * from users;
 
 You can list the current set of users by running the following:
 ```
-$ curl http://localhost:8080/users
+curl http://localhost:8080/users
 ```
 
 You should see the following output:
@@ -86,7 +86,7 @@ You should see the following output:
 
 You can create a product listing as follows:
 ```
-$ curl \
+curl \
   --data '{ "productName": "Notebook", "description": "200 page notebook", "price": 7.50 }' \
   -v -X POST -H 'Content-Type:application/json' http://localhost:8080/products
 ```
@@ -104,7 +104,7 @@ You should see the following return value:
 
 You can do this as follows:
 ```
-$ curl http://localhost:8080/products
+curl http://localhost:8080/products
 ```
 
 You should see an output as follows:
@@ -132,7 +132,12 @@ $ curl \
 
 You should see the following return value:
 ```
-TBD
+{
+  "orderId": "686eca4c-f880-480b-b8f2-6a3041de4142",
+  "userId": "1",
+  "orderTotal": "15",
+  "orderLines": "[{"orderId":"686eca4c-f880-480b-b8f2-6a3041de4142","productId":1,"quantity":2}]"
+}
 ```
 
 Note that you can check out multiple products in one order. As an example, the following POST payload makes one user (id=1) checkout two products (id=1 and id=2) by creating the following payload:
