@@ -97,7 +97,8 @@ You should see the following return value:
   "productId": "1",
   "productName": "Notebook",
   "description": "200 page, hardbound, blank notebook",
-  "price": 7.5}
+  "price": 7.5
+}
 ```
 
 ## Step 6. List all products
