@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "postgres",
-    "password": "",
+    "username": "yugabyte",
+    "password": "yugabyte",
     "database": "ysql_sequelize",
-    "host": "127.0.0.1",
+    "host": "127.0.0.1:5433,127.0.0.2:5433,127.0.0.3:5433",
     "dialect": "postgres",
     "port": "5433"
   },
