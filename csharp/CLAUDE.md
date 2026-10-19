@@ -11,7 +11,7 @@ described in `../README.md` (curl examples for creating users, products and orde
 
 | Directory | Project | Data access |
 |-----------|---------|-------------|
-| `entityframework/` | `YugaByteStore.csproj` (net6.0) | EF Core via `Npgsql.EntityFrameworkCore.PostgreSQL` 6.x |
+| `entityframework/` | `YugaByteStore.csproj` (net8.0) | EF Core via `Npgsql.EntityFrameworkCore.PostgreSQL` 9.x (latest supporting net8.0; 10.x needs net10.0) |
 | `dapper/DapperORM/` | `DapperORM.csproj` (net8.0; solution: `dapper/DapperORM.sln`) | Dapper raw SQL over the YugabyteDB smart driver `NpgsqlYugabyteDB` 9.x (namespace `YBNpgsql`) |
 
 There are no tests and no lint config.
@@ -56,6 +56,7 @@ cluster-aware load balancing).
   `[NotMapped]` — it is only the request payload, not a stored relationship.
 - `OrderLine(s)` has a composite key `(orderId, productId)` (EF: `OnModelCreating`; Dapper: the DDL).
 - YugabyteDB caches identity values in blocks of 100, so new ids are not consecutive (1, 101, 201…).
+- EF key types are `long`; controller `{id}` parameters must be `long` too, or `DbSet.Find` throws.
 - EF app sets `Npgsql.EnableLegacyTimestampBehavior` in `Startup.Configure` so `DateTime.Now`
   can be written to `timestamp` columns.
 - Routes are `[Route("[controller]")]`, so paths are the controller names, matched case-insensitively
