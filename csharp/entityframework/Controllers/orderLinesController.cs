@@ -31,7 +31,7 @@ namespace YugaByteStore.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<OrderLine>> GetOrderLine(Guid id)
         {
-            var orderLine = await _context.orderline.FindAsync(id);
+            var orderLine = await _context.orderline.FirstOrDefaultAsync(x => x.orderId == id);
 
             // NotFound? Return with error
             if (orderLine == null)

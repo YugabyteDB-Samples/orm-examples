@@ -29,7 +29,7 @@ namespace YugaByteStore.Controllers
 
         // GET: api/users/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Users>> GetUsers(int id)
+        public async Task<ActionResult<Users>> GetUsers(long id)
         {
             var users = await _context.users.FindAsync(id);
 
@@ -43,7 +43,7 @@ namespace YugaByteStore.Controllers
 
         // PUT: api/users/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsers(int id, Users users)
+        public async Task<IActionResult> PutUsers(long id, Users users)
         {
             if (id != users.userId)
             {
@@ -83,7 +83,7 @@ namespace YugaByteStore.Controllers
 
         // DELETE: api/users/{id}
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Users>> DeleteUsers(int id)
+        public async Task<ActionResult<Users>> DeleteUsers(long id)
         {
             var users = await _context.users.FindAsync(id);
             if (users == null)
@@ -111,7 +111,7 @@ namespace YugaByteStore.Controllers
             return StatusCode(200, "User deleted successfully.");
         }
 
-        private bool UsersExists(int id)
+        private bool UsersExists(long id)
         {
             return _context.users.Any(e => e.userId == id);
         }

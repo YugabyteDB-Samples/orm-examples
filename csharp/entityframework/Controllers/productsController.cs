@@ -29,7 +29,7 @@ namespace YugaByteStore.Controllers
 
         // GET: api/products/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Products>> GetProducts(int id)
+        public async Task<ActionResult<Products>> GetProducts(long id)
         {
             var products = await _context.products.FindAsync(id);
 
@@ -43,7 +43,7 @@ namespace YugaByteStore.Controllers
 
         // PUT: api/products/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProducts(int id, Products products)
+        public async Task<IActionResult> PutProducts(long id, Products products)
         {
             if (id != products.productId)
             {
@@ -83,7 +83,7 @@ namespace YugaByteStore.Controllers
 
         // DELETE: api/products/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Products>> DeleteProducts(int id)
+        public async Task<ActionResult<Products>> DeleteProducts(long id)
         {
             var products = await _context.products.FindAsync(id);
             if (products == null)
@@ -97,7 +97,7 @@ namespace YugaByteStore.Controllers
             return StatusCode(200, "Product deleted successfully.");
         }
 
-        private bool ProductsExists(int id)
+        private bool ProductsExists(long id)
         {
             return _context.products.Any(e => e.productId == id);
         }

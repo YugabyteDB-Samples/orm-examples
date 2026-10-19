@@ -64,6 +64,9 @@ namespace YugaByteStore.Controllers
                 singleOrder.userId = orders.userId;
                 _context.orders.Add(singleOrder);
                 _context.SaveChanges();
+                orders.orderId = singleOrder.orderId;
+                orders.orderTime = singleOrder.orderTime;
+                orders.orderTotal = singleOrder.orderTotal;
                 for (int i = 0; i < orders.products.Count(); i++)
                 {
                     orders.products[i].orderId = singleOrder.orderId;
