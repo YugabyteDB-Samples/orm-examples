@@ -1,6 +1,16 @@
 # Build and run
 
-Build the REST API server (written using EntityFramework and C#.NET code) as follows:
+The REST API server is written using Entity Framework Core and C#.NET 8, with the
+[Npgsql EF Core provider](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL).
+You need the .NET 8 SDK (or newer) installed.
+
+Create the database before running the server:
+
+```
+$ ysqlsh -c "CREATE DATABASE ysql_entityframework"
+```
+
+Build the REST API server as follows:
 
 ```
 $ dotnet build
@@ -26,7 +36,9 @@ To change database connection settings, change "DefaultConnection" in appSetting
 | ------------- | ------------- | ------- |
 | `Host`  | Database server IP address or DNS name. | `127.0.0.1`  |
 | `Port`  | Database port where it accepts client connections | 5433 |
-| `Username` | The username to connect to the database. | `postgres` |
-| `Password` | The password to connect to the database. Leave blank for the password. | - |
+| `Username` | The username to connect to the database. | `yugabyte` |
+| `Password` | The password to connect to the database. | `yugabyte` |
 | `Database` | Database instance in database server. | `ysql_entityframework` |
+
+The tables are created on startup if they do not already exist.
 
