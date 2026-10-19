@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using DapperORM.Models;
 using Microsoft.Extensions.Configuration;
-using Npgsql;
+using YBNpgsql;
 using Dapper;
 using System.Linq;
 using System.Threading.Tasks;
