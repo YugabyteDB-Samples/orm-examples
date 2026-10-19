@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DapperORM.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Npgsql;
 using Dapper;
 using DapperORM.Repositories;
 using System.Threading.Tasks;
